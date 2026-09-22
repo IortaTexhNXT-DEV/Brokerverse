@@ -187,7 +187,7 @@ describe('Accounting page: disbursement chain, remittances, refunds, journals, p
     await waitFor(() => expect(screen.getByText(/balanced/)).toBeInTheDocument());
     await clickTab('Periods & year-end');
     await waitFor(() => expect(screen.getByText('2026-09')).toBeInTheDocument());
-    await userEvent.click(screen.getByRole('button', { name: 'Close', exact: true }));
+    await userEvent.click(screen.getByRole('button', { name: /^Close$/ }));
     await waitFor(() => expect(posted('/periods/2026-09/close')).toBeTruthy());
     await userEvent.click(screen.getByRole('button', { name: 'Reopen' }));
     await waitFor(() => expect(posted('/periods/2026-08/reopen')).toBeTruthy());

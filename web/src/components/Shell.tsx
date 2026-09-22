@@ -13,9 +13,11 @@ export function Shell() {
     <div className="shell">
       <header className="shell-header">
         <div className="brand">
-          <img src="/iorta-technxt-logo.png" alt="iorta TechNXT" />
+          <img src="/bdo-insure.svg" alt="BDO Insure" />
           <span className="sep" />
           <NavLink to="/" className="product" style={{ textDecoration: 'none' }}>Broker<span>Verse</span></NavLink>
+          <span className="sep" />
+          <span className="delivered">delivered by <img src="/iorta-technxt-logo.png" alt="iorta TechNXT" /></span>
         </div>
         <div className="who">
           <div><b>{user.fullName}</b>{user.roleCode.replace(/_/g, ' ')} · {user.department || '—'}</div>
@@ -35,7 +37,7 @@ export function Shell() {
         ))}
       </nav>
       <main className="main"><Outlet /></main>
-      <footer className="app-foot"><span>BrokerVerse · Core broking platform</span><span>© iorta TechNXT · www.iortatechnxt.com</span></footer>
+      <footer className="app-foot"><span>BDO Insurance &amp; Reinsurance Brokers, Inc. · BrokerVerse core broking platform · Confidential</span><span>Delivered by iorta TechNXT · www.iortatechnxt.com</span></footer>
     </div>
   );
 }

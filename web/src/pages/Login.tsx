@@ -25,16 +25,16 @@ export function LoginPage() {
     <div className="login">
       <section className="hero">
         <div>
-          <div style={{ fontFamily: 'var(--font-head)', fontWeight: 700, fontSize: 20 }}>Broker<span style={{ color: 'var(--cyan)' }}>Verse</span></div>
-          <h1 style={{ marginTop: 40 }}>One account threads the <span>whole platform.</span></h1>
-          <p style={{ marginTop: 16 }}>Sixteen broking modules, twelve personas, maker-checker on every financial decision and a double-entry ledger underneath. Built by iorta TechNXT.</p>
+          <div style={{ fontFamily: 'var(--font-head)', fontWeight: 700, fontSize: 22 }}>BDO<span style={{ color: 'var(--gold)' }}>Insure</span><sup style={{ fontSize: 9 }}>®</sup> <span style={{ opacity: 0.7, fontWeight: 400, fontSize: 16 }}>· BrokerVerse</span></div>
+          <h1 style={{ marginTop: 40 }}>We find ways, so you can <span>insure what matters.</span></h1>
+          <p style={{ marginTop: 16 }}>The BDO Insure core broking platform: sixteen modules, twelve personas, maker-checker on every financial decision and a double-entry ledger underneath. Delivered by iorta TechNXT.</p>
           <div className="modules">{MODULES.map((m) => <span key={m.code}>{m.code} · {m.name}</span>)}</div>
         </div>
-        <div style={{ fontSize: 12, color: '#9DB6E6' }}>© iorta TechNXT · Core broking platform · www.iortatechnxt.com</div>
+        <div style={{ fontSize: 12, color: '#9DB6E6' }}>© BDO Insurance &amp; Reinsurance Brokers, Inc. · Delivered by iorta TechNXT</div>
       </section>
       <section className="panel">
         <div className="box">
-          <img src="/iorta-technxt-logo.png" alt="iorta TechNXT" />
+          <img src="/bdo-insure.svg" alt="BDO Insure" />
           <h2>Sign in</h2>
           <p className="sub">Use your persona credentials. Access is limited to the modules your role owns.</p>
           <form onSubmit={submit}>
@@ -43,6 +43,7 @@ export function LoginPage() {
             {error && <Alert kind="error">{error}</Alert>}
             <button className="btn primary" disabled={busy} type="submit">{busy ? 'Signing in…' : 'Sign in'}</button>
           </form>
+          <div className="delivered">Delivered by <img src="/iorta-technxt-logo.png" alt="iorta TechNXT" /></div>
           <div className="personas">
             Demo personas (password <span className="mono">Broker@123</span>, admin uses <span className="mono">Admin@123</span>):<br />
             {PERSONAS.map((p) => <button key={p} type="button" onClick={() => { setUsername(p); setPassword(p === 'admin' ? 'Admin@123' : 'Broker@123'); }}>{p}</button>)}
