@@ -1,4 +1,4 @@
-import { BrowserRouter, Navigate, Route, Routes, useLocation } from 'react-router-dom';
+import { BrowserRouter, HashRouter, Navigate, Route, Routes, useLocation } from 'react-router-dom';
 import type { ReactNode } from 'react';
 import { AuthProvider, useAuth } from './auth';
 import { ToastProvider } from './components/ui';
@@ -71,14 +71,17 @@ export function AppRoutes() {
   );
 }
 
+export const isDemo = import.meta.env.VITE_DEMO === 'true';
+
 export default function App() {
+  const Router = isDemo ? HashRouter : BrowserRouter;
   return (
-    <BrowserRouter>
+    <Router>
       <AuthProvider>
         <ToastProvider>
           <AppRoutes />
         </ToastProvider>
       </AuthProvider>
-    </BrowserRouter>
+    </Router>
   );
 }

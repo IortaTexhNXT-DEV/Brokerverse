@@ -24,7 +24,7 @@ export function AuthProvider({ children, initialUser = null }: { children: React
     const r = await api('/api/auth/login', { method: 'POST', body: { username, password } });
     setToken(r.token); setUser(r.user);
   }, []);
-  const logout = useCallback(() => { setToken(null); setUser(null); }, []);
+  const logout = useCallback(() => { setToken(null); setUser(null); try { sessionStorage.removeItem('bv.demo.user'); } catch { /* ignore */ } }, []);
   const has = useCallback((...modules: string[]) => !!user && modules.some((m) => user.modules.includes(m)), [user]);
 
   const value = useMemo(() => ({ user, loading, login, logout, has }), [user, loading, login, logout, has]);

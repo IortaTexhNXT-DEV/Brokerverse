@@ -109,3 +109,7 @@ e2e/      Playwright browser tests
 ## Environment
 
 See `.env.example`. `SEED_DEMO=true` seeds the demo personas and reference data on start (default in Docker). Emails are captured to the outbox table; wire an SMTP relay for production.
+
+## Demo mode (no server)
+
+`npm run build:demo -w web` produces `web/dist-demo`, a static build that runs entirely in the browser: a mock API answers every endpoint with sample data and simulated write results, so all sixteen modules can be walked through from any static host. A gold banner marks demo mode. Sign in as `admin / Admin@123` or any persona with `Broker@123`. The full platform still needs PostgreSQL (`npm run setup && npm run dev`).

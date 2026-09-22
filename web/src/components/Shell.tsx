@@ -2,6 +2,8 @@ import { NavLink, Outlet, useNavigate } from 'react-router-dom';
 import { MODULES } from '@brokerverse/shared';
 import { useAuth } from '../auth';
 
+const isDemo = import.meta.env.VITE_DEMO === 'true';
+
 export function Shell() {
   const { user, logout } = useAuth();
   const nav = useNavigate();
@@ -11,13 +13,14 @@ export function Shell() {
   const initials = user.fullName.split(' ').map((s) => s[0]).slice(0, 2).join('').toUpperCase();
   return (
     <div className="shell">
+      {isDemo && <div className="demo-banner">Demo mode · sample data, actions are simulated · the full platform runs on your own PostgreSQL via <span className="mono">npm run setup &amp;&amp; npm run dev</span></div>}
       <header className="shell-header">
         <div className="brand">
-          <img src="/bdo-insure.svg" alt="BDO Insure" />
+          <img src={`${import.meta.env.BASE_URL}bdo-insure.svg`} alt="BDO Insure" />
           <span className="sep" />
           <NavLink to="/" className="product" style={{ textDecoration: 'none' }}>Broker<span>Verse</span></NavLink>
           <span className="sep" />
-          <span className="delivered">delivered by <img src="/iorta-technxt-logo.png" alt="iorta TechNXT" /></span>
+          <span className="delivered">delivered by <img src={`${import.meta.env.BASE_URL}iorta-technxt-logo.png`} alt="iorta TechNXT" /></span>
         </div>
         <div className="who">
           <div><b>{user.fullName}</b>{user.roleCode.replace(/_/g, ' ')} · {user.department || '—'}</div>

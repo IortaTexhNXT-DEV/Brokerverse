@@ -34,7 +34,7 @@ export function LoginPage() {
       </section>
       <section className="panel">
         <div className="box">
-          <img src="/bdo-insure.svg" alt="BDO Insure" />
+          <img src={`${import.meta.env.BASE_URL}bdo-insure.svg`} alt="BDO Insure" />
           <h2>Sign in</h2>
           <p className="sub">Use your persona credentials. Access is limited to the modules your role owns.</p>
           <form onSubmit={submit}>
@@ -43,7 +43,7 @@ export function LoginPage() {
             {error && <Alert kind="error">{error}</Alert>}
             <button className="btn primary" disabled={busy} type="submit">{busy ? 'Signing in…' : 'Sign in'}</button>
           </form>
-          <div className="delivered">Delivered by <img src="/iorta-technxt-logo.png" alt="iorta TechNXT" /></div>
+          <div className="delivered">Delivered by <img src={`${import.meta.env.BASE_URL}iorta-technxt-logo.png`} alt="iorta TechNXT" /></div>
           <div className="personas">
             Demo personas (password <span className="mono">Broker@123</span>, admin uses <span className="mono">Admin@123</span>):<br />
             {PERSONAS.map((p) => <button key={p} type="button" onClick={() => { setUsername(p); setPassword(p === 'admin' ? 'Admin@123' : 'Broker@123'); }}>{p}</button>)}

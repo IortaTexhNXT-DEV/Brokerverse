@@ -13,3 +13,4 @@ reports/
 server/coverage/
 web/coverage/
 shared/coverage/
+dist-demo/

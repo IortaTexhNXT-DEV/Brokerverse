@@ -10,7 +10,8 @@
     "typecheck": "tsc --noEmit",
     "lint": "eslint src",
     "test": "vitest run",
-    "coverage": "vitest run --coverage"
+    "coverage": "vitest run --coverage",
+    "build:demo": "VITE_DEMO=true vite build --outDir dist-demo --base ./"
   },
   "dependencies": {
     "@brokerverse/shared": "*",
