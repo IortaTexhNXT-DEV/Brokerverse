@@ -139,9 +139,9 @@ export function Tabs({ tabs, active, onChange }: { tabs: { key: string; label: s
 }
 
 /** Client picker backed by search. */
-export function ClientSelect({ value, onChange, clients }: { value: number | ''; onChange: (id: number | '') => void; clients: any[] | null }) {
+export function ClientSelect({ value, onChange, clients, required = true }: { value: number | ''; onChange: (id: number | '') => void; clients: any[] | null; required?: boolean }) {
   return (
-    <select value={value} onChange={(e) => onChange(e.target.value ? Number(e.target.value) : '')} required>
+    <select value={value} onChange={(e) => onChange(e.target.value ? Number(e.target.value) : '')} required={required}>
       <option value="">Select client…</option>
       {(clients ?? []).map((c) => <option key={c.id} value={c.id} disabled={['hit', 'declined'].includes(c.screening_status)}>{c.client_no} · {c.name}{['hit', 'declined'].includes(c.screening_status) ? ' (blocked)' : ''}</option>)}
     </select>

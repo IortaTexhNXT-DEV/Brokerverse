@@ -29,7 +29,7 @@ function stageOf(r: any): string {
 /** Outstanding premiums (PR list) with ageing buckets, last effort and collection stage. */
 collectionsRouter.get('/outstanding', wrap(async (req, res) => {
   const q = String(req.query.q ?? '').trim();
-  const rows = await query<any>(`${invoiceSelect}
+  const rows = await query<any>(`${invoiceSelect.replace('SELECT i.*,', 'SELECT i.*, le.last_category, le.commitment_date, le.last_effort_at,')}
     LEFT JOIN LATERAL (SELECT category AS last_category, commitment_date, effort_at AS last_effort_at FROM collection_efforts e WHERE e.invoice_id=i.id ORDER BY e.id DESC LIMIT 1) le ON true
     WHERE i.status <> 'paid' AND ($1 = '' OR cl.name ILIKE '%'||$1||'%' OR p.policy_no ILIKE '%'||$1||'%') ORDER BY i.due_date`, [q]);
   const buckets: Record<Bucket, number> = { current: 0, '0-30': 0, '31-60': 0, '61-90': 0, '91-180': 0, '180+': 0 };

@@ -229,6 +229,12 @@ describe('Claims, Servicing, Renewals, Reinsurance, Submitted, EB, Products, Scr
     await userEvent.type(screen.getByLabelText('Description'), 'Need my statement');
     await userEvent.click(screen.getByRole('button', { name: 'Log case' }));
     await waitFor(() => expect(posted('/api/servicing/requests')?.body.clientId).toBe(1));
+    await userEvent.clear(screen.getByLabelText('Description'));
+    await userEvent.type(screen.getByLabelText('Description'), 'Office hours?');
+    await userEvent.selectOptions(screen.getByLabelText(/Client/), '');
+    await userEvent.click(screen.getByRole('button', { name: 'Log case' }));
+    await waitFor(() => expect(calls.filter((c) => c.method === 'POST' && c.url.endsWith('/api/servicing/requests'))).toHaveLength(2));
+    expect(calls.filter((c) => c.method === 'POST' && c.url.endsWith('/api/servicing/requests'))[1].body.clientId).toBeUndefined();
     await userEvent.click(screen.getByRole('button', { name: 'Return to CCC' }));
     await waitFor(() => expect(posted('/requests/1/status')?.body.status).toBe('returned'));
     await clickTab('Servicing facility');

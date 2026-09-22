@@ -24,7 +24,6 @@ renewalsRouter.get('/pipeline', wrap(async (req, res) => {
     FROM policies p JOIN clients cl ON cl.id=p.client_id JOIN products pr ON pr.id=p.product_id JOIN insurers i ON i.id=p.insurer_id
     LEFT JOIN renewal_dispositions d ON d.policy_id=p.id
     WHERE p.status IN ('in_force','expired') AND p.expiry_date <= CURRENT_DATE + $1::int
-      AND NOT EXISTS (SELECT 1 FROM policies r WHERE r.renewed_from_id=p.id AND r.status NOT IN ('cancelled','rejected'))
     ORDER BY p.expiry_date`, [days]), window: days });
 }));
 

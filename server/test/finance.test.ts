@@ -123,6 +123,10 @@ describe('Collections: marketing diary, stages and credit-term extension', () =>
     expect(done.new_due_date > done.previous_due_date).toBe(true);
     const efforts = await cx.get(`/api/collections/efforts/${p.invoice.id}`);
     expect(efforts.body.efforts).toHaveLength(1);
+    const after = await cx.get('/api/collections/outstanding');
+    const row2 = after.body.invoices.find((i: any) => i.policy_no === p.policyNo);
+    expect(row2.last_category).toBe('committed');
+    expect(row2.commitment_date).toBe(daysFromNow(45));
   });
 });
 

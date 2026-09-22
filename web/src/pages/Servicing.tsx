@@ -15,7 +15,7 @@ function CaseForm({ onDone }: { onDone: () => void }) {
     <form className="card" onSubmit={submit}>
       <h2>Log contact</h2>
       <div className="form-grid">
-        <Field label="Client (blank = general inquiry)"><ClientSelect value={form.clientId} onChange={(v) => setForm({ ...form, clientId: v })} clients={clients.data?.clients} /></Field>
+        <Field label="Client (blank = general inquiry)"><ClientSelect value={form.clientId} onChange={(v) => setForm({ ...form, clientId: v })} clients={clients.data?.clients} required={false} /></Field>
         <Field label="Channel"><select value={form.channel} onChange={(e) => setForm({ ...form, channel: e.target.value })}><option value="phone">Phone</option><option value="email">Email</option><option value="walk-in">Walk-in</option><option value="portal">Web / digital</option></select></Field>
         <Field label="Concern"><select value={form.category} onChange={(e) => setForm({ ...form, category: e.target.value })}><option value="inquiry">General inquiry</option><option value="policy">Policy (→ NB)</option><option value="billing">Billing (→ OPS)</option><option value="claims">Claims (→ CLM)</option><option value="renewal">Renewal (→ RN)</option><option value="complaint">Complaint (→ CSF)</option><option value="document">Document (→ CSF)</option></select></Field>
         <Field label="Positive identification" hint="Registered TIN or email quoted by the caller"><input value={form.verificationAnswer} onChange={(e) => setForm({ ...form, verificationAnswer: e.target.value })} /></Field>

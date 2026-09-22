@@ -1,5 +1,5 @@
 import { useEffect, useState, type FormEvent } from 'react';
-import { useNavigate, useParams, Link, Outlet } from 'react-router-dom';
+import { useNavigate, useParams, Link, Outlet, useOutletContext } from 'react-router-dom';
 import { get, post, peso, fmtDate, fmtDateTime, todayIso } from '../api';
 import { useAuth } from '../auth';
 import { ClientSelect, DataTable, Drawer, Field, PageHead, Pill, Tabs, useAction, useLoad } from '../components/ui';
@@ -102,7 +102,7 @@ export function NewBusinessPage() {
           ]} />
         </div>
       )}
-      <Outlet />
+      <Outlet context={{ reloadList: () => { quotes.reload(); policies.reload(); } }} />
     </>
   );
 }
@@ -154,8 +154,10 @@ export function PolicyDetailPage() {
   const nav = useNavigate();
   const { has } = useAuth();
   const { data, reload } = useLoad(() => get(`/api/new-business/policies/${id}`), [id]);
+  const outlet = useOutletContext<{ reloadList?: () => void } | undefined>();
   if (!data) return <p className="muted">Loading…</p>;
   const p = data.policy;
+  const refresh = () => { reload(); outlet?.reloadList?.(); };
   const cancellable = ['placement_requested', 'returned', 'placed', 'pending_approval'].includes(p.status);
   return (
     <Drawer title={`Policy ${p.policy_no}`} onClose={() => nav('/new-business')}>
@@ -181,7 +183,7 @@ export function PolicyDetailPage() {
       {data.endorsements.length > 0 && <><h3 style={H3}>Endorsements</h3><DataTable rows={data.endorsements} cols={[{ key: 'endorsement_no', label: 'No.' }, { key: 'type', label: 'Type' }, { key: 'premium_delta', label: 'Δ premium', num: true, render: (r) => peso(r.premium_delta) }, { key: 'refund_amount', label: 'Refund', num: true, render: (r) => peso(r.refund_amount) }, { key: 'status', label: 'Status', render: (r) => <Pill value={r.status} /> }]} /></>}
       {data.cessions.length > 0 && <><h3 style={H3}>Reinsurance cessions</h3><DataTable rows={data.cessions} cols={[{ key: 'treaty_code', label: 'Treaty' }, { key: 'ceded_sum_insured', label: 'Ceded SI', num: true, render: (r) => peso(r.ceded_sum_insured) }, { key: 'ceded_premium', label: 'Ceded premium', num: true, render: (r) => peso(r.ceded_premium) }]} /></>}
       {data.journals.length > 0 && <p className="small muted" style={{ marginTop: 14 }}>Ledger: {data.journals.map((j: any) => j.jv_no).join(', ')}</p>}
-      {has('NB') && <PolicyButtons p={p} cancellable={cancellable} onDone={reload} />}
+      {has('NB') && <PolicyButtons p={p} cancellable={cancellable} onDone={refresh} />}
     </Drawer>
   );
 }

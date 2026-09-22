@@ -4,6 +4,9 @@ import helmet from 'helmet';
 import { config } from './config.js';
 import { HttpError } from './lib/errors.js';
 import { requireAuth } from './lib/auth.js';
+import { loginRateLimiter } from './lib/rateLimit.js';
+import { requestLog } from './lib/requestLog.js';
+import { pool } from './db.js';
 import { authRouter } from './routes/auth.js';
 import { usersRouter } from './routes/users.js';
 import { clientsRouter } from './routes/clients.js';
@@ -36,11 +39,23 @@ const MODULE_ROUTES: [string, express.Router][] = [
 export function createApp() {
   const app = express();
   app.disable('x-powered-by');
+  if (config.trustProxy) app.set('trust proxy', 1);
   app.use(helmet());
-  app.use(cors({ origin: config.corsOrigin === '*' ? true : config.corsOrigin.split(',') }));
+  app.use(cors({ origin: config.corsOrigin === '*' ? true : config.corsOrigin.split(',').map((o) => o.trim()) }));
   app.use(express.json({ limit: '5mb' }));
+  if (!config.isTest) app.use(requestLog(config.isProd));
 
-  app.get('/api/health', (_req, res) => res.json({ ok: true, service: 'brokerverse-server', time: new Date().toISOString() }));
+  // Liveness: process is up. Readiness: database reachable and migrations applied.
+  app.get('/api/health', (_req, res) => res.json({ ok: true, service: 'brokerverse-server', version: process.env.npm_package_version ?? '1.0.0', time: new Date().toISOString() }));
+  app.get('/api/ready', async (_req, res) => {
+    try {
+      const r = await pool.query('SELECT COUNT(*)::int AS n FROM schema_migrations');
+      res.json({ ok: true, database: 'up', migrations: r.rows[0].n });
+    } catch (e) {
+      res.status(503).json({ ok: false, database: 'down', error: (e as Error).message });
+    }
+  });
+  app.use('/api/auth/login', loginRateLimiter(config.loginRateLimit, config.loginRateWindowMs));
   app.use('/api/auth', authRouter);
 
   const api = express.Router();

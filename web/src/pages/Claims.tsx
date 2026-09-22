@@ -1,5 +1,5 @@
 import { useState, type FormEvent } from 'react';
-import { useNavigate, useParams, Outlet } from 'react-router-dom';
+import { useNavigate, useParams, Outlet, useOutletContext } from 'react-router-dom';
 import { get, post, peso, fmtDate, fmtDateTime, todayIso } from '../api';
 import { useAuth } from '../auth';
 import { Alert, DataTable, Drawer, Field, PageHead, Pill, useAction, useLoad } from '../components/ui';
@@ -42,7 +42,7 @@ export function ClaimsPage() {
           { key: 'age_days', label: 'Age (d)', num: true }, { key: 'missing_documents', label: 'Docs missing', num: true }, { key: 'reserve_amount', label: 'Reserve', num: true, render: (r) => peso(r.reserve_amount) }, { key: 'paid_amount', label: 'Paid', num: true, render: (r) => peso(r.paid_amount) }, { key: 'status', label: 'Status', render: (r) => <Pill value={r.status} /> },
         ]} />
       </div>
-      <Outlet />
+      <Outlet context={{ reloadList: reload }} />
     </>
   );
 }
@@ -67,11 +67,13 @@ export function ClaimDetailPage() {
   const nav = useNavigate();
   const { has } = useAuth();
   const { data, reload } = useLoad(() => get(`/api/claims/${id}`), [id]);
+  const outlet = useOutletContext<{ reloadList?: () => void } | undefined>();
   const { run, busy } = useAction();
   if (!data) return null;
   const c = data.claim;
-  const act = async (event: string, extra: Record<string, unknown> = {}) => { if (await run(() => post(`/api/claims/${c.id}/transition`, { event, ...extra }), `Claim ${event.replaceAll('_', ' ')}`)) reload(); };
-  const toggleDoc = async (d: any) => { if (await run(() => post(`/api/claims/${c.id}/documents`, { name: d.name, received: !d.received }), d.received ? 'Document unmarked' : 'Document received')) reload(); };
+  const refresh = () => { reload(); outlet?.reloadList?.(); };
+  const act = async (event: string, extra: Record<string, unknown> = {}) => { if (await run(() => post(`/api/claims/${c.id}/transition`, { event, ...extra }), `Claim ${event.replaceAll('_', ' ')}`)) refresh(); };
+  const toggleDoc = async (d: any) => { if (await run(() => post(`/api/claims/${c.id}/documents`, { name: d.name, received: !d.received }), d.received ? 'Document unmarked' : 'Document received')) refresh(); };
   return (
     <Drawer title={`Claim ${c.claim_no}`} onClose={() => nav('/claims')}>
       <div className="row" style={{ marginBottom: 12 }}><Pill value={c.status} />{c.adjuster_required && <span className="pill warn">adjuster</span>}{c.settlement_mode && <span className="pill">{c.settlement_mode}</span>}</div>

@@ -27,7 +27,7 @@ export default defineConfig({
       cwd: '..',
       url: `http://localhost:${API_PORT}/api/health`,
       reuseExistingServer: !process.env.CI,
-      env: { PORT: String(API_PORT), DATABASE_URL: process.env.DATABASE_URL ?? 'postgres://postgres:postgres@localhost:5432/brokerverse_e2e', JWT_SECRET: 'e2e-secret', NODE_ENV: 'production', SEED_DEMO: 'true' },
+      env: { PORT: String(API_PORT), DATABASE_URL: process.env.DATABASE_URL ?? 'postgres://postgres:postgres@localhost:5432/brokerverse_e2e', JWT_SECRET: 'e2e-secret-e2e-secret-e2e-secret-e2e-secret', NODE_ENV: 'production', SEED_DEMO: 'true', CORS_ORIGIN: `http://localhost:${WEB_PORT}`, LOGIN_RATE_LIMIT: '1000' },
       timeout: 60_000,
     },
     {

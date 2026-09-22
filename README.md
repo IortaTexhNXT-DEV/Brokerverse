@@ -51,31 +51,51 @@ Cross-cutting: JWT auth, server-side persona entitlement (hand-typed URLs refuse
 
 ## Run it
 
-### Docker (one command)
+### Option A — Docker (recommended on Windows; one command)
+
+Requires Docker Desktop. From the repository root:
 
 ```bash
 docker compose up --build
-# web: http://localhost:8080   api: http://localhost:4000/api/health
 ```
 
-### Local development
+Then open **http://localhost:8080** and sign in as `admin / Admin@123` (or any demo persona with `Broker@123`). The stack runs PostgreSQL, the API (migrated and seeded on first start) and the web app behind nginx, all with health checks and restart policies.
+
+### Option B — Local Node + PostgreSQL
+
+Prerequisites: Node 20+ and a PostgreSQL 14+ server you can reach (local install, or `docker compose up db` for just the database).
 
 ```bash
 npm install
-cp .env.example .env            # adjust DATABASE_URL if needed
-createdb brokerverse && createdb brokerverse_test
-npm run db:reset                # migrate + seed reference and demo data
-npm run dev                     # API on :4000, web on :5173 (proxies /api)
+npm run setup     # creates .env from .env.example, creates the databases, migrates and seeds
+npm run dev       # API on http://localhost:4000, web on http://localhost:5173
 ```
+
+Open **http://localhost:5173**. `npm run setup` works on Windows PowerShell / CMD as well as macOS and Linux; it does not need `createdb`. If PostgreSQL uses a different user or password, edit `DATABASE_URL` in `.env` before running setup.
+
+**"localhost refused to connect" checklist**
+
+1. `npm run dev` must still be running in a terminal; the app is served only while it runs.
+2. PostgreSQL must be running; `npm run setup` reports if it cannot reach it.
+3. Port 5173 (or 4000) already in use: stop the other process or set `PORT` in `.env`.
+4. On Windows, run the commands in the repository folder (for example `I:\BrokerVerseApp` after copying this branch there).
+
+### Production deployment
+
+- Set `NODE_ENV=production`, a random `JWT_SECRET` of at least 32 characters, and `CORS_ORIGIN` to the web origin. The server refuses to start otherwise.
+- Set `SEED_DEMO=false` so demo personas are not created; the `admin` account is created once and its password must be changed on first use through User Access Maintenance.
+- Run behind TLS (nginx image already proxies `/api`); set `TRUST_PROXY=true` when a proxy sits in front of the API.
+- Probes: `GET /api/health` (liveness) and `GET /api/ready` (database + migrations). Structured JSON request logs go to stdout.
+- Sign-in is rate-limited per IP and username (`LOGIN_RATE_LIMIT` attempts per `LOGIN_RATE_WINDOW_SEC`, default 10 per 5 minutes). Raise it for automated test runs (the Playwright config sets 1000).
+- External integrations are delivered as seams: email is captured to the outbox table (wire SMTP), placement slips and e-policies via SFTP are modelled as channels (wire the COG/SFTP job), and legacy systems (Ebix, QPS, ISYS) are out of scope.
 
 ### Quality gates
 
 ```bash
 npm run lint && npm run typecheck && npm test   # shared + server (Postgres) + web
-npm run build && npm run test:e2e               # Playwright, real browser, five personas
+npm run build && npm run test:e2e               # Playwright: process journeys and every persona × menu
+npm run quality                                 # SonarQube-style gate → reports/quality-gate.md
 ```
-
-The end-to-end test walks one account through the platform: the NB officer screens a client and quotes, the Underwriting Head approves, Claims is blocked by Claims Acceptance Control, the Cashier receives the premium, Collections clears, and the claim registers.
 
 ## Layout
 

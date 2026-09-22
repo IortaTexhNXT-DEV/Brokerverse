@@ -20,20 +20,29 @@
     "db:seed": "npm run db:seed -w server",
     "db:reset": "npm run db:reset -w server",
     "quality": "node scripts/quality-gate.mjs",
-    "coverage": "npm run coverage -w shared && npm run coverage -w server && npm run coverage -w web"
+    "coverage": "npm run coverage -w shared && npm run coverage -w server && npm run coverage -w web",
+    "setup": "node scripts/setup-db.mjs && npm run db:reset",
+    "start": "node server/dist/index.js"
   },
   "devDependencies": {
     "@eslint/js": "^9.17.0",
+    "@vitest/coverage-v8": "^5.0.1",
     "concurrently": "^9.1.2",
+    "esbuild": "^0.28.2",
     "eslint": "^9.17.0",
     "eslint-plugin-react-hooks": "^5.1.0",
     "eslint-plugin-sonarjs": "^4.2.1",
     "jscpd": "^5.3.1",
     "typescript": "^5.6.3",
-    "typescript-eslint": "^8.18.2"
+    "typescript-eslint": "^8.18.2",
+    "vitest": "^5.0.1"
   },
   "engines": {
     "node": ">=20"
   },
-  "type": "module"
+  "type": "module",
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "pg": "^8.13.1"
+  }
 }

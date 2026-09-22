@@ -126,6 +126,9 @@ describe('Renewal process (RMEL): disposition, timed notices, client acceptance,
     expect(ren.status).toBe(201);
     expect(ren.body.status).toBe('placement_requested');
     expect((await rn.post(`/api/renewals/${p3.policyId}/renew`, {})).status).toBe(409);
+    const stillListed = (await rn.get('/api/renewals/pipeline')).body.policies.find((x: any) => x.policy_no === p3.policyNo);
+    expect(stillListed.renewal_policy_no).toBe(ren.body.policyNo);
+    expect(stillListed.renewal_status).toBe('placement_requested');
     await as(NB).post(`/api/new-business/policies/${ren.body.policyId}/placement-response`, { outcome: 'placed' });
     const book = await as(NB).post(`/api/new-business/policies/${ren.body.policyId}/book`);
     await as(UW).post(`/api/approvals/${book.body.approvalId}/decide`, { decision: 'approved' });
