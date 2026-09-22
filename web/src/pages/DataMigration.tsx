@@ -6,9 +6,16 @@ export function DataMigrationPage() {
   const { data, reload } = useLoad(() => get('/api/data-migration/batches'), []);
   const { run, busy } = useAction();
   const [form, setForm] = useState({ entity: 'policies', sourceCount: '', sourceValue: '0' });
-  async function submit(e: FormEvent) { e.preventDefault(); if (await run(() => post('/api/data-migration/batches', { entity: form.entity, sourceCount: Number(form.sourceCount), sourceValue: Number(form.sourceValue) }), 'Batch registered')) { setForm({ ...form, sourceCount: '' }); reload(); } }
+  async function submit(e: FormEvent) {
+    e.preventDefault();
+    const ok = await run(() => post('/api/data-migration/batches', { entity: form.entity, sourceCount: Number(form.sourceCount), sourceValue: Number(form.sourceValue) }), 'Batch registered');
+    if (ok) { setForm({ ...form, sourceCount: '' }); reload(); }
+  }
   async function load(id: number) {
-    const c = window.prompt('Loaded count'); if (c === null) return; const v = window.prompt('Loaded value', '0'); if (v === null) return;
+    const c = window.prompt('Loaded count');
+    if (c === null) return;
+    const v = window.prompt('Loaded value', '0');
+    if (v === null) return;
     const r = await run(() => post(`/api/data-migration/batches/${id}/load`, { loadedCount: Number(c), loadedValue: Number(v) }));
     if (r) { run(async () => r, r.status === 'reconciled' ? 'Reconciled: count and value match' : `Variance: count ${r.countVariance}, value ${peso(r.valueVariance)} – disposition required`); reload(); }
   }

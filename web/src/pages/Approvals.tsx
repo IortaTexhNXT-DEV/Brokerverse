@@ -3,6 +3,12 @@ import { get, post, fmtDateTime } from '../api';
 import { useAuth } from '../auth';
 import { DataTable, PageHead, Pill, Tabs, useAction, useLoad } from '../components/ui';
 
+function DecideButtons({ r, busy, canApprove, userId, onDecide }: { r: any; busy: boolean; canApprove: boolean; userId?: number; onDecide: (id: number, d: 'approved' | 'rejected') => void }) {
+  if (r.status !== 'pending' || !canApprove) return null;
+  if (r.maker_id === userId) return <span className="small muted">your own request</span>;
+  return <span className="row"><button className="btn sm green" disabled={busy} onClick={() => onDecide(r.id, 'approved')}>Approve</button><button className="btn sm danger" disabled={busy} onClick={() => onDecide(r.id, 'rejected')}>Reject</button></span>;
+}
+
 export function ApprovalsPage() {
   const { user } = useAuth();
   const [tab, setTab] = useState('pending');
@@ -15,15 +21,13 @@ export function ApprovalsPage() {
   }
   return (
     <>
-      <PageHead code="CORE" title="Approvals queue" sub="Maker-checker for policy issuance, renewals, remittances and claim settlements. A maker can never check their own request." />
+      <PageHead code="CORE" title="Approvals queue" sub="Maker-checker queue: policy booking, package maintenance, endorsements, manual journals, disbursements, credit-term extensions, claim settlements and EB awards. A maker can never check their own request." />
       <Tabs tabs={[{ key: 'pending', label: 'Pending' }, { key: 'approved', label: 'Approved' }, { key: 'rejected', label: 'Rejected' }, { key: 'all', label: 'All' }]} active={tab} onChange={setTab} />
       <DataTable rows={data?.approvals} empty="Queue is clear." cols={[
         { key: 'id', label: '#' }, { key: 'request_type', label: 'Type', render: (r) => <Pill value={r.request_type} /> }, { key: 'summary', label: 'Request', wrap: true },
         { key: 'maker_name', label: 'Maker' }, { key: 'maker_note', label: 'Maker note', wrap: true }, { key: 'created_at', label: 'Raised', render: (r) => fmtDateTime(r.created_at) },
         { key: 'status', label: 'Status', render: (r) => <Pill value={r.status} /> }, { key: 'checker_name', label: 'Checker', render: (r) => r.checker_name ?? '—' },
-        { key: 'act', label: '', render: (r) => r.status === 'pending' && user?.canApprove ? (
-          r.maker_id === user.id ? <span className="small muted">your own request</span> : <span className="row"><button className="btn sm green" disabled={busy} onClick={() => decide(r.id, 'approved')}>Approve</button><button className="btn sm danger" disabled={busy} onClick={() => decide(r.id, 'rejected')}>Reject</button></span>
-        ) : null },
+        { key: 'act', label: '', render: (r) => <DecideButtons r={r} busy={busy} canApprove={!!user?.canApprove} userId={user?.id} onDecide={decide} /> },
       ]} />
     </>
   );

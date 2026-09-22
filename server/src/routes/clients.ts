@@ -1,16 +1,8 @@
-import { Router } from 'express';
-import { z } from 'zod';
-import { one, query, tx } from '../db.js';
-import { requireApprover, requireModule } from '../lib/auth.js';
-import { notFound, conflict } from '../lib/errors.js';
-import { idParam, parse } from '../lib/validate.js';
-import { wrap } from '../lib/async.js';
-import { audit } from '../lib/audit.js';
-import { nextNumber } from '../lib/numbering.js';
+import { Router, z, one, query, tx, requireApprover, requireModule, wrap, audit, nextNumber, idParam, parse, conflict, notFound } from '../lib/kit.js';
 import { screenName, riskAssessment } from '@brokerverse/shared';
 
 export const clientsRouter = Router();
-clientsRouter.use(requireModule('SS', 'NB', 'CSF', 'EB', 'CLM', 'CLXN', 'RN'));
+clientsRouter.use(requireModule('SS', 'NB', 'CSF', 'EB', 'CLM', 'CLXN', 'RN', 'OPS', 'ADA', 'PM'));
 
 clientsRouter.get('/', wrap(async (req, res) => {
   const q = String(req.query.q ?? '').trim();
@@ -48,7 +40,7 @@ clientsRouter.post('/', requireModule('SS', 'NB', 'EB', 'CSF'), wrap(async (req,
        VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,now(),$14) RETURNING id`,
       [clientNo, b.name, b.type, b.tin ?? null, b.email || null, b.phone ?? null, b.address ?? null, b.country, b.pep, risk.score, risk.tier, risk.cdd, risk.status, req.user!.id], c);
     for (const h of hits) await query('INSERT INTO screening_results(client_id, matched_name, list_source, method, score) VALUES ($1,$2,$3,$4,$5)', [row!.id, h.listName, h.listSource ?? null, h.method, h.score], c);
-    await audit(c, req.user, 'client.create', 'client', row!.id, null, { clientNo, name: b.name, risk });
+    await audit(c, req.user, { action: 'client.create', entity: 'client', entityId: row!.id, after: { clientNo, name: b.name, risk } });
     return { id: row!.id, clientNo };
   });
   res.status(201).json({ ...out, screening: { hits, ...risk } });
@@ -65,7 +57,7 @@ clientsRouter.post('/:id/rescreen', requireModule('SS'), wrap(async (req, res) =
     await query('DELETE FROM screening_results WHERE client_id=$1 AND decision IS NULL', [id], c);
     for (const h of hits) await query('INSERT INTO screening_results(client_id, matched_name, list_source, method, score) VALUES ($1,$2,$3,$4,$5)', [id, h.listName, h.listSource ?? null, h.method, h.score], c);
     await query('UPDATE clients SET risk_score=$2, risk_tier=$3, cdd_level=$4, screening_status=$5, screened_at=now() WHERE id=$1', [id, risk.score, risk.tier, risk.cdd, risk.status], c);
-    await audit(c, req.user, 'client.rescreen', 'client', id, { status: client.screening_status }, risk);
+    await audit(c, req.user, { action: 'client.rescreen', entity: 'client', entityId: id, before: { status: client.screening_status }, after: risk });
   });
   res.json({ hits, ...risk });
 }));
@@ -80,7 +72,7 @@ clientsRouter.post('/:id/disposition', requireModule('SS'), requireApprover, wra
   await tx(async (c) => {
     await query('UPDATE screening_results SET decision=$2, decided_by=$3, decided_at=now() WHERE client_id=$1 AND decision IS NULL', [id, decision === 'clear' ? 'false_positive' : 'true_match', req.user!.id], c);
     await query('UPDATE clients SET screening_status=$2 WHERE id=$1', [id, decision], c);
-    await audit(c, req.user, 'client.disposition', 'client', id, { status: client.screening_status }, { status: decision, note });
+    await audit(c, req.user, { action: 'client.disposition', entity: 'client', entityId: id, before: { status: client.screening_status }, after: { status: decision, note } });
   });
   res.json({ ok: true, status: decision });
 }));

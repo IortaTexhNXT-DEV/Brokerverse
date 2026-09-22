@@ -1,11 +1,5 @@
-import { Router } from 'express';
-import { z } from 'zod';
-import { one, query, tx } from '../db.js';
-import { hashPassword, requireModule } from '../lib/auth.js';
-import { badRequest, conflict, forbidden, notFound } from '../lib/errors.js';
-import { idParam, parse } from '../lib/validate.js';
-import { wrap } from '../lib/async.js';
-import { audit } from '../lib/audit.js';
+import { Router, z, one, query, tx, requireModule, wrap, audit, idParam, parse, badRequest, conflict, forbidden, notFound } from '../lib/kit.js';
+import { hashPassword } from '../lib/auth.js';
 import { ROLES } from '@brokerverse/shared';
 
 export const usersRouter = Router();
@@ -39,7 +33,7 @@ usersRouter.post('/', wrap(async (req, res) => {
   const row = await tx(async (c) => {
     const r = await one<any>('INSERT INTO users(username, password_hash, full_name, email, role_code, department) VALUES ($1,$2,$3,$4,$5,$6) RETURNING id',
       [b.username, await hashPassword(b.password), b.fullName, b.email, b.roleCode, b.department], c);
-    await audit(c, req.user, 'user.create', 'user', r.id, null, { username: b.username, roleCode: b.roleCode });
+    await audit(c, req.user, { action: 'user.create', entity: 'user', entityId: r.id, after: { username: b.username, roleCode: b.roleCode } });
     return r;
   });
   res.status(201).json({ id: row.id });
@@ -59,8 +53,7 @@ usersRouter.patch('/:id', wrap(async (req, res) => {
     await query(`UPDATE users SET full_name = COALESCE($2, full_name), email = COALESCE($3, email), department = COALESCE($4, department),
       role_code = COALESCE($5, role_code), status = COALESCE($6, status), password_hash = COALESCE($7, password_hash), updated_at = now() WHERE id = $1`,
       [id, b.fullName ?? null, b.email ?? null, b.department ?? null, b.roleCode ?? null, b.status ?? null, b.password ? await hashPassword(b.password) : null], c);
-    const { password: _pw, ...after } = b;
-    await audit(c, req.user, 'user.update', 'user', id, before, after);
+    await audit(c, req.user, { action: 'user.update', entity: 'user', entityId: id, before, after: { ...b, password: b.password ? '***' : undefined } });
   });
   res.json({ ok: true });
 }));

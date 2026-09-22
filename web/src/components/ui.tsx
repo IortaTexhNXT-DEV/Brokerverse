@@ -3,11 +3,12 @@ import { ApiError } from '../api';
 
 /* ---------- Toasts ---------- */
 interface Toast { id: number; text: string; kind: 'ok' | 'error' }
+let toastSeq = 0;
 const ToastCtx = createContext<{ push: (text: string, kind?: 'ok' | 'error') => void } | null>(null);
 export function ToastProvider({ children }: { children: ReactNode }) {
   const [items, setItems] = useState<Toast[]>([]);
   const push = useCallback((text: string, kind: 'ok' | 'error' = 'ok') => {
-    const id = Date.now() + Math.random();
+    const id = ++toastSeq;
     setItems((s) => [...s, { id, text, kind }]);
     setTimeout(() => setItems((s) => s.filter((t) => t.id !== id)), 4500);
   }, []);
@@ -30,9 +31,16 @@ export function useAction() {
   const [busy, setBusy] = useState(false);
   const run = useCallback(async <T,>(fn: () => Promise<T>, okMsg?: string): Promise<T | undefined> => {
     setBusy(true);
-    try { const r = await fn(); if (okMsg) push(okMsg); return r; }
-    catch (e) { push(e instanceof ApiError ? e.message : (e as Error).message, 'error'); return undefined; }
-    finally { setBusy(false); }
+    try {
+      const r = await fn();
+      if (okMsg) push(okMsg);
+      return r;
+    } catch (e) {
+      push(e instanceof ApiError ? e.message : (e as Error).message, 'error');
+      return undefined;
+    } finally {
+      setBusy(false);
+    }
   }, [push]);
   return { run, busy };
 }

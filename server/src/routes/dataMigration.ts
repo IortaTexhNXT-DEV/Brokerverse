@@ -1,12 +1,4 @@
-import { Router } from 'express';
-import { z } from 'zod';
-import { one, query, tx } from '../db.js';
-import { requireModule } from '../lib/auth.js';
-import { conflict, notFound } from '../lib/errors.js';
-import { idParam, parse } from '../lib/validate.js';
-import { wrap } from '../lib/async.js';
-import { audit } from '../lib/audit.js';
-import { nextNumber } from '../lib/numbering.js';
+import { Router, z, one, query, tx, requireModule, wrap, audit, nextNumber, idParam, parse, conflict, notFound } from '../lib/kit.js';
 
 export const migrationRouter = Router();
 migrationRouter.use(requireModule('DM'));
@@ -21,7 +13,7 @@ migrationRouter.post('/batches', wrap(async (req, res) => {
   const out = await tx(async (c) => {
     const batchNo = await nextNumber(c, 'MIG', 'MIG');
     const r = await one<{ id: number }>('INSERT INTO migration_batches(batch_no, entity, source_count, source_value, created_by) VALUES ($1,$2,$3,$4,$5) RETURNING id', [batchNo, b.entity, b.sourceCount, b.sourceValue, req.user!.id], c);
-    await audit(c, req.user, 'migration.batch.create', 'migration_batch', r!.id, null, { batchNo, ...b });
+    await audit(c, req.user, { action: 'migration.batch.create', entity: 'migration_batch', entityId: r!.id, after: { batchNo, ...b } });
     return { id: r!.id, batchNo };
   });
   res.status(201).json(out);
@@ -38,7 +30,7 @@ migrationRouter.post('/batches/:id/load', wrap(async (req, res) => {
   const status = countOk && valueOk ? 'reconciled' : 'disposition_required';
   await tx(async (c) => {
     await query('UPDATE migration_batches SET loaded_count=$2, loaded_value=$3, status=$4 WHERE id=$1', [id, b.loadedCount, b.loadedValue, status], c);
-    await audit(c, req.user, 'migration.batch.load', 'migration_batch', id, { status: batch.status }, { status, countOk, valueOk });
+    await audit(c, req.user, { action: 'migration.batch.load', entity: 'migration_batch', entityId: id, before: { status: batch.status }, after: { status, countOk, valueOk } });
   });
   res.json({ status, countOk, valueOk, countVariance: b.loadedCount - batch.source_count, valueVariance: Math.round((b.loadedValue - batch.source_value) * 100) / 100 });
 }));
@@ -51,7 +43,7 @@ migrationRouter.post('/batches/:id/disposition', wrap(async (req, res) => {
   if (batch.status !== 'disposition_required') throw conflict('Batch does not require disposition');
   await tx(async (c) => {
     await query("UPDATE migration_batches SET status='dispositioned', disposition_note=$2 WHERE id=$1", [id, note], c);
-    await audit(c, req.user, 'migration.batch.disposition', 'migration_batch', id, { status: batch.status }, { status: 'dispositioned', note });
+    await audit(c, req.user, { action: 'migration.batch.disposition', entity: 'migration_batch', entityId: id, before: { status: batch.status }, after: { status: 'dispositioned', note } });
   });
   res.json({ ok: true });
 }));

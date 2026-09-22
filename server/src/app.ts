@@ -7,11 +7,14 @@ import { requireAuth } from './lib/auth.js';
 import { authRouter } from './routes/auth.js';
 import { usersRouter } from './routes/users.js';
 import { clientsRouter } from './routes/clients.js';
-import { productsRouter, insurersRouter } from './routes/products.js';
+import { productsRouter, insurersRouter, tsuRouter } from './routes/products.js';
 import { newBusinessRouter } from './routes/newBusiness.js';
 import { approvalsRouter, auditRouter, outboxRouter } from './routes/approvals.js';
-import { operationsRouter, collectionsRouter } from './routes/operations.js';
+import { operationsRouter } from './routes/operations.js';
+import { collectionsRouter } from './routes/collections.js';
 import { accountingRouter } from './routes/accounting.js';
+import { disbursementsRouter } from './routes/disbursements.js';
+import { refundsRouter } from './routes/refunds.js';
 import { claimsRouter } from './routes/claims.js';
 import { renewalsRouter } from './routes/renewals.js';
 import { reinsuranceRouter } from './routes/reinsurance.js';
@@ -20,6 +23,15 @@ import { servicingRouter } from './routes/servicing.js';
 import { submittedRouter } from './routes/submittedPolicies.js';
 import { migrationRouter } from './routes/dataMigration.js';
 import { reportsRouter } from './routes/reports.js';
+
+/** Module routers mounted under /api; every one is behind JWT auth and persona entitlement. */
+const MODULE_ROUTES: [string, express.Router][] = [
+  ['/users', usersRouter], ['/clients', clientsRouter], ['/products', productsRouter], ['/insurers', insurersRouter], ['/tsu', tsuRouter],
+  ['/new-business', newBusinessRouter], ['/approvals', approvalsRouter], ['/audit', auditRouter], ['/outbox', outboxRouter],
+  ['/operations', operationsRouter], ['/collections', collectionsRouter], ['/accounting', accountingRouter], ['/disbursements', disbursementsRouter], ['/refunds', refundsRouter],
+  ['/claims', claimsRouter], ['/renewals', renewalsRouter], ['/reinsurance', reinsuranceRouter], ['/employee-benefits', ebRouter], ['/servicing', servicingRouter],
+  ['/submitted-policies', submittedRouter], ['/data-migration', migrationRouter], ['/reports', reportsRouter],
+];
 
 export function createApp() {
   const app = express();
@@ -33,25 +45,7 @@ export function createApp() {
 
   const api = express.Router();
   api.use(requireAuth);
-  api.use('/users', usersRouter);
-  api.use('/clients', clientsRouter);
-  api.use('/products', productsRouter);
-  api.use('/insurers', insurersRouter);
-  api.use('/new-business', newBusinessRouter);
-  api.use('/approvals', approvalsRouter);
-  api.use('/audit', auditRouter);
-  api.use('/outbox', outboxRouter);
-  api.use('/operations', operationsRouter);
-  api.use('/collections', collectionsRouter);
-  api.use('/accounting', accountingRouter);
-  api.use('/claims', claimsRouter);
-  api.use('/renewals', renewalsRouter);
-  api.use('/reinsurance', reinsuranceRouter);
-  api.use('/employee-benefits', ebRouter);
-  api.use('/servicing', servicingRouter);
-  api.use('/submitted-policies', submittedRouter);
-  api.use('/data-migration', migrationRouter);
-  api.use('/reports', reportsRouter);
+  for (const [path, router] of MODULE_ROUTES) api.use(path, router);
   app.use('/api', api);
 
   app.use((_req, res) => res.status(404).json({ error: 'Not found' }));

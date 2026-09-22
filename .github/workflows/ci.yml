@@ -34,6 +34,13 @@ jobs:
       - run: npm run typecheck
       - run: npm test
       - run: npm run build
+      - name: Quality gate (SonarQube-style)
+        run: npm run quality
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: quality-gate
+          path: reports/quality-gate.md
       - name: Install Playwright browser
         run: npx playwright install --with-deps chromium
         working-directory: e2e

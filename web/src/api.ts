@@ -11,16 +11,26 @@ export class ApiError extends Error {
 
 const base = (import.meta.env.VITE_API_URL as string | undefined)?.replace(/\/$/, '') ?? '';
 
-export async function api<T = any>(path: string, opts: { method?: string; body?: unknown; raw?: boolean } = {}): Promise<T> {
+function parseBody(text: string): any {
+  if (!text) return null;
+  try { return JSON.parse(text); } catch { return { error: text }; }
+}
+
+function buildHeaders(hasBody: boolean): Record<string, string> {
   const headers: Record<string, string> = {};
   const token = getToken();
   if (token) headers.Authorization = `Bearer ${token}`;
-  if (opts.body !== undefined) headers['Content-Type'] = 'application/json';
-  const res = await fetch(`${base}${path}`, { method: opts.method ?? (opts.body !== undefined ? 'POST' : 'GET'), headers, body: opts.body === undefined ? undefined : JSON.stringify(opts.body) });
-  if (opts.raw) return (await res.text()) as unknown as T;
+  if (hasBody) headers['Content-Type'] = 'application/json';
+  return headers;
+}
+
+export async function api<T = any>(path: string, opts: { method?: string; body?: unknown; raw?: boolean } = {}): Promise<T> {
+  const hasBody = opts.body !== undefined;
+  const method = opts.method ?? (hasBody ? 'POST' : 'GET');
+  const res = await fetch(`${base}${path}`, { method, headers: buildHeaders(hasBody), body: hasBody ? JSON.stringify(opts.body) : undefined });
   const text = await res.text();
-  let data: any = null;
-  try { data = text ? JSON.parse(text) : null; } catch { data = { error: text }; }
+  if (opts.raw) return text as unknown as T;
+  const data = parseBody(text);
   if (!res.ok) {
     if (res.status === 401) { setToken(null); window.dispatchEvent(new Event('bv:logout')); }
     throw new ApiError(res.status, data?.error ?? `Request failed (${res.status})`, data?.details);

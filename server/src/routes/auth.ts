@@ -17,7 +17,7 @@ authRouter.post('/login', wrap(async (req, res) => {
   if (row.status !== 'active') throw forbidden('User is disabled');
   const user = (await loadUser(row.id))!;
   await query('UPDATE users SET last_login_at = now() WHERE id = $1', [user.id]);
-  await audit(pool, user, 'auth.login', 'user', user.id, null, null);
+  await audit(pool, user, { action: 'auth.login', entity: 'user', entityId: user.id });
   res.json({ token: signToken(user), user });
 }));
 

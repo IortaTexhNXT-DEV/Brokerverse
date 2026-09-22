@@ -84,6 +84,20 @@ export interface RiskInput {
   highRiskCountry?: boolean;
 }
 
+function tierOf(score: number, pep: boolean): RiskTier {
+  if (score >= 65) return 'high';
+  if (score >= 35 || pep) return 'medium';
+  return 'low';
+}
+
+function statusOf(topScore: number): ScreeningStatus {
+  if (topScore >= 95) return 'hit';
+  if (topScore >= 70) return 'review';
+  return 'clear';
+}
+
+const CDD_BY_TIER: Record<RiskTier, 'simplified' | 'standard' | 'enhanced'> = { low: 'simplified', medium: 'standard', high: 'enhanced' };
+
 /** Weighted score → tier → customer due-diligence level. PEP floors the tier at medium. */
 export function riskAssessment(input: RiskInput): { score: number; tier: RiskTier; status: ScreeningStatus; cdd: 'simplified' | 'standard' | 'enhanced' } {
   const top = input.hits[0]?.score ?? 0;
@@ -92,9 +106,6 @@ export function riskAssessment(input: RiskInput): { score: number; tier: RiskTie
   if (input.highRiskCountry) score += 15;
   if (input.clientType === 'corporate') score += 5;
   score = Math.min(100, score);
-  let tier: RiskTier = score >= 65 ? 'high' : score >= 35 ? 'medium' : 'low';
-  if (input.pep && tier === 'low') tier = 'medium';
-  const status: ScreeningStatus = top >= 95 ? 'hit' : top >= 70 ? 'review' : 'clear';
-  const cdd = tier === 'high' ? 'enhanced' : tier === 'medium' ? 'standard' : 'simplified';
-  return { score, tier, status, cdd };
+  const tier = tierOf(score, input.pep);
+  return { score, tier, status: statusOf(top), cdd: CDD_BY_TIER[tier] };
 }

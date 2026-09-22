@@ -52,20 +52,20 @@ export async function seedDemo() {
     await query('INSERT INTO users(username, password_hash, full_name, email, role_code, department) VALUES ($1,$2,$3,$4,$5,$6) ON CONFLICT (username) DO NOTHING',
       [u.username, pw, u.fullName, `${u.username}@brokerverse.local`, u.role, u.department]);
   }
-  const insurers: [string, string, string][] = [['MAL', 'Malayan Insurance', 'A'], ['FPG', 'FPG Insurance', 'A'], ['STD', 'Standard Insurance', 'BBB'], ['PRU', 'Pru Life UK', 'AA']];
-  for (const [code, name, rating] of insurers) await query('INSERT INTO insurers(code, name, security_rating) VALUES ($1,$2,$3) ON CONFLICT (code) DO NOTHING', [code, name, rating]);
+  const insurers: [string, string, string, boolean, boolean][] = [['MAL', 'Malayan Insurance', 'A', true, true], ['FPG', 'FPG Insurance', 'A', true, false], ['STD', 'Standard Insurance', 'BBB', true, false], ['PRU', 'Pru Life UK', 'AA', true, false], ['NAC', 'Non-Accredited Health Co', 'A', false, false]];
+  for (const [code, name, rating, accredited, sftp] of insurers) await query('INSERT INTO insurers(code, name, security_rating, accredited, sftp_enrolled) VALUES ($1,$2,$3,$4,$5) ON CONFLICT (code) DO NOTHING', [code, name, rating, accredited, sftp]);
   const products: any[] = [
-    ['MTR-CMP', 'Motor Comprehensive', 'motor', 0.0125, 3000, 0.15, 0, 5_000_000, 2_000_000],
-    ['MTR-CTPL', 'Motor CTPL', 'motor', 0.0056, 560, 0.10, 0, 200_000, null],
-    ['FIRE-RES', 'Fire – Residential', 'fire', 0.0018, 1500, 0.20, 0.02, 50_000_000, 10_000_000],
-    ['FIRE-COM', 'Fire – Commercial', 'fire', 0.0025, 5000, 0.20, 0.02, 500_000_000, 20_000_000],
-    ['MAR-CGO', 'Marine Cargo', 'marine', 0.0040, 2500, 0.15, 0, 100_000_000, 25_000_000],
-    ['PA-GRP', 'Group Personal Accident', 'accident', 0.0030, 1000, 0.15, 0, 20_000_000, null],
-    ['CGL', 'Comprehensive General Liability', 'casualty', 0.0050, 5000, 0.175, 0, 100_000_000, 50_000_000],
+    ['MTR-CMP', 'Motor Comprehensive', 'motor', 0.0125, 3000, 0.15, 0, 5_000_000, 2_000_000, true],
+    ['MTR-CTPL', 'Motor CTPL', 'motor', 0.0056, 560, 0.10, 0, 200_000, null, true],
+    ['FIRE-RES', 'Fire – Residential', 'fire', 0.0018, 1500, 0.20, 0.02, 50_000_000, 10_000_000, true],
+    ['FIRE-COM', 'Fire – Commercial', 'fire', 0.0025, 5000, 0.20, 0.02, 500_000_000, 20_000_000, false],
+    ['MAR-CGO', 'Marine Cargo', 'marine', 0.0040, 2500, 0.15, 0, 100_000_000, 25_000_000, true],
+    ['PA-GRP', 'Group Personal Accident', 'accident', 0.0030, 1000, 0.15, 0, 20_000_000, null, true],
+    ['CGL', 'Comprehensive General Liability', 'casualty', 0.0050, 5000, 0.175, 0, 100_000_000, 50_000_000, false],
   ];
-  for (const [code, name, line, rate, min, comm, fst, max, survey] of products) {
-    await query('INSERT INTO products(code, name, line, base_rate, min_premium, commission_rate, fst_rate, max_sum_insured, survey_required_above) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9) ON CONFLICT (code) DO NOTHING',
-      [code, name, line, rate, min, comm, fst, max, survey]);
+  for (const [code, name, line, rate, min, comm, fst, max, survey, packaged] of products) {
+    await query('INSERT INTO products(code, name, line, base_rate, min_premium, commission_rate, fst_rate, max_sum_insured, survey_required_above, packaged) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10) ON CONFLICT (code) DO NOTHING',
+      [code, name, line, rate, min, comm, fst, max, survey, packaged]);
   }
   const yr = new Date().getUTCFullYear();
   const treaties: any[] = [

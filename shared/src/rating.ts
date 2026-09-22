@@ -25,7 +25,7 @@ export interface RatingResult {
 export const round2 = (n: number) => Math.round((n + Number.EPSILON) * 100) / 100;
 
 export function rate(input: RatingInput): RatingResult {
-  if (!(input.sumInsured > 0)) throw new Error('sumInsured must be positive');
+  if (Number.isNaN(input.sumInsured) || input.sumInsured <= 0) throw new Error('sumInsured must be positive');
   const premium = round2(Math.max(input.sumInsured * input.baseRate, input.minPremium));
   const vat = round2(premium * input.vatRate);
   const dst = round2(premium * input.dstRate);

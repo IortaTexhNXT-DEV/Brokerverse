@@ -1,7 +1,4 @@
-import { Router } from 'express';
-import { query } from '../db.js';
-import { requireModule } from '../lib/auth.js';
-import { wrap } from '../lib/async.js';
+import { Router, query, requireModule, wrap } from '../lib/kit.js';
 
 export const reportsRouter = Router();
 reportsRouter.use(requireModule('RPT'));
@@ -16,7 +13,11 @@ reportsRouter.get('/dashboard', wrap(async (_req, res) => {
     (SELECT COUNT(*)::int FROM approvals WHERE status='pending') AS pending_approvals,
     (SELECT COUNT(*)::int FROM policies WHERE status='in_force' AND expiry_date <= CURRENT_DATE + 60) AS renewals_due,
     (SELECT COUNT(*)::int FROM clients WHERE screening_status IN ('review','hit')) AS screening_hits,
-    (SELECT COUNT(*)::int FROM service_requests WHERE status IN ('open','in_progress')) AS open_requests`);
+    (SELECT COUNT(*)::int FROM service_requests WHERE status IN ('open','in_progress')) AS open_requests,
+    (SELECT COUNT(*)::int FROM service_requests WHERE status IN ('open','in_progress') AND tat_due_at < now()) AS past_tat_requests,
+    (SELECT COUNT(*)::int FROM policies WHERE status IN ('placement_requested','returned','placed')) AS in_placement,
+    (SELECT COUNT(*)::int FROM payments WHERE status IN ('unapplied','zero_pr') AND unapplied_amount > 0) AS unapplied_payments,
+    (SELECT COUNT(*)::int FROM disbursements WHERE status IN ('pending_review','pending_approval','approved')) AS disbursements_in_flight`);
   const byProduct = await query(`SELECT pr.code, pr.name, COUNT(p.id)::int AS policies, COALESCE(SUM(p.premium),0) AS premium FROM products pr LEFT JOIN policies p ON p.product_id=pr.id AND p.status IN ('in_force','renewed','expired') GROUP BY pr.id ORDER BY premium DESC`);
   const byMonth = await query(`SELECT to_char(date_trunc('month', issued_at), 'YYYY-MM') AS month, COUNT(*)::int AS policies, COALESCE(SUM(premium),0) AS premium FROM policies WHERE issued_at IS NOT NULL GROUP BY 1 ORDER BY 1 DESC LIMIT 12`);
   const claimsByStatus = await query('SELECT status, COUNT(*)::int AS count, COALESCE(SUM(reserve_amount),0) AS reserve FROM claims GROUP BY status ORDER BY status');

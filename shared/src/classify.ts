@@ -9,7 +9,7 @@ export function sanitizePolicyNo(raw: string): string {
 }
 
 export function classifyRow(row: SubmittedRow, inForce: InForcePolicy[], asOf: Date, renewalWindowDays = 60): { classification: Classification; matchedPolicyNo?: string } {
-  if (row.premium === null || !(row.premium > 0) || !row.policyNo) return { classification: 'excluded' };
+  if (row.premium === null || Number.isNaN(row.premium) || row.premium <= 0 || !row.policyNo) return { classification: 'excluded' };
   const key = sanitizePolicyNo(row.policyNo);
   const match = inForce.find((p) => sanitizePolicyNo(p.policyNo) === key);
   if (match) {

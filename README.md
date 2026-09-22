@@ -10,6 +10,18 @@ Core insurance-broking platform by **iorta TechNXT** – sixteen BRD modules, tw
 | Shared | `@brokerverse/shared` – personas, module registry, rating engine, screening, classification, ledger helpers |
 | Tests | Vitest (domain + API integration + React), Playwright (real-browser, multi-persona) |
 
+## Process conformance
+
+The platform implements the sixteen BDOI high-level process flows. The step-by-step mapping (flow step → feature → API → test) is in [`docs/process-conformance.md`](docs/process-conformance.md).
+
+## Quality gate (SonarQube-style)
+
+```bash
+npm run quality        # ESLint + SonarJS rules, jscpd duplication, Vitest coverage → reports/quality-gate.md
+```
+
+Gate conditions: 0 static-analysis errors · duplicated lines < 3% · line coverage ≥ 80% · branch coverage ≥ 65%. Rules enforced on every workspace: cognitive complexity ≤ 15, cyclomatic complexity ≤ 12, functions ≤ 120 lines, files ≤ 400 lines, ≤ 5 parameters, no nested ternaries, no duplicated string literals, no hard-coded credentials. `sonar-project.properties` is provided for a real SonarQube/SonarCloud scan.
+
 ## Modules
 
 | Code | Module | What is built |
