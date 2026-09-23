@@ -116,4 +116,4 @@ See `.env.example`. `SEED_DEMO=true` seeds the demo personas and reference data 
 
 ## Process flow → screen walkthrough
 
-`docs/process-walkthrough/index.html` shows every step of the sixteen BDOI process flows against the screen that performs it (111 screens captured from the running platform with the responsible personas). `docs/process-walkthrough/README.md` is the text index. Regenerate against a running local stack with `npm run walkthrough`.
+`docs/process-walkthrough/index.html` shows every step of the sixteen BDOI process flows against the screen that performs it (111 screens captured from the running platform with the responsible personas). `docs/process-walkthrough/README.md` is the text index, and the same walkthrough ships as `BrokerVerse-Process-Walkthrough.pptx` and `.pdf` in that folder (`scripts/build-walkthrough-deck.js`). Regenerate the screens against a running local stack with `npm run walkthrough`.
