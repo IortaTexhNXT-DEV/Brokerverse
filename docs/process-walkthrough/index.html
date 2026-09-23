@@ -1,0 +1,1130 @@
+<title>BrokerVerse Process Walkthrough</title>
+<meta name="description" content="Each BDOI process flow step shown against the BrokerVerse screen that implements it." />
+<link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+:root { --navy: #002B7F; --deep: #0A49B8; --gold: #FFC400; --bg: #F5F7FB; --card: #FFFFFF; --ink: #14213D; --ink2: #5B6478; --line: #D9DFEA; --shadow: 0 1px 2px rgba(0,43,127,.08), 0 8px 24px rgba(0,43,127,.06); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bg: #0E1526; --card: #182135; --ink: #E8EEFB; --ink2: #A6B1C9; --line: #2A3650; --navy: #9DB8F5; --deep: #BFD2FF; --shadow: 0 1px 2px rgba(0,0,0,.4); } }
+:root[data-theme="dark"] { --bg: #0E1526; --card: #182135; --ink: #E8EEFB; --ink2: #A6B1C9; --line: #2A3650; --navy: #9DB8F5; --deep: #BFD2FF; --shadow: 0 1px 2px rgba(0,0,0,.4); }
+* { box-sizing: border-box; } html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: Inter, system-ui, -apple-system, "Segoe UI", sans-serif; font-size: 15px; line-height: 1.5; }
+.wrap { max-width: 1180px; margin: 0 auto; padding-block: 32px 64px; padding-inline: 16px; }
+.mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .9em; }
+h1 { font-family: Georgia, "Times New Roman", serif; font-size: clamp(28px, 4vw, 40px); color: var(--navy); margin: 0 0 8px; text-wrap: balance; letter-spacing: -.01em; }
+h2 { font-family: Georgia, "Times New Roman", serif; font-size: 26px; color: var(--navy); margin: 0 0 8px; text-wrap: balance; }
+h3 { font-size: 16px; margin: 4px 0 6px; font-weight: 600; text-wrap: balance; }
+.eyebrow { text-transform: uppercase; letter-spacing: .08em; font-size: 12px; color: var(--ink2); margin: 0 0 6px; font-weight: 600; }
+.lede { color: var(--ink2); max-width: 70ch; margin: 0 0 6px; } .meta { font-size: 13px; color: var(--ink2); margin: 0; }
+.hero { display: grid; gap: 8px; padding-bottom: 20px; border-bottom: 3px solid var(--gold); margin-bottom: 24px; }
+.hero .stats { display: flex; flex-wrap: wrap; gap: 10px 24px; font-size: 13px; color: var(--ink2); font-variant-numeric: tabular-nums; }
+.hero .stats b { color: var(--ink); }
+.toc { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 16px 20px; margin-bottom: 36px; box-shadow: var(--shadow); }
+.toc h2 { font-size: 15px; font-family: Inter, sans-serif; text-transform: uppercase; letter-spacing: .06em; color: var(--ink2); margin: 0 0 10px; }
+.toc ol { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 4px 20px; }
+.toc a { display: flex; gap: 10px; align-items: baseline; color: var(--ink); text-decoration: none; padding: 5px 0; border-bottom: 1px dashed var(--line); }
+.toc a:hover { color: var(--deep); } .toc .num { font-family: ui-monospace, monospace; color: var(--deep); font-weight: 600; min-width: 2ch; }
+.toc .cnt { margin-left: auto; color: var(--ink2); font-size: 12px; white-space: nowrap; }
+.process { margin-bottom: 56px; scroll-margin-top: 16px; } .process-head { margin-bottom: 18px; padding-left: 14px; border-left: 4px solid var(--gold); }
+.steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 22px; }
+.step { display: grid; grid-template-columns: minmax(240px, 34%) 1fr; gap: 20px; background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 18px; box-shadow: var(--shadow); align-items: start; }
+.step-no { display: inline-block; font-family: ui-monospace, monospace; font-size: 12px; font-weight: 600; color: var(--navy); background: color-mix(in srgb, var(--gold) 28%, transparent); padding: 2px 8px; border-radius: 999px; }
+.screen { margin: 0; font-size: 13.5px; color: var(--ink2); } .screen b { color: var(--ink); font-weight: 600; } .note { margin: 6px 0 0; font-size: 13px; color: var(--ink2); }
+figure { margin: 0; overflow: hidden; border-radius: 8px; border: 1px solid var(--line); background: #fff; }
+figure img { display: block; width: 100%; height: auto; max-width: 100%; }
+footer { margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--line); font-size: 13px; color: var(--ink2); }
+a:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
+@media (max-width: 760px) { .step { grid-template-columns: 1fr; } }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+</style>
+<div class="wrap">
+  <header class="hero">
+    <p class="eyebrow">BrokerVerse · BDO Insurance &amp; Reinsurance Brokers · delivered by iorta TechNXT</p>
+    <h1>Process flow to screen walkthrough</h1>
+    <p class="lede">Every step of the sixteen signed-off BDOI process flows, shown against the BrokerVerse screen that performs it. Screens were captured from the running platform while the real journeys executed with the responsible persona: makers, checkers and approvers as the flows prescribe.</p>
+    <div class="stats"><span><b>16</b> process flows</span><span><b>111</b> captured screens</span><span>captured <b>2026-09-23</b></span><span>demo data · all names are sample records</span></div>
+  </header>
+  <nav class="toc" aria-label="Process flows"><h2>Process flows</h2><ol>
+<li><a href="#01-bdoir-e2e"><span class="num">01</span> BDOIR End-to-End <span class="cnt">6 screens</span></a></li>
+<li><a href="#02-new-business"><span class="num">02</span> New Business <span class="cnt">14 screens</span></a></li>
+<li><a href="#03-operations"><span class="num">03</span> Operations <span class="cnt">17 screens</span></a></li>
+<li><a href="#04-marketing-collections"><span class="num">04</span> Marketing Collections <span class="cnt">8 screens</span></a></li>
+<li><a href="#05-frbs-accounting"><span class="num">05</span> FRBS Accounting <span class="cnt">3 screens</span></a></li>
+<li><a href="#06-disbursement"><span class="num">06</span> Disbursement <span class="cnt">7 screens</span></a></li>
+<li><a href="#07-refund-request"><span class="num">07</span> Refund Request <span class="cnt">4 screens</span></a></li>
+<li><a href="#08-acsl"><span class="num">08</span> ACSL (Insurer SOA reconciliation) <span class="cnt">2 screens</span></a></li>
+<li><a href="#09-claims"><span class="num">09</span> Claims <span class="cnt">11 screens</span></a></li>
+<li><a href="#10-case-management"><span class="num">10</span> Case Management (To-Be) <span class="cnt">6 screens</span></a></li>
+<li><a href="#11-customer-servicing-facility"><span class="num">11</span> Customer Servicing Facility <span class="cnt">2 screens</span></a></li>
+<li><a href="#12-renewal"><span class="num">12</span> Renewal (RMEL) <span class="cnt">5 screens</span></a></li>
+<li><a href="#13-reinsurance"><span class="num">13</span> Reinsurance <span class="cnt">6 screens</span></a></li>
+<li><a href="#14-submitted-policies"><span class="num">14</span> Submitted Policies <span class="cnt">4 screens</span></a></li>
+<li><a href="#15-employee-benefits"><span class="num">15</span> Employee Benefits <span class="cnt">5 screens</span></a></li>
+<li><a href="#16-product-maintenance-tsu"><span class="num">16</span> Product Maintenance (TSU) <span class="cnt">11 screens</span></a></li>
+  </ol></nav>
+
+<section id="01-bdoir-e2e" class="process">
+  <header class="process-head">
+    <p class="eyebrow">Process flow 01 · <span class="mono">BDOIR E2E PROCESS FLOW.pdf</span></p>
+    <h2>BDOIR End-to-End</h2>
+    <p class="lede">The umbrella flow that chains new business, cashiering, collections, remittance, disbursement, the general ledger, renewal and claims. Each link is captured in detail in its own process below; these screens show the control points that tie the chain together.</p>
+    <p class="meta">Personas in this walkthrough: <b>admin</b></p>
+  </header>
+  <ol class="steps">
+    <li class="step">
+      <div class="step-text">
+        <span class="step-no">01.01</span>
+        <h3>Executive dashboard: KPIs across the whole chain (in force, in placement, unapplied payments, pending approvals, disbursements in flight, past-TAT requests)</h3>
+        <p class="screen">Screen: <b>Dashboard</b></p>
+      </div>
+      <figure><a href="shots/01-bdoir-e2e/01.jpg" target="_blank" rel="noopener"><img loading="lazy" src="shots/01-bdoir-e2e/01.jpg" alt="Dashboard" width="1440" height="900" /></a></figure>
+    </li>
+    <li class="step">
+      <div class="step-text">
+        <span class="step-no">01.02</span>
+        <h3>Single maker-checker queue for bookings, endorsements, journals, disbursements, CTE, claim settlements, EB awards and product changes</h3>
+        <p class="screen">Screen: <b>Approvals &amp; Audit › All</b></p>
+      </div>
+      <figure><a href="shots/01-bdoir-e2e/02.jpg" target="_blank" rel="noopener"><img loading="lazy" src="shots/01-bdoir-e2e/02.jpg" alt="Approvals &amp; Audit › All" width="1440" height="900" /></a></figure>
+    </li>
+    <li class="step">
+      <div class="step-text">
+        <span class="step-no">01.03</span>
+        <h3>Production, collection and claims reports with CSV export</h3>
+        <p class="screen">Screen: <b>Reports &amp; Analytics</b></p>
+      </div>
+      <figure><a href="shots/01-bdoir-e2e/03.jpg" target="_blank" rel="noopener"><img loading="lazy" src="shots/01-bdoir-e2e/03.jpg" alt="Reports &amp; Analytics" width="1440" height="900" /></a></figure>
+    </li>
+    <li class="step">
+      <div class="step-text">
+        <span class="step-no">01.04</span>
+        <h3>Client onboarding with sanctions screening, PEP flag and risk tiering feeding every process</h3>
+        <p class="screen">Screen: <b>Sanction Screening &amp; Risk</b></p>
+      </div>
+      <figure><a href="shots/01-bdoir-e2e/04.jpg" target="_blank" rel="noopener"><img loading="lazy" src="shots/01-bdoir-e2e/04.jpg" alt="Sanction Screening &amp; Risk" width="1440" height="900" /></a></figure>
+    </li>
+    <li class="step">
+      <div class="step-text">
+        <span class="step-no">01.05</span>
+        <h3>Twelve personas with module entitlements and approver rights (segregation of duties)</h3>
+        <p class="screen">Screen: <b>User Access Maintenance</b></p>
+      </div>
+      <figure><a href="shots/01-bdoir-e2e/05.jpg" target="_blank" rel="noopener"><img loading="lazy" src="shots/01-bdoir-e2e/05.jpg" alt="User Access Maintenance" width="1440" height="900" /></a></figure>
+    </li>
+    <li class="step">
+      <div class="step-text">
+        <span class="step-no">01.06</span>
+        <h3>Legacy data migration batches with load, reconciliation and disposition</h3>
+        <p class="screen">Screen: <b>Data Migration</b></p>
+      </div>
+      <figure><a href="shots/01-bdoir-e2e/06.jpg" target="_blank" rel="noopener"><img loading="lazy" src="shots/01-bdoir-e2e/06.jpg" alt="Data Migration" width="1440" height="900" /></a></figure>
+    </li>
+  </ol>
+</section>
+
+<section id="02-new-business" class="process">
+  <header class="process-head">
+    <p class="eyebrow">Process flow 02 · <span class="mono">NEW BUSINESS.pdf</span></p>
+    <h2>New Business</h2>
+    <p class="lede">Client creation and screening, quotation, proposal, placement to the insurer, e-policy and booking under maker-checker.</p>
+    <p class="meta">Personas in this walkthrough: <b>nb.officer → uw.head</b></p>
+  </header>
+  <ol class="steps">
+    <li class="step">
+      <div class="step-text">
+        <span class="step-no">02.01</span>
+        <h3>MAO creates the client in Broker; KYC details captured</h3>
+        <p class="screen">Screen: <b>Sanction Screening &amp; Risk › New client form</b></p>
+      </div>
+      <figure><a href="shots/02-new-business/01.jpg" target="_blank" rel="noopener"><img loading="lazy" src="shots/02-new-business/01.jpg" alt="Sanction Screening &amp; Risk › New client form" width="1440" height="900" /></a></figure>
+    </li>
+    <li class="step">
+      <div class="step-text">
+        <span class="step-no">02.02</span>
+        <h3>Client is sanction-screened automatically (clear / hit) and risk-tiered</h3>
+        <p class="screen">Screen: <b>Sanction Screening &amp; Risk › Client register</b></p>
+        <p class="note">Screening result and CDD level shown on the row</p>
+      </div>
+      <figure><a href="shots/02-new-business/02.jpg" target="_blank" rel="noopener"><img loading="lazy" src="shots/02-new-business/02.jpg" alt="Sanction Screening &amp; Risk › Client register" width="1440" height="900" /></a></figure>
+    </li>
+    <li class="step">
+      <div class="step-text">
+        <span class="step-no">02.03</span>
+        <h3>Quotation prepared with the rating engine (premium, VAT, DST, LGT, commission)</h3>
+        <p class="screen">Screen: <b>New Business › Quotations &amp; proposals › New quotation form</b></p>
+      </div>
+      <figure><a href="shots/02-new-business/03.jpg" target="_blank" rel="noopener"><img loading="lazy" src="shots/02-new-business/03.jpg" alt="New Business › Quotations &amp; proposals › New quotation form" width="1440" height="900" /></a></figure>
+    </li>
+    <li class="step">
+      <div class="step-text">
+        <span class="step-no">02.04</span>
+        <h3>Quotation created (status: quoted); hold cover can be requested from the insurer</h3>
+        <p class="screen">Screen: <b>New Business › Quotations &amp; proposals</b></p>
+      </div>
+      <figure><a href="shots/02-new-business/04.jpg" target="_blank" rel="noopener"><img loading="lazy" src="shots/02-new-business/04.jpg" alt="New Business › Quotations &amp; proposals" width="1440" height="900" /></a></figure>
+    </li>
+    <li class="step">
+      <div class="step-text">
+        <span class="step-no">02.05</span>
+        <h3>Proposal sent to the client by email (status: proposal sent)</h3>
+        <p class="screen">Screen: <b>New Business › Quotations &amp; proposals › Send proposal</b></p>
+      </div>
+      <figure><a href="shots/02-new-business/05.jpg" target="_blank" rel="noopener"><img loading="lazy" src="shots/02-new-business/05.jpg" alt="New Business › Quotations &amp; proposals › Send proposal" width="1440" height="900" /></a></figure>
+    </li>
+    <li class="step">
+      <div class="step-text">
+        <span class="step-no">02.06</span>
+        <h3>Client acceptance recorded (Y); a decline with reason is the N branch</h3>
+        <p class="screen">Screen: <b>New Business › Quotations &amp; proposals › Client accepted</b></p>
+      </div>
+      <figure><a href="shots/02-new-business/06.jpg" target="_blank" rel="noopener"><img loading="lazy" src="shots/02-new-business/06.jpg" alt="New Business › Quotations &amp; proposals › Client accepted" width="1440" height="900" /></a></figure>
+    </li>
+    <li class="step">
+      <div class="step-text">
+        <span class="step-no">02.07</span>
+        <h3>Placement requested: placement slip goes to the insurer via SFTP or email</h3>
+        <p class="screen">Screen: <b>New Business › Policy drawer (placement requested)</b></p>
+      </div>
+      <figure><a href="shots/02-new-business/07.jpg" target="_blank" rel="noopener"><img loading="lazy" src="shots/02-new-business/07.jpg" alt="New Business › Policy drawer (placement requested)" width="1440" height="900" /></a></figure>
+    </li>
+    <li class="step">
+      <div class="step-text">
+        <span class="step-no">02.08</span>
+        <h3>Placement board tracks slips awaiting the insurer, returns and e-policies</h3>
+        <p class="screen">Screen: <b>New Business › Placement</b></p>
+      </div>
+      <figure><a href="shots/02-new-business/08.jpg" target="_blank" rel="noopener"><img loading="lazy" src="shots/02-new-business/08.jpg" alt="New Business › Placement" width="1440" height="900" /></a></figure>
+    </li>
+    <li class="step">
+      <div class="step-text">
+        <span class="step-no">02.09</span>
+        <h3>Insurer placed the risk; e-policy received (COG via SFTP or PO email)</h3>
+        <p class="screen">Screen: <b>New Business › Placement › Placed / e-policy received</b></p>
+      </div>
+      <figure><a href="shots/02-new-business/09.jpg" target="_blank" rel="noopener"><img loading="lazy" src="shots/02-new-business/09.jpg" alt="New Business › Placement › Placed / e-policy received" width="1440" height="900" /></a></figure>
+    </li>
+    <li class="step">
+      <div class="step-text">
+        <span class="step-no">02.10</span>
+        <h3>Booking and invoicing raised for checker approval (maker-checker)</h3>
+        <p class="screen">Screen: <b>New Business › Placement › Book &amp; invoice</b></p>
+      </div>
+      <figure><a href="shots/02-new-business/10.jpg" target="_blank" rel="noopener"><img loading="lazy" src="shots/02-new-business/10.jpg" alt="New Business › Placement › Book &amp; invoice" width="1440" height="900" /></a></figure>
+    </li>
+    <li class="step">
+      <div class="step-text">
+        <span class="step-no">02.11</span>
+        <h3>Underwriting Head (checker) reviews the booking request</h3>
+        <p class="screen">Screen: <b>Approvals &amp; Audit › Pending</b></p>
+      </div>
+      <figure><a href="shots/02-new-business/11.jpg" target="_blank" rel="noopener"><img loading="lazy" src="shots/02-new-business/11.jpg" alt="Approvals &amp; Audit › Pending" width="1440" height="900" /></a></figure>
+    </li>
+    <li class="step">
+      <div class="step-text">
+        <span class="step-no">02.12</span>
+        <h3>Booking approved: invoice, journal and e-policy dispatch are posted automatically</h3>
+        <p class="screen">Screen: <b>Approvals &amp; Audit › Approve</b></p>
+      </div>
+      <figure><a href="shots/02-new-business/12.jpg" target="_blank" rel="noopener"><img loading="lazy" src="shots/02-new-business/12.jpg" alt="Approvals &amp; Audit › Approve" width="1440" height="900" /></a></figure>
+    </li>
+    <li class="step">
+      <div class="step-text">
+        <span class="step-no">02.13</span>
+        <h3>Policy register: the policy is in force with its invoice and e-policy channel</h3>
+        <p class="screen">Screen: <b>New Business › Policies</b></p>
+      </div>
+      <figure><a href="shots/02-new-business/13.jpg" target="_blank" rel="noopener"><img loading="lazy" src="shots/02-new-business/13.jpg" alt="New Business › Policies" width="1440" height="900" /></a></figure>
+    </li>
+    <li class="step">
+      <div class="step-text">
+        <span class="step-no">02.14</span>
+        <h3>Policy detail: placement history, e-policy status and the exception route to the contact centre</h3>
+        <p class="screen">Screen: <b>New Business › Policies › Policy detail</b></p>
+      </div>
+      <figure><a href="shots/02-new-business/14.jpg" target="_blank" rel="noopener"><img loading="lazy" src="shots/02-new-business/14.jpg" alt="New Business › Policies › Policy detail" width="1440" height="900" /></a></figure>
+    </li>
+  </ol>
+</section>
+
+<section id="03-operations" class="process">
+  <header class="process-head">
+    <p class="eyebrow">Process flow 03 · <span class="mono">OPERATIONS PROCESS FLOW.pdf</span></p>
+    <h2>Operations</h2>
+    <p class="lede">Cashiering channels, post-dated cheque hold, unapplied premium, direct payments with commission receivables, adjustments and production reconciliation.</p>
+    <p class="meta">Personas in this walkthrough: <b>cashier → checker</b></p>
+  </header>
+  <ol class="steps">
+    <li class="step">
+      <div class="step-text">
+        <span class="step-no">03.01</span>
+        <h3>Cashiering: open invoices (premium receivables) awaiting payment</h3>
+        <p class="screen">Screen: <b>Operations › Invoices &amp; cashiering</b></p>
+      </div>
+      <figure><a href="shots/03-operations/01.jpg" target="_blank" rel="noopener"><img loading="lazy" src="shots/03-operations/01.jpg" alt="Operations › Invoices &amp; cashiering" width="1440" height="900" /></a></figure>
+    </li>
+    <li class="step">
+      <div class="step-text">
+        <span class="step-no">03.02</span>
+        <h3>Receive payment: channel (bills payment, OTC cash/cheque, batch files, autopay) and reference</h3>
+        <p class="screen">Screen: <b>Operations › Invoices &amp; cashiering › Receive</b></p>
+      </div>
+      <figure><a href="shots/03-operations/02.jpg" target="_blank" rel="noopener"><img loading="lazy" src="shots/03-operations/02.jpg" alt="Operations › Invoices &amp; cashiering › Receive" width="1440" height="900" /></a></figure>
+    </li>
+    <li class="step">
+      <div class="step-text">
+        <span class="step-no">03.03</span>
+        <h3>Cheque payment recorded and held for the 4-day clearing period</h3>
+        <p class="screen">Screen: <b>Operations › Receive › Record payment</b></p>
+      </div>
+      <figure><a href="shots/03-operations/03.jpg" target="_blank" rel="noopener"><img loading="lazy" src="shots/03-operations/03.jpg" alt="Operations › Receive › Record payment" width="1440" height="900" /></a></figure>
+    </li>
+    <li class="step">
+      <div class="step-text">
+        <span class="step-no">03.04</span>
+        <h3>PDC register: held cheques, matured, bounced (exclusion list) and unapplied premium</h3>
+        <p class="screen">Screen: <b>Operations › Payments / PDC / UPP</b></p>
+      </div>
+      <figure><a href="shots/03-operations/04.jpg" target="_blank" rel="noopener"><img loading="lazy" src="shots/03-operations/04.jpg" alt="Operations › Payments / PDC / UPP" width="1440" height="900" /></a></figure>
+    </li>
+    <li class="step">
+      <div class="step-text">
+        <span class="step-no">03.05</span>
+        <h3>Held cheque shows Matured / Bounced actions once the 4-day hold lapses</h3>
+        <p class="screen">Screen: <b>Operations › Payments / PDC / UPP › Held cheque</b></p>
+      </div>
+      <figure><a href="shots/03-operations/05.jpg" target="_blank" rel="noopener"><img loading="lazy" src="shots/03-operations/05.jpg" alt="Operations › Payments / PDC / UPP › Held cheque" width="1440" height="900" /></a></figure>
+    </li>
+    <li class="step">
+      <div class="step-text">
+        <span class="step-no">03.06</span>
+        <h3>Cash / bills payment applied in full: official receipt issued and receivable cleared</h3>
+        <p class="screen">Screen: <b>Operations › Receive › Official receipt</b></p>
+      </div>
+      <figure><a href="shots/03-operations/06.jpg" target="_blank" rel="noopener"><img loading="lazy" src="shots/03-operations/06.jpg" alt="Operations › Receive › Official receipt" width="1440" height="900" /></a></figure>
+    </li>
+    <li class="step">
+      <div class="step-text">
+        <span class="step-no">03.07</span>
+        <h3>Payment with zero PR / payment greater than PR is recorded without an invoice</h3>
+        <p class="screen">Screen: <b>Operations › Invoices &amp; cashiering › Payment without invoice</b></p>
+      </div>
+      <figure><a href="shots/03-operations/07.jpg" target="_blank" rel="noopener"><img loading="lazy" src="shots/03-operations/07.jpg" alt="Operations › Invoices &amp; cashiering › Payment without invoice" width="1440" height="900" /></a></figure>
+    </li>
+    <li class="step">
+      <div class="step-text">
+        <span class="step-no">03.08</span>
+        <h3>The amount sits in Unapplied Premium (GL 2400) until applied to an invoice</h3>
+        <p class="screen">Screen: <b>Operations › Payments / PDC / UPP</b></p>
+      </div>
+      <figure><a href="shots/03-operations/08.jpg" target="_blank" rel="noopener"><img loading="lazy" src="shots/03-operations/08.jpg" alt="Operations › Payments / PDC / UPP" width="1440" height="900" /></a></figure>
+    </li>
+    <li class="step">
+      <div class="step-text">
+        <span class="step-no">03.09</span>
+        <h3>Direct payment to insurer identified for a booked policy</h3>
+        <p class="screen">Screen: <b>Operations › Direct payments › Identify</b></p>
+      </div>
+      <figure><a href="shots/03-operations/09.jpg" target="_blank" rel="noopener"><img loading="lazy" src="shots/03-operations/09.jpg" alt="Operations › Direct payments › Identify" width="1440" height="900" /></a></figure>
+    </li>
+    <li class="step">
+      <div class="step-text">
+        <span class="step-no">03.10</span>
+        <h3>Commission receivable (GL 1250) billed to the insurer; follow-up until collected</h3>
+        <p class="screen">Screen: <b>Operations › Direct payments › Bill insurer</b></p>
+      </div>
+      <figure><a href="shots/03-operations/10.jpg" target="_blank" rel="noopener"><img loading="lazy" src="shots/03-operations/10.jpg" alt="Operations › Direct payments › Bill insurer" width="1440" height="900" /></a></figure>
+    </li>
+    <li class="step">
+      <div class="step-text">
+        <span class="step-no">03.11</span>
+        <h3>Commission collected: commission official receipt issued</h3>
+        <p class="screen">Screen: <b>Operations › Direct payments › Collect (commission OR)</b></p>
+      </div>
+      <figure><a href="shots/03-operations/11.jpg" target="_blank" rel="noopener"><img loading="lazy" src="shots/03-operations/11.jpg" alt="Operations › Direct payments › Collect (commission OR)" width="1440" height="900" /></a></figure>
+    </li>
+    <li class="step">
+      <div class="step-text">
+        <span class="step-no">03.12</span>
+        <h3>Adjustment / cancellation validated by the Adjustment Team and routed to the checker-poster</h3>
+        <p class="screen">Screen: <b>Operations › Adjustments › Endorsement form</b></p>
+      </div>
+      <figure><a href="shots/03-operations/12.jpg" target="_blank" rel="noopener"><img loading="lazy" src="shots/03-operations/12.jpg" alt="Operations › Adjustments › Endorsement form" width="1440" height="900" /></a></figure>
+    </li>
+    <li class="step">
+      <div class="step-text">
+        <span class="step-no">03.13</span>
+        <h3>Endorsement pending checker approval; a refund creates a Refund Request Form (RRF) on approval</h3>
+        <p class="screen">Screen: <b>Operations › Adjustments</b></p>
+      </div>
+      <figure><a href="shots/03-operations/13.jpg" target="_blank" rel="noopener"><img loading="lazy" src="shots/03-operations/13.jpg" alt="Operations › Adjustments" width="1440" height="900" /></a></figure>
+    </li>
+    <li class="step">
+      <div class="step-text">
+        <span class="step-no">03.14</span>
+        <h3>Production reconciliation: insurer production file matched against booked policies</h3>
+        <p class="screen">Screen: <b>Operations › Production recon › Upload</b></p>
+      </div>
+      <figure><a href="shots/03-operations/14.jpg" target="_blank" rel="noopener"><img loading="lazy" src="shots/03-operations/14.jpg" alt="Operations › Production recon › Upload" width="1440" height="900" /></a></figure>
+    </li>
+    <li class="step">
+      <div class="step-text">
+        <span class="step-no">03.15</span>
+        <h3>Rows classified as matched, with discrepancies, or unbooked; each gets a disposition</h3>
+        <p class="screen">Screen: <b>Operations › Production recon › Result</b></p>
+      </div>
+      <figure><a href="shots/03-operations/15.jpg" target="_blank" rel="noopener"><img loading="lazy" src="shots/03-operations/15.jpg" alt="Operations › Production recon › Result" width="1440" height="900" /></a></figure>
+    </li>
+    <li class="step">
+      <div class="step-text">
+        <span class="step-no">03.16</span>
+        <h3>Checker-poster reviews the endorsement</h3>
+        <p class="screen">Screen: <b>Approvals &amp; Audit › Pending</b></p>
+      </div>
+      <figure><a href="shots/03-operations/16.jpg" target="_blank" rel="noopener"><img loading="lazy" src="shots/03-operations/16.jpg" alt="Approvals &amp; Audit › Pending" width="1440" height="900" /></a></figure>
+    </li>
+    <li class="step">
+      <div class="step-text">
+        <span class="step-no">03.17</span>
+        <h3>Endorsement posted: premium and commission reversed, RRF raised for the refund</h3>
+        <p class="screen">Screen: <b>Approvals &amp; Audit › Approve</b></p>
+      </div>
+      <figure><a href="shots/03-operations/17.jpg" target="_blank" rel="noopener"><img loading="lazy" src="shots/03-operations/17.jpg" alt="Approvals &amp; Audit › Approve" width="1440" height="900" /></a></figure>
+    </li>
+  </ol>
+</section>
+
+<section id="04-marketing-collections" class="process">
+  <header class="process-head">
+    <p class="eyebrow">Process flow 04 · <span class="mono">MARKETING COLLECTIONS - Process Flow.pdf</span></p>
+    <h2>Marketing Collections</h2>
+    <p class="lede">Premium receivable list by stage, marketing diary, credit-term extension under approval and statement of account.</p>
+    <p class="meta">Personas in this walkthrough: <b>collections → fin.head</b></p>
+  </header>
+  <ol class="steps">
+    <li class="step">
+      <div class="step-text">
+        <span class="step-no">04.01</span>
+        <h3>PR list: newly booked accounts to collect within 10–15 days; ageing and collection stage per invoice</h3>
+        <p class="screen">Screen: <b>Collections › Outstanding premium</b></p>
+      </div>
+      <figure><a href="shots/04-marketing-collections/01.jpg" target="_blank" rel="noopener"><img loading="lazy" src="shots/04-marketing-collections/01.jpg" alt="Collections › Outstanding premium" width="1440" height="900" /></a></figure>
+    </li>
+    <li class="step">
+      <div class="step-text">
+        <span class="step-no">04.02</span>
+        <h3>Statement of account sent to the client</h3>
+        <p class="screen">Screen: <b>Collections › SOA</b></p>
+      </div>
+      <figure><a href="shots/04-marketing-collections/02.jpg" target="_blank" rel="noopener"><img loading="lazy" src="shots/04-marketing-collections/02.jpg" alt="Collections › SOA" width="1440" height="900" /></a></figure>
+    </li>
+    <li class="step">
+      <div class="step-text">
+        <span class="step-no">04.03</span>
+        <h3>Marketing diary: when / where / how / what of each collection effort, commitment date and arrangement</h3>
+        <p class="screen">Screen: <b>Collections › Log effort</b></p>
+      </div>
+      <figure><a href="shots/04-marketing-collections/03.jpg" target="_blank" rel="noopener"><img loading="lazy" src="shots/04-marketing-collections/03.jpg" alt="Collections › Log effort" width="1440" height="900" /></a></figure>
+    </li>
+    <li class="step">
+      <div class="step-text">
+        <span class="step-no">04.04</span>
+        <h3>Commitment beyond the 60-day credit term: MAO informed, tagged as committed</h3>
+        <p class="screen">Screen: <b>Collections › Outstanding premium</b></p>
+      </div>
+      <figure><a href="shots/04-marketing-collections/04.jpg" target="_blank" rel="noopener"><img loading="lazy" src="shots/04-marketing-collections/04.jpg" alt="Collections › Outstanding premium" width="1440" height="900" /></a></figure>
+    </li>
+    <li class="step">
+      <div class="step-text">
+        <span class="step-no">04.05</span>
+        <h3>Credit-term extension (CTE) requested for Unit Head approval</h3>
+        <p class="screen">Screen: <b>Collections › CTE</b></p>
+      </div>
+      <figure><a href="shots/04-marketing-collections/05.jpg" target="_blank" rel="noopener"><img loading="lazy" src="shots/04-marketing-collections/05.jpg" alt="Collections › CTE" width="1440" height="900" /></a></figure>
+    </li>
+    <li class="step">
+      <div class="step-text">
+        <span class="step-no">04.06</span>
+        <h3>Effort diary per invoice with category tagging</h3>
+        <p class="screen">Screen: <b>Collections › Diary</b></p>
+      </div>
+      <figure><a href="shots/04-marketing-collections/06.jpg" target="_blank" rel="noopener"><img loading="lazy" src="shots/04-marketing-collections/06.jpg" alt="Collections › Diary" width="1440" height="900" /></a></figure>
+    </li>
+    <li class="step">
+      <div class="step-text">
+        <span class="step-no">04.07</span>
+        <h3>Unit / Finance Head reviews the CTE request</h3>
+        <p class="screen">Screen: <b>Approvals &amp; Audit › Pending</b></p>
+      </div>
+      <figure><a href="shots/04-marketing-collections/07.jpg" target="_blank" rel="noopener"><img loading="lazy" src="shots/04-marketing-collections/07.jpg" alt="Approvals &amp; Audit › Pending" width="1440" height="900" /></a></figure>
+    </li>
+    <li class="step">
+      <div class="step-text">
+        <span class="step-no">04.08</span>
+        <h3>CTE approved: due date extended and account stays within term</h3>
+        <p class="screen">Screen: <b>Approvals &amp; Audit › Approve</b></p>
+      </div>
+      <figure><a href="shots/04-marketing-collections/08.jpg" target="_blank" rel="noopener"><img loading="lazy" src="shots/04-marketing-collections/08.jpg" alt="Approvals &amp; Audit › Approve" width="1440" height="900" /></a></figure>
+    </li>
+  </ol>
+</section>
+
+<section id="05-frbs-accounting" class="process">
+  <header class="process-head">
+    <p class="eyebrow">Process flow 05 · <span class="mono">FRBS - ACCOUNTING.pdf</span></p>
+    <h2>FRBS Accounting</h2>
+    <p class="lede">Chart of accounts, system-generated journals, manual entries under review, trial balance, period and year-end closing.</p>
+    <p class="meta">Personas in this walkthrough: <b>accountant → fin.head</b></p>
+  </header>
+  <ol class="steps">
+    <li class="step">
+      <div class="step-text">
+        <span class="step-no">05.01</span>
+        <h3>System-generated journals (booking, receipts, commissions) and manual entry form routed to the TL for posting</h3>
+        <p class="screen">Screen: <b>Accounting &amp; Disbursement › Journals</b></p>
+      </div>
+      <figure><a href="shots/05-frbs-accounting/01.jpg" target="_blank" rel="noopener"><img loading="lazy" src="shots/05-frbs-accounting/01.jpg" alt="Accounting &amp; Disbursement › Journals" width="1440" height="900" /></a></figure>
+    </li>
+    <li class="step">
+      <div class="step-text">
+        <span class="step-no">05.02</span>
+        <h3>Trial balance and financial reports generated from the ledger</h3>
+        <p class="screen">Screen: <b>Accounting &amp; Disbursement › Trial balance</b></p>
+      </div>
+      <figure><a href="shots/05-frbs-accounting/02.jpg" target="_blank" rel="noopener"><img loading="lazy" src="shots/05-frbs-accounting/02.jpg" alt="Accounting &amp; Disbursement › Trial balance" width="1440" height="900" /></a></figure>
+    </li>
+    <li class="step">
+      <div class="step-text">
+        <span class="step-no">05.03</span>
+        <h3>EOD / EOM / EOY: period close and reopen, fiscal-year close to retained earnings</h3>
+        <p class="screen">Screen: <b>Accounting &amp; Disbursement › Periods &amp; year-end</b></p>
+      </div>
+      <figure><a href="shots/05-frbs-accounting/03.jpg" target="_blank" rel="noopener"><img loading="lazy" src="shots/05-frbs-accounting/03.jpg" alt="Accounting &amp; Disbursement › Periods &amp; year-end" width="1440" height="900" /></a></figure>
+    </li>
+  </ol>
+</section>
+
+<section id="06-disbursement" class="process">
+  <header class="process-head">
+    <p class="eyebrow">Process flow 06 · <span class="mono">DISBURSEMENT.pdf</span></p>
+    <h2>Disbursement</h2>
+    <p class="lede">Disbursement chain DPO → DTL → DSH → DUH with segregation of duties, payment posting and confirmation email; weekly remittance to insurers.</p>
+    <p class="meta">Personas in this walkthrough: <b>accountant → admin (reviewer) → fin.head → accountant</b></p>
+  </header>
+  <ol class="steps">
+    <li class="step">
+      <div class="step-text">
+        <span class="step-no">06.01</span>
+        <h3>Weekly remittance extract of applied payments per insurer, sanitised and submitted to Disbursement</h3>
+        <p class="screen">Screen: <b>Accounting &amp; Disbursement › Remittances</b></p>
+      </div>
+      <figure><a href="shots/06-disbursement/01.jpg" target="_blank" rel="noopener"><img loading="lazy" src="shots/06-disbursement/01.jpg" alt="Accounting &amp; Disbursement › Remittances" width="1440" height="900" /></a></figure>
+    </li>
+    <li class="step">
+      <div class="step-text">
+        <span class="step-no">06.02</span>
+        <h3>Disbursement request (DPO) with payee, amount, mode and bank details</h3>
+        <p class="screen">Screen: <b>Accounting &amp; Disbursement › Disbursements › Request</b></p>
+      </div>
+      <figure><a href="shots/06-disbursement/02.jpg" target="_blank" rel="noopener"><img loading="lazy" src="shots/06-disbursement/02.jpg" alt="Accounting &amp; Disbursement › Disbursements › Request" width="1440" height="900" /></a></figure>
+    </li>
+    <li class="step">
+      <div class="step-text">
+        <span class="step-no">06.03</span>
+        <h3>Request awaits a reviewer other than the maker (segregation of duties)</h3>
+        <p class="screen">Screen: <b>Accounting &amp; Disbursement › Disbursements</b></p>
+      </div>
+      <figure><a href="shots/06-disbursement/03.jpg" target="_blank" rel="noopener"><img loading="lazy" src="shots/06-disbursement/03.jpg" alt="Accounting &amp; Disbursement › Disbursements" width="1440" height="900" /></a></figure>
+    </li>
+    <li class="step">
+      <div class="step-text">
+        <span class="step-no">06.04</span>
+        <h3>Team lead review (DTL) OK; routed to the Finance Head for approval</h3>
+        <p class="screen">Screen: <b>Accounting &amp; Disbursement › Disbursements › Review OK</b></p>
+      </div>
+      <figure><a href="shots/06-disbursement/04.jpg" target="_blank" rel="noopener"><img loading="lazy" src="shots/06-disbursement/04.jpg" alt="Accounting &amp; Disbursement › Disbursements › Review OK" width="1440" height="900" /></a></figure>
+    </li>
+    <li class="step">
+      <div class="step-text">
+        <span class="step-no">06.05</span>
+        <h3>Finance Head (DSH / DUH) reviews the voucher</h3>
+        <p class="screen">Screen: <b>Approvals &amp; Audit › Pending</b></p>
+      </div>
+      <figure><a href="shots/06-disbursement/05.jpg" target="_blank" rel="noopener"><img loading="lazy" src="shots/06-disbursement/05.jpg" alt="Approvals &amp; Audit › Pending" width="1440" height="900" /></a></figure>
+    </li>
+    <li class="step">
+      <div class="step-text">
+        <span class="step-no">06.06</span>
+        <h3>Approved; ready for payment</h3>
+        <p class="screen">Screen: <b>Approvals &amp; Audit › Approve</b></p>
+      </div>
+      <figure><a href="shots/06-disbursement/06.jpg" target="_blank" rel="noopener"><img loading="lazy" src="shots/06-disbursement/06.jpg" alt="Approvals &amp; Audit › Approve" width="1440" height="900" /></a></figure>
+    </li>
+    <li class="step">
+      <div class="step-text">
+        <span class="step-no">06.07</span>
+        <h3>Payment posted with cheque reference; status tagged paid and confirmation email sent</h3>
+        <p class="screen">Screen: <b>Accounting &amp; Disbursement › Disbursements › Pay</b></p>
+      </div>
+      <figure><a href="shots/06-disbursement/07.jpg" target="_blank" rel="noopener"><img loading="lazy" src="shots/06-disbursement/07.jpg" alt="Accounting &amp; Disbursement › Disbursements › Pay" width="1440" height="900" /></a></figure>
+    </li>
+  </ol>
+</section>
+
+<section id="07-refund-request" class="process">
+  <header class="process-head">
+    <p class="eyebrow">Process flow 07 · <span class="mono">REFUND REQUEST.pdf</span></p>
+    <h2>Refund Request</h2>
+    <p class="lede">Refund Request Form raised from a cancellation, TL review, Unit Head sign-off and hand-off to the disbursement chain.</p>
+    <p class="meta">Personas in this walkthrough: <b>accountant (TL) → fin.head (UH)</b></p>
+  </header>
+  <ol class="steps">
+    <li class="step">
+      <div class="step-text">
+        <span class="step-no">07.01</span>
+        <h3>RRF register: refund raised by the endorsement with amount, mode and reason</h3>
+        <p class="screen">Screen: <b>Accounting &amp; Disbursement › Refund requests</b></p>
+      </div>
+      <figure><a href="shots/07-refund-request/01.jpg" target="_blank" rel="noopener"><img loading="lazy" src="shots/07-refund-request/01.jpg" alt="Accounting &amp; Disbursement › Refund requests" width="1440" height="900" /></a></figure>
+    </li>
+    <li class="step">
+      <div class="step-text">
+        <span class="step-no">07.02</span>
+        <h3>Marketing TL reviews the RRF</h3>
+        <p class="screen">Screen: <b>Accounting &amp; Disbursement › Refund requests › TL review OK</b></p>
+      </div>
+      <figure><a href="shots/07-refund-request/02.jpg" target="_blank" rel="noopener"><img loading="lazy" src="shots/07-refund-request/02.jpg" alt="Accounting &amp; Disbursement › Refund requests › TL review OK" width="1440" height="900" /></a></figure>
+    </li>
+    <li class="step">
+      <div class="step-text">
+        <span class="step-no">07.03</span>
+        <h3>Unit Head sign-off: a disbursement request is created for the refund</h3>
+        <p class="screen">Screen: <b>Accounting &amp; Disbursement › Refund requests › UH approve</b></p>
+      </div>
+      <figure><a href="shots/07-refund-request/03.jpg" target="_blank" rel="noopener"><img loading="lazy" src="shots/07-refund-request/03.jpg" alt="Accounting &amp; Disbursement › Refund requests › UH approve" width="1440" height="900" /></a></figure>
+    </li>
+    <li class="step">
+      <div class="step-text">
+        <span class="step-no">07.04</span>
+        <h3>Refund enters the disbursement chain (review → approve → pay)</h3>
+        <p class="screen">Screen: <b>Accounting &amp; Disbursement › Disbursements</b></p>
+      </div>
+      <figure><a href="shots/07-refund-request/04.jpg" target="_blank" rel="noopener"><img loading="lazy" src="shots/07-refund-request/04.jpg" alt="Accounting &amp; Disbursement › Disbursements" width="1440" height="900" /></a></figure>
+    </li>
+  </ol>
+</section>
+
+<section id="08-acsl" class="process">
+  <header class="process-head">
+    <p class="eyebrow">Process flow 08 · <span class="mono">ACSL.pdf</span></p>
+    <h2>ACSL (Insurer SOA reconciliation)</h2>
+    <p class="lede">Insurer statement of account reconciled against the ledger; abnormal balances raise adjustment entries reviewed by the TL and posted by the FRBS approver.</p>
+    <p class="meta">Personas in this walkthrough: <b>accountant → fin.head</b></p>
+  </header>
+  <ol class="steps">
+    <li class="step">
+      <div class="step-text">
+        <span class="step-no">08.01</span>
+        <h3>Insurer SOA lines captured against the ledger</h3>
+        <p class="screen">Screen: <b>Accounting &amp; Disbursement › ACSL / SOA recon</b></p>
+      </div>
+      <figure><a href="shots/08-acsl/01.jpg" target="_blank" rel="noopener"><img loading="lazy" src="shots/08-acsl/01.jpg" alt="Accounting &amp; Disbursement › ACSL / SOA recon" width="1440" height="900" /></a></figure>
+    </li>
+    <li class="step">
+      <div class="step-text">
+        <span class="step-no">08.02</span>
+        <h3>Variances flagged (abnormal balances, unknown items) for manual subsidiary-ledger adjustment</h3>
+        <p class="screen">Screen: <b>Accounting &amp; Disbursement › ACSL / SOA recon › Result</b></p>
+      </div>
+      <figure><a href="shots/08-acsl/02.jpg" target="_blank" rel="noopener"><img loading="lazy" src="shots/08-acsl/02.jpg" alt="Accounting &amp; Disbursement › ACSL / SOA recon › Result" width="1440" height="900" /></a></figure>
+    </li>
+  </ol>
+</section>
+
+<section id="09-claims" class="process">
+  <header class="process-head">
+    <p class="eyebrow">Process flow 09 · <span class="mono">CLAIMS PROCESS FLOW.pdf</span></p>
+    <h2>Claims</h2>
+    <p class="lede">Notice of loss, PLA, document checklist, FLA to the insurer, evaluation and offer, contest loop, settlement approval and closure.</p>
+    <p class="meta">Personas in this walkthrough: <b>claims → fin.head</b></p>
+  </header>
+  <ol class="steps">
+    <li class="step">
+      <div class="step-text">
+        <span class="step-no">09.01</span>
+        <h3>Notice of loss registered against the policy (Claims Acceptance Control checks premium status)</h3>
+        <p class="screen">Screen: <b>Claims › Register</b></p>
+      </div>
+      <figure><a href="shots/09-claims/01.jpg" target="_blank" rel="noopener"><img loading="lazy" src="shots/09-claims/01.jpg" alt="Claims › Register" width="1440" height="900" /></a></figure>
+    </li>
+    <li class="step">
+      <div class="step-text">
+        <span class="step-no">09.02</span>
+        <h3>Preliminary Loss Advice (PLA) sent; claim opened with reserve</h3>
+        <p class="screen">Screen: <b>Claims › Register</b></p>
+      </div>
+      <figure><a href="shots/09-claims/02.jpg" target="_blank" rel="noopener"><img loading="lazy" src="shots/09-claims/02.jpg" alt="Claims › Register" width="1440" height="900" /></a></figure>
+    </li>
+    <li class="step">
+      <div class="step-text">
+        <span class="step-no">09.03</span>
+        <h3>Document checklist by line (motor / non-motor); FLA blocked until complete</h3>
+        <p class="screen">Screen: <b>Claims › Claim detail › Document checklist</b></p>
+      </div>
+      <figure><a href="shots/09-claims/03.jpg" target="_blank" rel="noopener"><img loading="lazy" src="shots/09-claims/03.jpg" alt="Claims › Claim detail › Document checklist" width="1440" height="900" /></a></figure>
+    </li>
+    <li class="step">
+      <div class="step-text">
+        <span class="step-no">09.04</span>
+        <h3>All requirements received: documents complete</h3>
+        <p class="screen">Screen: <b>Claims › Claim detail</b></p>
+      </div>
+      <figure><a href="shots/09-claims/04.jpg" target="_blank" rel="noopener"><img loading="lazy" src="shots/09-claims/04.jpg" alt="Claims › Claim detail" width="1440" height="900" /></a></figure>
+    </li>
+    <li class="step">
+      <div class="step-text">
+        <span class="step-no">09.05</span>
+        <h3>Formal Loss Advice sent to the insurer; adjuster inspection flagged</h3>
+        <p class="screen">Screen: <b>Claims › Claim detail › Send FLA</b></p>
+      </div>
+      <figure><a href="shots/09-claims/05.jpg" target="_blank" rel="noopener"><img loading="lazy" src="shots/09-claims/05.jpg" alt="Claims › Claim detail › Send FLA" width="1440" height="900" /></a></figure>
+    </li>
+    <li class="step">
+      <div class="step-text">
+        <span class="step-no">09.06</span>
+        <h3>Insurer evaluation and offer received</h3>
+        <p class="screen">Screen: <b>Claims › Claim detail › Offer received</b></p>
+      </div>
+      <figure><a href="shots/09-claims/06.jpg" target="_blank" rel="noopener"><img loading="lazy" src="shots/09-claims/06.jpg" alt="Claims › Claim detail › Offer received" width="1440" height="900" /></a></figure>
+    </li>
+    <li class="step">
+      <div class="step-text">
+        <span class="step-no">09.07</span>
+        <h3>Insured contests the offer; re-evaluation loop with the insurer</h3>
+        <p class="screen">Screen: <b>Claims › Claim detail › Contest offer</b></p>
+      </div>
+      <figure><a href="shots/09-claims/07.jpg" target="_blank" rel="noopener"><img loading="lazy" src="shots/09-claims/07.jpg" alt="Claims › Claim detail › Contest offer" width="1440" height="900" /></a></figure>
+    </li>
+    <li class="step">
+      <div class="step-text">
+        <span class="step-no">09.08</span>
+        <h3>Settlement by LOA to casa/dealer or cash requested for approval</h3>
+        <p class="screen">Screen: <b>Claims › Claim detail › Request settlement approval</b></p>
+      </div>
+      <figure><a href="shots/09-claims/08.jpg" target="_blank" rel="noopener"><img loading="lazy" src="shots/09-claims/08.jpg" alt="Claims › Claim detail › Request settlement approval" width="1440" height="900" /></a></figure>
+    </li>
+    <li class="step">
+      <div class="step-text">
+        <span class="step-no">09.09</span>
+        <h3>Approver reviews the settlement</h3>
+        <p class="screen">Screen: <b>Approvals &amp; Audit › Pending</b></p>
+      </div>
+      <figure><a href="shots/09-claims/09.jpg" target="_blank" rel="noopener"><img loading="lazy" src="shots/09-claims/09.jpg" alt="Approvals &amp; Audit › Pending" width="1440" height="900" /></a></figure>
+    </li>
+    <li class="step">
+      <div class="step-text">
+        <span class="step-no">09.10</span>
+        <h3>Settlement approved</h3>
+        <p class="screen">Screen: <b>Approvals &amp; Audit › Approve</b></p>
+      </div>
+      <figure><a href="shots/09-claims/10.jpg" target="_blank" rel="noopener"><img loading="lazy" src="shots/09-claims/10.jpg" alt="Approvals &amp; Audit › Approve" width="1440" height="900" /></a></figure>
+    </li>
+    <li class="step">
+      <div class="step-text">
+        <span class="step-no">09.11</span>
+        <h3>Claim tagged settled / paid, then closed; declination is the alternative exit</h3>
+        <p class="screen">Screen: <b>Claims › Claim detail › Mark settled</b></p>
+      </div>
+      <figure><a href="shots/09-claims/11.jpg" target="_blank" rel="noopener"><img loading="lazy" src="shots/09-claims/11.jpg" alt="Claims › Claim detail › Mark settled" width="1440" height="900" /></a></figure>
+    </li>
+  </ol>
+</section>
+
+<section id="10-case-management" class="process">
+  <header class="process-head">
+    <p class="eyebrow">Process flow 10 · <span class="mono">CASE MANAGEMENT TO BE PROCESS FLOW_07152026.pdf</span></p>
+    <h2>Case Management (To-Be)</h2>
+    <p class="lede">General vs account-related inquiries, positive identification, point-of-contact handling or referral to the fulfilment unit, TAT monitoring and return to CCC.</p>
+    <p class="meta">Personas in this walkthrough: <b>compliance</b></p>
+  </header>
+  <ol class="steps">
+    <li class="step">
+      <div class="step-text">
+        <span class="step-no">10.01</span>
+        <h3>Contact logged: general inquiry (no client) vs account-related concern</h3>
+        <p class="screen">Screen: <b>Customer Servicing › Cases › Log case</b></p>
+      </div>
+      <figure><a href="shots/10-case-management/01.jpg" target="_blank" rel="noopener"><img loading="lazy" src="shots/10-case-management/01.jpg" alt="Customer Servicing › Cases › Log case" width="1440" height="900" /></a></figure>
+    </li>
+    <li class="step">
+      <div class="step-text">
+        <span class="step-no">10.02</span>
+        <h3>General inquiry handled and closed at point of contact</h3>
+        <p class="screen">Screen: <b>Customer Servicing › Cases</b></p>
+      </div>
+      <figure><a href="shots/10-case-management/02.jpg" target="_blank" rel="noopener"><img loading="lazy" src="shots/10-case-management/02.jpg" alt="Customer Servicing › Cases" width="1440" height="900" /></a></figure>
+    </li>
+    <li class="step">
+      <div class="step-text">
+        <span class="step-no">10.03</span>
+        <h3>Account-related concern: positive identification (PID) and routing to the owning unit with a TAT</h3>
+        <p class="screen">Screen: <b>Customer Servicing › Cases › Log case</b></p>
+      </div>
+      <figure><a href="shots/10-case-management/03.jpg" target="_blank" rel="noopener"><img loading="lazy" src="shots/10-case-management/03.jpg" alt="Customer Servicing › Cases › Log case" width="1440" height="900" /></a></figure>
+    </li>
+    <li class="step">
+      <div class="step-text">
+        <span class="step-no">10.04</span>
+        <h3>Case referred to the fulfilment unit; TAT due time computed and past-TAT flagged</h3>
+        <p class="screen">Screen: <b>Customer Servicing › Cases</b></p>
+      </div>
+      <figure><a href="shots/10-case-management/04.jpg" target="_blank" rel="noopener"><img loading="lazy" src="shots/10-case-management/04.jpg" alt="Customer Servicing › Cases" width="1440" height="900" /></a></figure>
+    </li>
+    <li class="step">
+      <div class="step-text">
+        <span class="step-no">10.05</span>
+        <h3>Case returned to the Customer Contact Centre for re-logging with a reason</h3>
+        <p class="screen">Screen: <b>Customer Servicing › Cases › Return to CCC</b></p>
+      </div>
+      <figure><a href="shots/10-case-management/05.jpg" target="_blank" rel="noopener"><img loading="lazy" src="shots/10-case-management/05.jpg" alt="Customer Servicing › Cases › Return to CCC" width="1440" height="900" /></a></figure>
+    </li>
+    <li class="step">
+      <div class="step-text">
+        <span class="step-no">10.06</span>
+        <h3>Case re-logged and back in the open queue</h3>
+        <p class="screen">Screen: <b>Customer Servicing › Cases › Re-log</b></p>
+      </div>
+      <figure><a href="shots/10-case-management/06.jpg" target="_blank" rel="noopener"><img loading="lazy" src="shots/10-case-management/06.jpg" alt="Customer Servicing › Cases › Re-log" width="1440" height="900" /></a></figure>
+    </li>
+  </ol>
+</section>
+
+<section id="11-customer-servicing-facility" class="process">
+  <header class="process-head">
+    <p class="eyebrow">Process flow 11 · <span class="mono">CUSTOMER SERVICING FACILITY - Process Flow.pdf</span></p>
+    <h2>Customer Servicing Facility</h2>
+    <p class="lede">Search by invoice, policy or client name; view policies, invoices and receipts; update contact details.</p>
+    <p class="meta">Personas in this walkthrough: <b>compliance</b></p>
+  </header>
+  <ol class="steps">
+    <li class="step">
+      <div class="step-text">
+        <span class="step-no">11.01</span>
+        <h3>Servicing facility: search by invoice no., policy no. or client name</h3>
+        <p class="screen">Screen: <b>Customer Servicing › Servicing facility</b></p>
+      </div>
+      <figure><a href="shots/11-customer-servicing-facility/01.jpg" target="_blank" rel="noopener"><img loading="lazy" src="shots/11-customer-servicing-facility/01.jpg" alt="Customer Servicing › Servicing facility" width="1440" height="900" /></a></figure>
+    </li>
+    <li class="step">
+      <div class="step-text">
+        <span class="step-no">11.02</span>
+        <h3>Client contact details updated from the facility</h3>
+        <p class="screen">Screen: <b>Customer Servicing › Servicing facility › Update contact</b></p>
+      </div>
+      <figure><a href="shots/11-customer-servicing-facility/02.jpg" target="_blank" rel="noopener"><img loading="lazy" src="shots/11-customer-servicing-facility/02.jpg" alt="Customer Servicing › Servicing facility › Update contact" width="1440" height="900" /></a></figure>
+    </li>
+  </ol>
+</section>
+
+<section id="12-renewal" class="process">
+  <header class="process-head">
+    <p class="eyebrow">Process flow 12 · <span class="mono">RENEWAL (1).pdf</span></p>
+    <h2>Renewal (RMEL)</h2>
+    <p class="lede">Renewal master expiry list 140 days out, sanitation and disposition, initial and final RA letters, client acceptance and renewal placement.</p>
+    <p class="meta">Personas in this walkthrough: <b>renewals</b></p>
+  </header>
+  <ol class="steps">
+    <li class="step">
+      <div class="step-text">
+        <span class="step-no">12.01</span>
+        <h3>RMEL: policies expiring within 140 days, pending sanitation</h3>
+        <p class="screen">Screen: <b>Renewal › Pipeline</b></p>
+      </div>
+      <figure><a href="shots/12-renewal/01.jpg" target="_blank" rel="noopener"><img loading="lazy" src="shots/12-renewal/01.jpg" alt="Renewal › Pipeline" width="1440" height="900" /></a></figure>
+    </li>
+    <li class="step">
+      <div class="step-text">
+        <span class="step-no">12.02</span>
+        <h3>Sanitation: disposition for renewal / remarket / not for renewal (NRNS letter)</h3>
+        <p class="screen">Screen: <b>Renewal › For renewal</b></p>
+      </div>
+      <figure><a href="shots/12-renewal/02.jpg" target="_blank" rel="noopener"><img loading="lazy" src="shots/12-renewal/02.jpg" alt="Renewal › For renewal" width="1440" height="900" /></a></figure>
+    </li>
+    <li class="step">
+      <div class="step-text">
+        <span class="step-no">12.03</span>
+        <h3>Initial renewal advice letter sent 70 days before expiry</h3>
+        <p class="screen">Screen: <b>Renewal › Initial RA</b></p>
+      </div>
+      <figure><a href="shots/12-renewal/03.jpg" target="_blank" rel="noopener"><img loading="lazy" src="shots/12-renewal/03.jpg" alt="Renewal › Initial RA" width="1440" height="900" /></a></figure>
+    </li>
+    <li class="step">
+      <div class="step-text">
+        <span class="step-no">12.04</span>
+        <h3>Final renewal advice letter sent 45 days before expiry</h3>
+        <p class="screen">Screen: <b>Renewal › Final RA</b></p>
+      </div>
+      <figure><a href="shots/12-renewal/04.jpg" target="_blank" rel="noopener"><img loading="lazy" src="shots/12-renewal/04.jpg" alt="Renewal › Final RA" width="1440" height="900" /></a></figure>
+    </li>
+    <li class="step">
+      <div class="step-text">
+        <span class="step-no">12.05</span>
+        <h3>Client accepted: renewal policy enters placement and the e-policy cycle</h3>
+        <p class="screen">Screen: <b>Renewal › Renew → placement</b></p>
+      </div>
+      <figure><a href="shots/12-renewal/05.jpg" target="_blank" rel="noopener"><img loading="lazy" src="shots/12-renewal/05.jpg" alt="Renewal › Renew → placement" width="1440" height="900" /></a></figure>
+    </li>
+  </ol>
+</section>
+
+<section id="13-reinsurance" class="process">
+  <header class="process-head">
+    <p class="eyebrow">Process flow 13 · <span class="mono">RENISURANCE PROCESS FLOW.pdf</span></p>
+    <h2>Reinsurance</h2>
+    <p class="lede">Facultative request with 24-hour acknowledgement and 3-day slip TAT, underwriting information loop, reinsurer security rating, signed slips, closing and debit note; treaties and cessions.</p>
+    <p class="meta">Personas in this walkthrough: <b>ri.officer</b></p>
+  </header>
+  <ol class="steps">
+    <li class="step">
+      <div class="step-text">
+        <span class="step-no">13.01</span>
+        <h3>Facultative placement request from marketing with the risk details</h3>
+        <p class="screen">Screen: <b>Reinsurance › Facultative placements › Request</b></p>
+      </div>
+      <figure><a href="shots/13-reinsurance/01.jpg" target="_blank" rel="noopener"><img loading="lazy" src="shots/13-reinsurance/01.jpg" alt="Reinsurance › Facultative placements › Request" width="1440" height="900" /></a></figure>
+    </li>
+    <li class="step">
+      <div class="step-text">
+        <span class="step-no">13.02</span>
+        <h3>Request logged; acknowledgement due within 24 hours (TAT flag)</h3>
+        <p class="screen">Screen: <b>Reinsurance › Facultative placements</b></p>
+      </div>
+      <figure><a href="shots/13-reinsurance/02.jpg" target="_blank" rel="noopener"><img loading="lazy" src="shots/13-reinsurance/02.jpg" alt="Reinsurance › Facultative placements" width="1440" height="900" /></a></figure>
+    </li>
+    <li class="step">
+      <div class="step-text">
+        <span class="step-no">13.03</span>
+        <h3>Acknowledged; slip due within 3 working days</h3>
+        <p class="screen">Screen: <b>Reinsurance › Acknowledge</b></p>
+      </div>
+      <figure><a href="shots/13-reinsurance/03.jpg" target="_blank" rel="noopener"><img loading="lazy" src="shots/13-reinsurance/03.jpg" alt="Reinsurance › Acknowledge" width="1440" height="900" /></a></figure>
+    </li>
+    <li class="step">
+      <div class="step-text">
+        <span class="step-no">13.04</span>
+        <h3>Slip: reinsurers approached with security rating, share and signed-slip evidence</h3>
+        <p class="screen">Screen: <b>Reinsurance › Prepare slip</b></p>
+      </div>
+      <figure><a href="shots/13-reinsurance/04.jpg" target="_blank" rel="noopener"><img loading="lazy" src="shots/13-reinsurance/04.jpg" alt="Reinsurance › Prepare slip" width="1440" height="900" /></a></figure>
+    </li>
+    <li class="step">
+      <div class="step-text">
+        <span class="step-no">13.05</span>
+        <h3>Closing: placement closed and debit note issued to the cedant</h3>
+        <p class="screen">Screen: <b>Reinsurance › Close &amp; debit note</b></p>
+      </div>
+      <figure><a href="shots/13-reinsurance/05.jpg" target="_blank" rel="noopener"><img loading="lazy" src="shots/13-reinsurance/05.jpg" alt="Reinsurance › Close &amp; debit note" width="1440" height="900" /></a></figure>
+    </li>
+    <li class="step">
+      <div class="step-text">
+        <span class="step-no">13.06</span>
+        <h3>Treaty register and cessions with capacity monitoring</h3>
+        <p class="screen">Screen: <b>Reinsurance › Treaties &amp; cessions</b></p>
+      </div>
+      <figure><a href="shots/13-reinsurance/06.jpg" target="_blank" rel="noopener"><img loading="lazy" src="shots/13-reinsurance/06.jpg" alt="Reinsurance › Treaties &amp; cessions" width="1440" height="900" /></a></figure>
+    </li>
+  </ol>
+</section>
+
+<section id="14-submitted-policies" class="process">
+  <header class="process-head">
+    <p class="eyebrow">Process flow 14 · <span class="mono">Submitted Policies_Process Flow.pdf</span></p>
+    <h2>Submitted Policies</h2>
+    <p class="lede">Masterlist validation, matching and consolidation, adequacy review with IAAF findings, and hand-off to sanitation 150 days from expiry.</p>
+    <p class="meta">Personas in this walkthrough: <b>accountant</b></p>
+  </header>
+  <ol class="steps">
+    <li class="step">
+      <div class="step-text">
+        <span class="step-no">14.01</span>
+        <h3>Masterlist upload from the bank / insurer for validation and matching</h3>
+        <p class="screen">Screen: <b>Submitted Policies › Masterlist batches</b></p>
+      </div>
+      <figure><a href="shots/14-submitted-policies/01.jpg" target="_blank" rel="noopener"><img loading="lazy" src="shots/14-submitted-policies/01.jpg" alt="Submitted Policies › Masterlist batches" width="1440" height="900" /></a></figure>
+    </li>
+    <li class="step">
+      <div class="step-text">
+        <span class="step-no">14.02</span>
+        <h3>Rows validated, matched and consolidated; each reviewed for adequacy</h3>
+        <p class="screen">Screen: <b>Submitted Policies › Masterlist batches › Run pipeline</b></p>
+      </div>
+      <figure><a href="shots/14-submitted-policies/02.jpg" target="_blank" rel="noopener"><img loading="lazy" src="shots/14-submitted-policies/02.jpg" alt="Submitted Policies › Masterlist batches › Run pipeline" width="1440" height="900" /></a></figure>
+    </li>
+    <li class="step">
+      <div class="step-text">
+        <span class="step-no">14.03</span>
+        <h3>Findings recorded and an Insurance Adequacy Assessment Form (IAAF) issued</h3>
+        <p class="screen">Screen: <b>Submitted Policies › Findings → IAAF</b></p>
+      </div>
+      <figure><a href="shots/14-submitted-policies/03.jpg" target="_blank" rel="noopener"><img loading="lazy" src="shots/14-submitted-policies/03.jpg" alt="Submitted Policies › Findings → IAAF" width="1440" height="900" /></a></figure>
+    </li>
+    <li class="step">
+      <div class="step-text">
+        <span class="step-no">14.04</span>
+        <h3>Policies 150 days from expiry sent to the sanitation handler for renewal / conversion opportunity</h3>
+        <p class="screen">Screen: <b>Submitted Policies › Expiring (150 days)</b></p>
+      </div>
+      <figure><a href="shots/14-submitted-policies/04.jpg" target="_blank" rel="noopener"><img loading="lazy" src="shots/14-submitted-policies/04.jpg" alt="Submitted Policies › Expiring (150 days)" width="1440" height="900" /></a></figure>
+    </li>
+  </ol>
+</section>
+
+<section id="15-employee-benefits" class="process">
+  <header class="process-head">
+    <p class="eyebrow">Process flow 15 · <span class="mono">EMPLOYEE BENEFITS - Process Flow.pdf</span></p>
+    <h2>Employee Benefits</h2>
+    <p class="lede">Renewal advice, BOR, TOR with master list and utilisation released to insurers, comparative analysis, award with ISACOM for non-accredited providers, handoff.</p>
+    <p class="meta">Personas in this walkthrough: <b>eb.officer</b></p>
+  </header>
+  <ol class="steps">
+    <li class="step">
+      <div class="step-text">
+        <span class="step-no">15.01</span>
+        <h3>Prospect scheme created from the renewal advice</h3>
+        <p class="screen">Screen: <b>Employee Benefits › Create scheme</b></p>
+      </div>
+      <figure><a href="shots/15-employee-benefits/01.jpg" target="_blank" rel="noopener"><img loading="lazy" src="shots/15-employee-benefits/01.jpg" alt="Employee Benefits › Create scheme" width="1440" height="900" /></a></figure>
+    </li>
+    <li class="step">
+      <div class="step-text">
+        <span class="step-no">15.02</span>
+        <h3>Broker of Record received, Terms of Reference prepared, member census uploaded</h3>
+        <p class="screen">Screen: <b>Employee Benefits › Scheme detail</b></p>
+      </div>
+      <figure><a href="shots/15-employee-benefits/02.jpg" target="_blank" rel="noopener"><img loading="lazy" src="shots/15-employee-benefits/02.jpg" alt="Employee Benefits › Scheme detail" width="1440" height="900" /></a></figure>
+    </li>
+    <li class="step">
+      <div class="step-text">
+        <span class="step-no">15.03</span>
+        <h3>TOR, master list and utilisation released to insurers (franchise)</h3>
+        <p class="screen">Screen: <b>Employee Benefits › Release TOR to insurers</b></p>
+      </div>
+      <figure><a href="shots/15-employee-benefits/03.jpg" target="_blank" rel="noopener"><img loading="lazy" src="shots/15-employee-benefits/03.jpg" alt="Employee Benefits › Release TOR to insurers" width="1440" height="900" /></a></figure>
+    </li>
+    <li class="step">
+      <div class="step-text">
+        <span class="step-no">15.04</span>
+        <h3>Comparative analysis of proposals: premium, benefits and capabilities</h3>
+        <p class="screen">Screen: <b>Employee Benefits › Proposals</b></p>
+      </div>
+      <figure><a href="shots/15-employee-benefits/04.jpg" target="_blank" rel="noopener"><img loading="lazy" src="shots/15-employee-benefits/04.jpg" alt="Employee Benefits › Proposals" width="1440" height="900" /></a></figure>
+    </li>
+    <li class="step">
+      <div class="step-text">
+        <span class="step-no">15.05</span>
+        <h3>Client confirmation and award; ISACOM approval when the provider is not accredited; handoff to processing and collections</h3>
+        <p class="screen">Screen: <b>Employee Benefits › Award</b></p>
+      </div>
+      <figure><a href="shots/15-employee-benefits/05.jpg" target="_blank" rel="noopener"><img loading="lazy" src="shots/15-employee-benefits/05.jpg" alt="Employee Benefits › Award" width="1440" height="900" /></a></figure>
+    </li>
+  </ol>
+</section>
+
+<section id="16-product-maintenance-tsu" class="process">
+  <header class="process-head">
+    <p class="eyebrow">Process flow 16 · <span class="mono">PRODUCT MAINTENANCE TSU PROCESS_0709.pdf</span></p>
+    <h2>Product Maintenance (TSU)</h2>
+    <p class="lede">Technical Services Unit request for non-packaged risks: completeness and duplicate check, quotation slip, TL approval, RI referral, insurer responses, comparative table and proposal slip; package maintenance with release advisory.</p>
+    <p class="meta">Personas in this walkthrough: <b>admin → uw.head</b></p>
+  </header>
+  <ol class="steps">
+    <li class="step">
+      <div class="step-text">
+        <span class="step-no">16.01</span>
+        <h3>PRF / TSU request for a non-packaged risk with completeness and duplicate check</h3>
+        <p class="screen">Screen: <b>Product Maintenance › TSU requests › Submit</b></p>
+      </div>
+      <figure><a href="shots/16-product-maintenance-tsu/01.jpg" target="_blank" rel="noopener"><img loading="lazy" src="shots/16-product-maintenance-tsu/01.jpg" alt="Product Maintenance › TSU requests › Submit" width="1440" height="900" /></a></figure>
+    </li>
+    <li class="step">
+      <div class="step-text">
+        <span class="step-no">16.02</span>
+        <h3>TSU acknowledges the request (or returns it as incomplete)</h3>
+        <p class="screen">Screen: <b>Product Maintenance › TSU requests › Acknowledge</b></p>
+      </div>
+      <figure><a href="shots/16-product-maintenance-tsu/02.jpg" target="_blank" rel="noopener"><img loading="lazy" src="shots/16-product-maintenance-tsu/02.jpg" alt="Product Maintenance › TSU requests › Acknowledge" width="1440" height="900" /></a></figure>
+    </li>
+    <li class="step">
+      <div class="step-text">
+        <span class="step-no">16.03</span>
+        <h3>Quotation slip prepared and approved by the TL</h3>
+        <p class="screen">Screen: <b>Product Maintenance › TSU detail › TL approve QS</b></p>
+      </div>
+      <figure><a href="shots/16-product-maintenance-tsu/03.jpg" target="_blank" rel="noopener"><img loading="lazy" src="shots/16-product-maintenance-tsu/03.jpg" alt="Product Maintenance › TSU detail › TL approve QS" width="1440" height="900" /></a></figure>
+    </li>
+    <li class="step">
+      <div class="step-text">
+        <span class="step-no">16.04</span>
+        <h3>RI referral cleared; quotation slip sent to insurers</h3>
+        <p class="screen">Screen: <b>Product Maintenance › TSU detail › Send QS to insurers</b></p>
+      </div>
+      <figure><a href="shots/16-product-maintenance-tsu/04.jpg" target="_blank" rel="noopener"><img loading="lazy" src="shots/16-product-maintenance-tsu/04.jpg" alt="Product Maintenance › TSU detail › Send QS to insurers" width="1440" height="900" /></a></figure>
+    </li>
+    <li class="step">
+      <div class="step-text">
+        <span class="step-no">16.05</span>
+        <h3>Insurer responses recorded (accepted with evidence / declined / conditional); comparative table ready</h3>
+        <p class="screen">Screen: <b>Product Maintenance › TSU detail › Comparative table</b></p>
+      </div>
+      <figure><a href="shots/16-product-maintenance-tsu/05.jpg" target="_blank" rel="noopener"><img loading="lazy" src="shots/16-product-maintenance-tsu/05.jpg" alt="Product Maintenance › TSU detail › Comparative table" width="1440" height="900" /></a></figure>
+    </li>
+    <li class="step">
+      <div class="step-text">
+        <span class="step-no">16.06</span>
+        <h3>Proposal slip approved with the selected insurer; released to marketing and the client</h3>
+        <p class="screen">Screen: <b>Product Maintenance › TSU detail › Approve proposal slip</b></p>
+      </div>
+      <figure><a href="shots/16-product-maintenance-tsu/06.jpg" target="_blank" rel="noopener"><img loading="lazy" src="shots/16-product-maintenance-tsu/06.jpg" alt="Product Maintenance › TSU detail › Approve proposal slip" width="1440" height="900" /></a></figure>
+    </li>
+    <li class="step">
+      <div class="step-text">
+        <span class="step-no">16.07</span>
+        <h3>Packaged product catalogue with rates, taxes and limits</h3>
+        <p class="screen">Screen: <b>Product Maintenance › Packages</b></p>
+      </div>
+      <figure><a href="shots/16-product-maintenance-tsu/07.jpg" target="_blank" rel="noopener"><img loading="lazy" src="shots/16-product-maintenance-tsu/07.jpg" alt="Product Maintenance › Packages" width="1440" height="900" /></a></figure>
+    </li>
+    <li class="step">
+      <div class="step-text">
+        <span class="step-no">16.08</span>
+        <h3>Package maintenance request raised for validation and approval</h3>
+        <p class="screen">Screen: <b>Product Maintenance › Packages › Change request</b></p>
+      </div>
+      <figure><a href="shots/16-product-maintenance-tsu/08.jpg" target="_blank" rel="noopener"><img loading="lazy" src="shots/16-product-maintenance-tsu/08.jpg" alt="Product Maintenance › Packages › Change request" width="1440" height="900" /></a></figure>
+    </li>
+    <li class="step">
+      <div class="step-text">
+        <span class="step-no">16.09</span>
+        <h3>Approver validates the product change</h3>
+        <p class="screen">Screen: <b>Approvals &amp; Audit › Pending</b></p>
+      </div>
+      <figure><a href="shots/16-product-maintenance-tsu/09.jpg" target="_blank" rel="noopener"><img loading="lazy" src="shots/16-product-maintenance-tsu/09.jpg" alt="Approvals &amp; Audit › Pending" width="1440" height="900" /></a></figure>
+    </li>
+    <li class="step">
+      <div class="step-text">
+        <span class="step-no">16.10</span>
+        <h3>Change applied and a release advisory published</h3>
+        <p class="screen">Screen: <b>Approvals &amp; Audit › Approve</b></p>
+      </div>
+      <figure><a href="shots/16-product-maintenance-tsu/10.jpg" target="_blank" rel="noopener"><img loading="lazy" src="shots/16-product-maintenance-tsu/10.jpg" alt="Approvals &amp; Audit › Approve" width="1440" height="900" /></a></figure>
+    </li>
+    <li class="step">
+      <div class="step-text">
+        <span class="step-no">16.11</span>
+        <h3>Insurer panel with accreditation and SFTP enrolment for placement channels</h3>
+        <p class="screen">Screen: <b>Product Maintenance › Insurers</b></p>
+      </div>
+      <figure><a href="shots/16-product-maintenance-tsu/11.jpg" target="_blank" rel="noopener"><img loading="lazy" src="shots/16-product-maintenance-tsu/11.jpg" alt="Product Maintenance › Insurers" width="1440" height="900" /></a></figure>
+    </li>
+  </ol>
+</section>
+  <footer>Source flows: <span class="mono">docs/process-flows/*.pdf</span> · conformance matrix: <span class="mono">docs/process-conformance.md</span> · regenerate with <span class="mono">npm run walkthrough</span>.</footer>
+</div>

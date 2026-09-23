@@ -22,7 +22,8 @@
     "quality": "node scripts/quality-gate.mjs",
     "coverage": "npm run coverage -w shared && npm run coverage -w server && npm run coverage -w web",
     "setup": "node scripts/setup-db.mjs && npm run db:reset",
-    "start": "node server/dist/index.js"
+    "start": "node server/dist/index.js",
+    "walkthrough": "node e2e/walkthrough.mjs && node scripts/build-walkthrough.mjs"
   },
   "devDependencies": {
     "@eslint/js": "^9.17.0",

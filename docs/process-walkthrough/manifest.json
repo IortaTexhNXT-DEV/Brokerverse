@@ -1,0 +1,942 @@
+{
+  "generatedAt": "2026-09-23T00:38:46.856Z",
+  "processes": [
+    {
+      "id": "01-bdoir-e2e",
+      "title": "BDOIR End-to-End",
+      "pdf": "BDOIR E2E PROCESS FLOW.pdf",
+      "persona": "admin",
+      "summary": "The umbrella flow that chains new business, cashiering, collections, remittance, disbursement, the general ledger, renewal and claims. Each link is captured in detail in its own process below; these screens show the control points that tie the chain together.",
+      "steps": [
+        {
+          "n": "01",
+          "step": "Executive dashboard: KPIs across the whole chain (in force, in placement, unapplied payments, pending approvals, disbursements in flight, past-TAT requests)",
+          "screen": "Dashboard",
+          "note": "",
+          "file": "shots/01-bdoir-e2e/01.jpg"
+        },
+        {
+          "n": "02",
+          "step": "Single maker-checker queue for bookings, endorsements, journals, disbursements, CTE, claim settlements, EB awards and product changes",
+          "screen": "Approvals & Audit › All",
+          "note": "",
+          "file": "shots/01-bdoir-e2e/02.jpg"
+        },
+        {
+          "n": "03",
+          "step": "Production, collection and claims reports with CSV export",
+          "screen": "Reports & Analytics",
+          "note": "",
+          "file": "shots/01-bdoir-e2e/03.jpg"
+        },
+        {
+          "n": "04",
+          "step": "Client onboarding with sanctions screening, PEP flag and risk tiering feeding every process",
+          "screen": "Sanction Screening & Risk",
+          "note": "",
+          "file": "shots/01-bdoir-e2e/04.jpg"
+        },
+        {
+          "n": "05",
+          "step": "Twelve personas with module entitlements and approver rights (segregation of duties)",
+          "screen": "User Access Maintenance",
+          "note": "",
+          "file": "shots/01-bdoir-e2e/05.jpg"
+        },
+        {
+          "n": "06",
+          "step": "Legacy data migration batches with load, reconciliation and disposition",
+          "screen": "Data Migration",
+          "note": "",
+          "file": "shots/01-bdoir-e2e/06.jpg"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "id": "02-new-business",
+      "title": "New Business",
+      "pdf": "NEW BUSINESS.pdf",
+      "persona": "nb.officer → uw.head",
+      "summary": "Client creation and screening, quotation, proposal, placement to the insurer, e-policy and booking under maker-checker.",
+      "steps": [
+        {
+          "n": "01",
+          "step": "MAO creates the client in Broker; KYC details captured",
+          "screen": "Sanction Screening & Risk › New client form",
+          "note": "",
+          "file": "shots/02-new-business/01.jpg"
+        },
+        {
+          "n": "02",
+          "step": "Client is sanction-screened automatically (clear / hit) and risk-tiered",
+          "screen": "Sanction Screening & Risk › Client register",
+          "note": "Screening result and CDD level shown on the row",
+          "file": "shots/02-new-business/02.jpg"
+        },
+        {
+          "n": "03",
+          "step": "Quotation prepared with the rating engine (premium, VAT, DST, LGT, commission)",
+          "screen": "New Business › Quotations & proposals › New quotation form",
+          "note": "",
+          "file": "shots/02-new-business/03.jpg"
+        },
+        {
+          "n": "04",
+          "step": "Quotation created (status: quoted); hold cover can be requested from the insurer",
+          "screen": "New Business › Quotations & proposals",
+          "note": "",
+          "file": "shots/02-new-business/04.jpg"
+        },
+        {
+          "n": "05",
+          "step": "Proposal sent to the client by email (status: proposal sent)",
+          "screen": "New Business › Quotations & proposals › Send proposal",
+          "note": "",
+          "file": "shots/02-new-business/05.jpg"
+        },
+        {
+          "n": "06",
+          "step": "Client acceptance recorded (Y); a decline with reason is the N branch",
+          "screen": "New Business › Quotations & proposals › Client accepted",
+          "note": "",
+          "file": "shots/02-new-business/06.jpg"
+        },
+        {
+          "n": "07",
+          "step": "Placement requested: placement slip goes to the insurer via SFTP or email",
+          "screen": "New Business › Policy drawer (placement requested)",
+          "note": "",
+          "file": "shots/02-new-business/07.jpg"
+        },
+        {
+          "n": "08",
+          "step": "Placement board tracks slips awaiting the insurer, returns and e-policies",
+          "screen": "New Business › Placement",
+          "note": "",
+          "file": "shots/02-new-business/08.jpg"
+        },
+        {
+          "n": "09",
+          "step": "Insurer placed the risk; e-policy received (COG via SFTP or PO email)",
+          "screen": "New Business › Placement › Placed / e-policy received",
+          "note": "",
+          "file": "shots/02-new-business/09.jpg"
+        },
+        {
+          "n": "10",
+          "step": "Booking and invoicing raised for checker approval (maker-checker)",
+          "screen": "New Business › Placement › Book & invoice",
+          "note": "",
+          "file": "shots/02-new-business/10.jpg"
+        },
+        {
+          "n": "11",
+          "step": "Underwriting Head (checker) reviews the booking request",
+          "screen": "Approvals & Audit › Pending",
+          "note": "",
+          "file": "shots/02-new-business/11.jpg"
+        },
+        {
+          "n": "12",
+          "step": "Booking approved: invoice, journal and e-policy dispatch are posted automatically",
+          "screen": "Approvals & Audit › Approve",
+          "note": "",
+          "file": "shots/02-new-business/12.jpg"
+        },
+        {
+          "n": "13",
+          "step": "Policy register: the policy is in force with its invoice and e-policy channel",
+          "screen": "New Business › Policies",
+          "note": "",
+          "file": "shots/02-new-business/13.jpg"
+        },
+        {
+          "n": "14",
+          "step": "Policy detail: placement history, e-policy status and the exception route to the contact centre",
+          "screen": "New Business › Policies › Policy detail",
+          "note": "",
+          "file": "shots/02-new-business/14.jpg"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "id": "03-operations",
+      "title": "Operations",
+      "pdf": "OPERATIONS PROCESS FLOW.pdf",
+      "persona": "cashier → checker",
+      "summary": "Cashiering channels, post-dated cheque hold, unapplied premium, direct payments with commission receivables, adjustments and production reconciliation.",
+      "steps": [
+        {
+          "n": "01",
+          "step": "Cashiering: open invoices (premium receivables) awaiting payment",
+          "screen": "Operations › Invoices & cashiering",
+          "note": "",
+          "file": "shots/03-operations/01.jpg"
+        },
+        {
+          "n": "02",
+          "step": "Receive payment: channel (bills payment, OTC cash/cheque, batch files, autopay) and reference",
+          "screen": "Operations › Invoices & cashiering › Receive",
+          "note": "",
+          "file": "shots/03-operations/02.jpg"
+        },
+        {
+          "n": "03",
+          "step": "Cheque payment recorded and held for the 4-day clearing period",
+          "screen": "Operations › Receive › Record payment",
+          "note": "",
+          "file": "shots/03-operations/03.jpg"
+        },
+        {
+          "n": "04",
+          "step": "PDC register: held cheques, matured, bounced (exclusion list) and unapplied premium",
+          "screen": "Operations › Payments / PDC / UPP",
+          "note": "",
+          "file": "shots/03-operations/04.jpg"
+        },
+        {
+          "n": "05",
+          "step": "Held cheque shows Matured / Bounced actions once the 4-day hold lapses",
+          "screen": "Operations › Payments / PDC / UPP › Held cheque",
+          "note": "",
+          "file": "shots/03-operations/05.jpg"
+        },
+        {
+          "n": "06",
+          "step": "Cash / bills payment applied in full: official receipt issued and receivable cleared",
+          "screen": "Operations › Receive › Official receipt",
+          "note": "",
+          "file": "shots/03-operations/06.jpg"
+        },
+        {
+          "n": "07",
+          "step": "Payment with zero PR / payment greater than PR is recorded without an invoice",
+          "screen": "Operations › Invoices & cashiering › Payment without invoice",
+          "note": "",
+          "file": "shots/03-operations/07.jpg"
+        },
+        {
+          "n": "08",
+          "step": "The amount sits in Unapplied Premium (GL 2400) until applied to an invoice",
+          "screen": "Operations › Payments / PDC / UPP",
+          "note": "",
+          "file": "shots/03-operations/08.jpg"
+        },
+        {
+          "n": "09",
+          "step": "Direct payment to insurer identified for a booked policy",
+          "screen": "Operations › Direct payments › Identify",
+          "note": "",
+          "file": "shots/03-operations/09.jpg"
+        },
+        {
+          "n": "10",
+          "step": "Commission receivable (GL 1250) billed to the insurer; follow-up until collected",
+          "screen": "Operations › Direct payments › Bill insurer",
+          "note": "",
+          "file": "shots/03-operations/10.jpg"
+        },
+        {
+          "n": "11",
+          "step": "Commission collected: commission official receipt issued",
+          "screen": "Operations › Direct payments › Collect (commission OR)",
+          "note": "",
+          "file": "shots/03-operations/11.jpg"
+        },
+        {
+          "n": "12",
+          "step": "Adjustment / cancellation validated by the Adjustment Team and routed to the checker-poster",
+          "screen": "Operations › Adjustments › Endorsement form",
+          "note": "",
+          "file": "shots/03-operations/12.jpg"
+        },
+        {
+          "n": "13",
+          "step": "Endorsement pending checker approval; a refund creates a Refund Request Form (RRF) on approval",
+          "screen": "Operations › Adjustments",
+          "note": "",
+          "file": "shots/03-operations/13.jpg"
+        },
+        {
+          "n": "14",
+          "step": "Production reconciliation: insurer production file matched against booked policies",
+          "screen": "Operations › Production recon › Upload",
+          "note": "",
+          "file": "shots/03-operations/14.jpg"
+        },
+        {
+          "n": "15",
+          "step": "Rows classified as matched, with discrepancies, or unbooked; each gets a disposition",
+          "screen": "Operations › Production recon › Result",
+          "note": "",
+          "file": "shots/03-operations/15.jpg"
+        },
+        {
+          "n": "16",
+          "step": "Checker-poster reviews the endorsement",
+          "screen": "Approvals & Audit › Pending",
+          "note": "",
+          "file": "shots/03-operations/16.jpg"
+        },
+        {
+          "n": "17",
+          "step": "Endorsement posted: premium and commission reversed, RRF raised for the refund",
+          "screen": "Approvals & Audit › Approve",
+          "note": "",
+          "file": "shots/03-operations/17.jpg"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "id": "04-marketing-collections",
+      "title": "Marketing Collections",
+      "pdf": "MARKETING COLLECTIONS - Process Flow.pdf",
+      "persona": "collections → fin.head",
+      "summary": "Premium receivable list by stage, marketing diary, credit-term extension under approval and statement of account.",
+      "steps": [
+        {
+          "n": "01",
+          "step": "PR list: newly booked accounts to collect within 10–15 days; ageing and collection stage per invoice",
+          "screen": "Collections › Outstanding premium",
+          "note": "",
+          "file": "shots/04-marketing-collections/01.jpg"
+        },
+        {
+          "n": "02",
+          "step": "Statement of account sent to the client",
+          "screen": "Collections › SOA",
+          "note": "",
+          "file": "shots/04-marketing-collections/02.jpg"
+        },
+        {
+          "n": "03",
+          "step": "Marketing diary: when / where / how / what of each collection effort, commitment date and arrangement",
+          "screen": "Collections › Log effort",
+          "note": "",
+          "file": "shots/04-marketing-collections/03.jpg"
+        },
+        {
+          "n": "04",
+          "step": "Commitment beyond the 60-day credit term: MAO informed, tagged as committed",
+          "screen": "Collections › Outstanding premium",
+          "note": "",
+          "file": "shots/04-marketing-collections/04.jpg"
+        },
+        {
+          "n": "05",
+          "step": "Credit-term extension (CTE) requested for Unit Head approval",
+          "screen": "Collections › CTE",
+          "note": "",
+          "file": "shots/04-marketing-collections/05.jpg"
+        },
+        {
+          "n": "06",
+          "step": "Effort diary per invoice with category tagging",
+          "screen": "Collections › Diary",
+          "note": "",
+          "file": "shots/04-marketing-collections/06.jpg"
+        },
+        {
+          "n": "07",
+          "step": "Unit / Finance Head reviews the CTE request",
+          "screen": "Approvals & Audit › Pending",
+          "note": "",
+          "file": "shots/04-marketing-collections/07.jpg"
+        },
+        {
+          "n": "08",
+          "step": "CTE approved: due date extended and account stays within term",
+          "screen": "Approvals & Audit › Approve",
+          "note": "",
+          "file": "shots/04-marketing-collections/08.jpg"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "id": "05-frbs-accounting",
+      "title": "FRBS Accounting",
+      "pdf": "FRBS - ACCOUNTING.pdf",
+      "persona": "accountant → fin.head",
+      "summary": "Chart of accounts, system-generated journals, manual entries under review, trial balance, period and year-end closing.",
+      "steps": [
+        {
+          "n": "01",
+          "step": "System-generated journals (booking, receipts, commissions) and manual entry form routed to the TL for posting",
+          "screen": "Accounting & Disbursement › Journals",
+          "note": "",
+          "file": "shots/05-frbs-accounting/01.jpg"
+        },
+        {
+          "n": "02",
+          "step": "Trial balance and financial reports generated from the ledger",
+          "screen": "Accounting & Disbursement › Trial balance",
+          "note": "",
+          "file": "shots/05-frbs-accounting/02.jpg"
+        },
+        {
+          "n": "03",
+          "step": "EOD / EOM / EOY: period close and reopen, fiscal-year close to retained earnings",
+          "screen": "Accounting & Disbursement › Periods & year-end",
+          "note": "",
+          "file": "shots/05-frbs-accounting/03.jpg"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "id": "06-disbursement",
+      "title": "Disbursement",
+      "pdf": "DISBURSEMENT.pdf",
+      "persona": "accountant → admin (reviewer) → fin.head → accountant",
+      "summary": "Disbursement chain DPO → DTL → DSH → DUH with segregation of duties, payment posting and confirmation email; weekly remittance to insurers.",
+      "steps": [
+        {
+          "n": "01",
+          "step": "Weekly remittance extract of applied payments per insurer, sanitised and submitted to Disbursement",
+          "screen": "Accounting & Disbursement › Remittances",
+          "note": "",
+          "file": "shots/06-disbursement/01.jpg"
+        },
+        {
+          "n": "02",
+          "step": "Disbursement request (DPO) with payee, amount, mode and bank details",
+          "screen": "Accounting & Disbursement › Disbursements › Request",
+          "note": "",
+          "file": "shots/06-disbursement/02.jpg"
+        },
+        {
+          "n": "03",
+          "step": "Request awaits a reviewer other than the maker (segregation of duties)",
+          "screen": "Accounting & Disbursement › Disbursements",
+          "note": "",
+          "file": "shots/06-disbursement/03.jpg"
+        },
+        {
+          "n": "04",
+          "step": "Team lead review (DTL) OK; routed to the Finance Head for approval",
+          "screen": "Accounting & Disbursement › Disbursements › Review OK",
+          "note": "",
+          "file": "shots/06-disbursement/04.jpg"
+        },
+        {
+          "n": "05",
+          "step": "Finance Head (DSH / DUH) reviews the voucher",
+          "screen": "Approvals & Audit › Pending",
+          "note": "",
+          "file": "shots/06-disbursement/05.jpg"
+        },
+        {
+          "n": "06",
+          "step": "Approved; ready for payment",
+          "screen": "Approvals & Audit › Approve",
+          "note": "",
+          "file": "shots/06-disbursement/06.jpg"
+        },
+        {
+          "n": "07",
+          "step": "Payment posted with cheque reference; status tagged paid and confirmation email sent",
+          "screen": "Accounting & Disbursement › Disbursements › Pay",
+          "note": "",
+          "file": "shots/06-disbursement/07.jpg"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "id": "07-refund-request",
+      "title": "Refund Request",
+      "pdf": "REFUND REQUEST.pdf",
+      "persona": "accountant (TL) → fin.head (UH)",
+      "summary": "Refund Request Form raised from a cancellation, TL review, Unit Head sign-off and hand-off to the disbursement chain.",
+      "steps": [
+        {
+          "n": "01",
+          "step": "RRF register: refund raised by the endorsement with amount, mode and reason",
+          "screen": "Accounting & Disbursement › Refund requests",
+          "note": "",
+          "file": "shots/07-refund-request/01.jpg"
+        },
+        {
+          "n": "02",
+          "step": "Marketing TL reviews the RRF",
+          "screen": "Accounting & Disbursement › Refund requests › TL review OK",
+          "note": "",
+          "file": "shots/07-refund-request/02.jpg"
+        },
+        {
+          "n": "03",
+          "step": "Unit Head sign-off: a disbursement request is created for the refund",
+          "screen": "Accounting & Disbursement › Refund requests › UH approve",
+          "note": "",
+          "file": "shots/07-refund-request/03.jpg"
+        },
+        {
+          "n": "04",
+          "step": "Refund enters the disbursement chain (review → approve → pay)",
+          "screen": "Accounting & Disbursement › Disbursements",
+          "note": "",
+          "file": "shots/07-refund-request/04.jpg"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "id": "08-acsl",
+      "title": "ACSL (Insurer SOA reconciliation)",
+      "pdf": "ACSL.pdf",
+      "persona": "accountant → fin.head",
+      "summary": "Insurer statement of account reconciled against the ledger; abnormal balances raise adjustment entries reviewed by the TL and posted by the FRBS approver.",
+      "steps": [
+        {
+          "n": "01",
+          "step": "Insurer SOA lines captured against the ledger",
+          "screen": "Accounting & Disbursement › ACSL / SOA recon",
+          "note": "",
+          "file": "shots/08-acsl/01.jpg"
+        },
+        {
+          "n": "02",
+          "step": "Variances flagged (abnormal balances, unknown items) for manual subsidiary-ledger adjustment",
+          "screen": "Accounting & Disbursement › ACSL / SOA recon › Result",
+          "note": "",
+          "file": "shots/08-acsl/02.jpg"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "id": "09-claims",
+      "title": "Claims",
+      "pdf": "CLAIMS PROCESS FLOW.pdf",
+      "persona": "claims → fin.head",
+      "summary": "Notice of loss, PLA, document checklist, FLA to the insurer, evaluation and offer, contest loop, settlement approval and closure.",
+      "steps": [
+        {
+          "n": "01",
+          "step": "Notice of loss registered against the policy (Claims Acceptance Control checks premium status)",
+          "screen": "Claims › Register",
+          "note": "",
+          "file": "shots/09-claims/01.jpg"
+        },
+        {
+          "n": "02",
+          "step": "Preliminary Loss Advice (PLA) sent; claim opened with reserve",
+          "screen": "Claims › Register",
+          "note": "",
+          "file": "shots/09-claims/02.jpg"
+        },
+        {
+          "n": "03",
+          "step": "Document checklist by line (motor / non-motor); FLA blocked until complete",
+          "screen": "Claims › Claim detail › Document checklist",
+          "note": "",
+          "file": "shots/09-claims/03.jpg"
+        },
+        {
+          "n": "04",
+          "step": "All requirements received: documents complete",
+          "screen": "Claims › Claim detail",
+          "note": "",
+          "file": "shots/09-claims/04.jpg"
+        },
+        {
+          "n": "05",
+          "step": "Formal Loss Advice sent to the insurer; adjuster inspection flagged",
+          "screen": "Claims › Claim detail › Send FLA",
+          "note": "",
+          "file": "shots/09-claims/05.jpg"
+        },
+        {
+          "n": "06",
+          "step": "Insurer evaluation and offer received",
+          "screen": "Claims › Claim detail › Offer received",
+          "note": "",
+          "file": "shots/09-claims/06.jpg"
+        },
+        {
+          "n": "07",
+          "step": "Insured contests the offer; re-evaluation loop with the insurer",
+          "screen": "Claims › Claim detail › Contest offer",
+          "note": "",
+          "file": "shots/09-claims/07.jpg"
+        },
+        {
+          "n": "08",
+          "step": "Settlement by LOA to casa/dealer or cash requested for approval",
+          "screen": "Claims › Claim detail › Request settlement approval",
+          "note": "",
+          "file": "shots/09-claims/08.jpg"
+        },
+        {
+          "n": "09",
+          "step": "Approver reviews the settlement",
+          "screen": "Approvals & Audit › Pending",
+          "note": "",
+          "file": "shots/09-claims/09.jpg"
+        },
+        {
+          "n": "10",
+          "step": "Settlement approved",
+          "screen": "Approvals & Audit › Approve",
+          "note": "",
+          "file": "shots/09-claims/10.jpg"
+        },
+        {
+          "n": "11",
+          "step": "Claim tagged settled / paid, then closed; declination is the alternative exit",
+          "screen": "Claims › Claim detail › Mark settled",
+          "note": "",
+          "file": "shots/09-claims/11.jpg"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "id": "10-case-management",
+      "title": "Case Management (To-Be)",
+      "pdf": "CASE MANAGEMENT TO BE PROCESS FLOW_07152026.pdf",
+      "persona": "compliance",
+      "summary": "General vs account-related inquiries, positive identification, point-of-contact handling or referral to the fulfilment unit, TAT monitoring and return to CCC.",
+      "steps": [
+        {
+          "n": "01",
+          "step": "Contact logged: general inquiry (no client) vs account-related concern",
+          "screen": "Customer Servicing › Cases › Log case",
+          "note": "",
+          "file": "shots/10-case-management/01.jpg"
+        },
+        {
+          "n": "02",
+          "step": "General inquiry handled and closed at point of contact",
+          "screen": "Customer Servicing › Cases",
+          "note": "",
+          "file": "shots/10-case-management/02.jpg"
+        },
+        {
+          "n": "03",
+          "step": "Account-related concern: positive identification (PID) and routing to the owning unit with a TAT",
+          "screen": "Customer Servicing › Cases › Log case",
+          "note": "",
+          "file": "shots/10-case-management/03.jpg"
+        },
+        {
+          "n": "04",
+          "step": "Case referred to the fulfilment unit; TAT due time computed and past-TAT flagged",
+          "screen": "Customer Servicing › Cases",
+          "note": "",
+          "file": "shots/10-case-management/04.jpg"
+        },
+        {
+          "n": "05",
+          "step": "Case returned to the Customer Contact Centre for re-logging with a reason",
+          "screen": "Customer Servicing › Cases › Return to CCC",
+          "note": "",
+          "file": "shots/10-case-management/05.jpg"
+        },
+        {
+          "n": "06",
+          "step": "Case re-logged and back in the open queue",
+          "screen": "Customer Servicing › Cases › Re-log",
+          "note": "",
+          "file": "shots/10-case-management/06.jpg"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "id": "11-customer-servicing-facility",
+      "title": "Customer Servicing Facility",
+      "pdf": "CUSTOMER SERVICING FACILITY - Process Flow.pdf",
+      "persona": "compliance",
+      "summary": "Search by invoice, policy or client name; view policies, invoices and receipts; update contact details.",
+      "steps": [
+        {
+          "n": "01",
+          "step": "Servicing facility: search by invoice no., policy no. or client name",
+          "screen": "Customer Servicing › Servicing facility",
+          "note": "",
+          "file": "shots/11-customer-servicing-facility/01.jpg"
+        },
+        {
+          "n": "02",
+          "step": "Client contact details updated from the facility",
+          "screen": "Customer Servicing › Servicing facility › Update contact",
+          "note": "",
+          "file": "shots/11-customer-servicing-facility/02.jpg"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "id": "12-renewal",
+      "title": "Renewal (RMEL)",
+      "pdf": "RENEWAL (1).pdf",
+      "persona": "renewals",
+      "summary": "Renewal master expiry list 140 days out, sanitation and disposition, initial and final RA letters, client acceptance and renewal placement.",
+      "steps": [
+        {
+          "n": "01",
+          "step": "RMEL: policies expiring within 140 days, pending sanitation",
+          "screen": "Renewal › Pipeline",
+          "note": "",
+          "file": "shots/12-renewal/01.jpg"
+        },
+        {
+          "n": "02",
+          "step": "Sanitation: disposition for renewal / remarket / not for renewal (NRNS letter)",
+          "screen": "Renewal › For renewal",
+          "note": "",
+          "file": "shots/12-renewal/02.jpg"
+        },
+        {
+          "n": "03",
+          "step": "Initial renewal advice letter sent 70 days before expiry",
+          "screen": "Renewal › Initial RA",
+          "note": "",
+          "file": "shots/12-renewal/03.jpg"
+        },
+        {
+          "n": "04",
+          "step": "Final renewal advice letter sent 45 days before expiry",
+          "screen": "Renewal › Final RA",
+          "note": "",
+          "file": "shots/12-renewal/04.jpg"
+        },
+        {
+          "n": "05",
+          "step": "Client accepted: renewal policy enters placement and the e-policy cycle",
+          "screen": "Renewal › Renew → placement",
+          "note": "",
+          "file": "shots/12-renewal/05.jpg"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "id": "13-reinsurance",
+      "title": "Reinsurance",
+      "pdf": "RENISURANCE PROCESS FLOW.pdf",
+      "persona": "ri.officer",
+      "summary": "Facultative request with 24-hour acknowledgement and 3-day slip TAT, underwriting information loop, reinsurer security rating, signed slips, closing and debit note; treaties and cessions.",
+      "steps": [
+        {
+          "n": "01",
+          "step": "Facultative placement request from marketing with the risk details",
+          "screen": "Reinsurance › Facultative placements › Request",
+          "note": "",
+          "file": "shots/13-reinsurance/01.jpg"
+        },
+        {
+          "n": "02",
+          "step": "Request logged; acknowledgement due within 24 hours (TAT flag)",
+          "screen": "Reinsurance › Facultative placements",
+          "note": "",
+          "file": "shots/13-reinsurance/02.jpg"
+        },
+        {
+          "n": "03",
+          "step": "Acknowledged; slip due within 3 working days",
+          "screen": "Reinsurance › Acknowledge",
+          "note": "",
+          "file": "shots/13-reinsurance/03.jpg"
+        },
+        {
+          "n": "04",
+          "step": "Slip: reinsurers approached with security rating, share and signed-slip evidence",
+          "screen": "Reinsurance › Prepare slip",
+          "note": "",
+          "file": "shots/13-reinsurance/04.jpg"
+        },
+        {
+          "n": "05",
+          "step": "Closing: placement closed and debit note issued to the cedant",
+          "screen": "Reinsurance › Close & debit note",
+          "note": "",
+          "file": "shots/13-reinsurance/05.jpg"
+        },
+        {
+          "n": "06",
+          "step": "Treaty register and cessions with capacity monitoring",
+          "screen": "Reinsurance › Treaties & cessions",
+          "note": "",
+          "file": "shots/13-reinsurance/06.jpg"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "id": "14-submitted-policies",
+      "title": "Submitted Policies",
+      "pdf": "Submitted Policies_Process Flow.pdf",
+      "persona": "accountant",
+      "summary": "Masterlist validation, matching and consolidation, adequacy review with IAAF findings, and hand-off to sanitation 150 days from expiry.",
+      "steps": [
+        {
+          "n": "01",
+          "step": "Masterlist upload from the bank / insurer for validation and matching",
+          "screen": "Submitted Policies › Masterlist batches",
+          "note": "",
+          "file": "shots/14-submitted-policies/01.jpg"
+        },
+        {
+          "n": "02",
+          "step": "Rows validated, matched and consolidated; each reviewed for adequacy",
+          "screen": "Submitted Policies › Masterlist batches › Run pipeline",
+          "note": "",
+          "file": "shots/14-submitted-policies/02.jpg"
+        },
+        {
+          "n": "03",
+          "step": "Findings recorded and an Insurance Adequacy Assessment Form (IAAF) issued",
+          "screen": "Submitted Policies › Findings → IAAF",
+          "note": "",
+          "file": "shots/14-submitted-policies/03.jpg"
+        },
+        {
+          "n": "04",
+          "step": "Policies 150 days from expiry sent to the sanitation handler for renewal / conversion opportunity",
+          "screen": "Submitted Policies › Expiring (150 days)",
+          "note": "",
+          "file": "shots/14-submitted-policies/04.jpg"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "id": "15-employee-benefits",
+      "title": "Employee Benefits",
+      "pdf": "EMPLOYEE BENEFITS - Process Flow.pdf",
+      "persona": "eb.officer",
+      "summary": "Renewal advice, BOR, TOR with master list and utilisation released to insurers, comparative analysis, award with ISACOM for non-accredited providers, handoff.",
+      "steps": [
+        {
+          "n": "01",
+          "step": "Prospect scheme created from the renewal advice",
+          "screen": "Employee Benefits › Create scheme",
+          "note": "",
+          "file": "shots/15-employee-benefits/01.jpg"
+        },
+        {
+          "n": "02",
+          "step": "Broker of Record received, Terms of Reference prepared, member census uploaded",
+          "screen": "Employee Benefits › Scheme detail",
+          "note": "",
+          "file": "shots/15-employee-benefits/02.jpg"
+        },
+        {
+          "n": "03",
+          "step": "TOR, master list and utilisation released to insurers (franchise)",
+          "screen": "Employee Benefits › Release TOR to insurers",
+          "note": "",
+          "file": "shots/15-employee-benefits/03.jpg"
+        },
+        {
+          "n": "04",
+          "step": "Comparative analysis of proposals: premium, benefits and capabilities",
+          "screen": "Employee Benefits › Proposals",
+          "note": "",
+          "file": "shots/15-employee-benefits/04.jpg"
+        },
+        {
+          "n": "05",
+          "step": "Client confirmation and award; ISACOM approval when the provider is not accredited; handoff to processing and collections",
+          "screen": "Employee Benefits › Award",
+          "note": "",
+          "file": "shots/15-employee-benefits/05.jpg"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "id": "16-product-maintenance-tsu",
+      "title": "Product Maintenance (TSU)",
+      "pdf": "PRODUCT MAINTENANCE TSU PROCESS_0709.pdf",
+      "persona": "admin → uw.head",
+      "summary": "Technical Services Unit request for non-packaged risks: completeness and duplicate check, quotation slip, TL approval, RI referral, insurer responses, comparative table and proposal slip; package maintenance with release advisory.",
+      "steps": [
+        {
+          "n": "01",
+          "step": "PRF / TSU request for a non-packaged risk with completeness and duplicate check",
+          "screen": "Product Maintenance › TSU requests › Submit",
+          "note": "",
+          "file": "shots/16-product-maintenance-tsu/01.jpg"
+        },
+        {
+          "n": "02",
+          "step": "TSU acknowledges the request (or returns it as incomplete)",
+          "screen": "Product Maintenance › TSU requests › Acknowledge",
+          "note": "",
+          "file": "shots/16-product-maintenance-tsu/02.jpg"
+        },
+        {
+          "n": "03",
+          "step": "Quotation slip prepared and approved by the TL",
+          "screen": "Product Maintenance › TSU detail › TL approve QS",
+          "note": "",
+          "file": "shots/16-product-maintenance-tsu/03.jpg"
+        },
+        {
+          "n": "04",
+          "step": "RI referral cleared; quotation slip sent to insurers",
+          "screen": "Product Maintenance › TSU detail › Send QS to insurers",
+          "note": "",
+          "file": "shots/16-product-maintenance-tsu/04.jpg"
+        },
+        {
+          "n": "05",
+          "step": "Insurer responses recorded (accepted with evidence / declined / conditional); comparative table ready",
+          "screen": "Product Maintenance › TSU detail › Comparative table",
+          "note": "",
+          "file": "shots/16-product-maintenance-tsu/05.jpg"
+        },
+        {
+          "n": "06",
+          "step": "Proposal slip approved with the selected insurer; released to marketing and the client",
+          "screen": "Product Maintenance › TSU detail › Approve proposal slip",
+          "note": "",
+          "file": "shots/16-product-maintenance-tsu/06.jpg"
+        },
+        {
+          "n": "07",
+          "step": "Packaged product catalogue with rates, taxes and limits",
+          "screen": "Product Maintenance › Packages",
+          "note": "",
+          "file": "shots/16-product-maintenance-tsu/07.jpg"
+        },
+        {
+          "n": "08",
+          "step": "Package maintenance request raised for validation and approval",
+          "screen": "Product Maintenance › Packages › Change request",
+          "note": "",
+          "file": "shots/16-product-maintenance-tsu/08.jpg"
+        },
+        {
+          "n": "09",
+          "step": "Approver validates the product change",
+          "screen": "Approvals & Audit › Pending",
+          "note": "",
+          "file": "shots/16-product-maintenance-tsu/09.jpg"
+        },
+        {
+          "n": "10",
+          "step": "Change applied and a release advisory published",
+          "screen": "Approvals & Audit › Approve",
+          "note": "",
+          "file": "shots/16-product-maintenance-tsu/10.jpg"
+        },
+        {
+          "n": "11",
+          "step": "Insurer panel with accreditation and SFTP enrolment for placement channels",
+          "screen": "Product Maintenance › Insurers",
+          "note": "",
+          "file": "shots/16-product-maintenance-tsu/11.jpg"
+        }
+      ],
+      "errors": []
+    }
+  ]
+}
