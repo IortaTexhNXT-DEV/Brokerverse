@@ -23,7 +23,7 @@
     "coverage": "npm run coverage -w shared && npm run coverage -w server && npm run coverage -w web",
     "setup": "node scripts/setup-db.mjs && npm run db:reset",
     "start": "node server/dist/index.js",
-    "walkthrough": "node e2e/walkthrough.mjs && node scripts/build-walkthrough.mjs"
+    "walkthrough": "node e2e/walkthrough.mjs && node scripts/build-walkthrough.mjs && node scripts/build-walkthrough-deck.cjs"
   },
   "devDependencies": {
     "@eslint/js": "^9.17.0",
@@ -34,6 +34,7 @@
     "eslint-plugin-react-hooks": "^5.1.0",
     "eslint-plugin-sonarjs": "^4.2.1",
     "jscpd": "^5.3.1",
+    "pptxgenjs": "^4.0.1",
     "typescript": "^5.6.3",
     "typescript-eslint": "^8.18.2",
     "vitest": "^5.0.1"
