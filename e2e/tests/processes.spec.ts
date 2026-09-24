@@ -101,23 +101,23 @@ async function payInFull(page: Page, policyNo: string) {
 }
 
 
-test('every persona opens every entitled menu without errors', async ({ page }) => {
-  test.setTimeout(240_000);
-  for (const [persona, menus] of Object.entries(PERSONAS)) {
+// One test per persona so a slow runner cannot starve the whole sweep on a single timeout.
+for (const [persona, menus] of Object.entries(PERSONAS)) {
+  test(`${persona} opens every entitled menu without errors`, async ({ page }) => {
+    test.setTimeout(150_000);
     await login(page, persona);
     const links = page.getByRole('navigation', { name: 'Modules' }).getByRole('link');
     await expect(links).toHaveCount(menus.length + 1); // + Dashboard
     for (const m of menus) {
       await nav(page, m).click();
       await expectHealthyPage(page);
-      // Open every tab on the page, if any
-      const tabs = page.locator('.tabs button');
-      const n = await tabs.count();
-      for (let i = 0; i < n; i++) { await tabs.nth(i).click(); await expectHealthyPage(page); }
+      // Open every tab on the page, if any (re-query each time: the tab bar re-renders when data loads)
+      const n = await page.locator('.tabs button').count();
+      for (let i = 0; i < n; i++) { await page.locator('.tabs button').nth(i).click(); await expectHealthyPage(page); }
     }
     await signOut(page);
-  }
-});
+  });
+}
 
 test('claims lifecycle in the browser: PLA → documents → FLA → offer → contest → accept → settlement approval → settled', async ({ page }) => {
   test.setTimeout(180_000);
