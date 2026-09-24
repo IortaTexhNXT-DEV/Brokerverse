@@ -1,0 +1,3284 @@
+{
+  "generatedAt": "2026-09-23T17:12:56.998Z",
+  "personas": {
+    "admin": {
+      "name": "System Administrator",
+      "role": "Administrator",
+      "unit": "IT"
+    },
+    "nb.officer": {
+      "name": "Maria Santos",
+      "role": "New Business Officer (MAO)",
+      "unit": "New Business"
+    },
+    "uw.head": {
+      "name": "Ramon Villareal",
+      "role": "Underwriting Head (checker)",
+      "unit": "Underwriting"
+    },
+    "cashier": {
+      "name": "Liza Bautista",
+      "role": "Cashier",
+      "unit": "Operations"
+    },
+    "collections": {
+      "name": "Paolo Reyes",
+      "role": "Collections Officer",
+      "unit": "Collections"
+    },
+    "accountant": {
+      "name": "Grace Lim",
+      "role": "Accountant (FRBS)",
+      "unit": "Finance"
+    },
+    "fin.head": {
+      "name": "Antonio Cruz",
+      "role": "Finance Head (approver)",
+      "unit": "Finance"
+    },
+    "claims": {
+      "name": "Jenny Ocampo",
+      "role": "Claims Officer",
+      "unit": "Claims"
+    },
+    "renewals": {
+      "name": "Carlo Mendoza",
+      "role": "Renewal Officer",
+      "unit": "Renewals"
+    },
+    "ri.officer": {
+      "name": "Ana Dizon",
+      "role": "Reinsurance Officer",
+      "unit": "Reinsurance"
+    },
+    "eb.officer": {
+      "name": "Mark Tan",
+      "role": "Employee Benefits Officer",
+      "unit": "Employee Benefits"
+    },
+    "compliance": {
+      "name": "Lily Belarmino",
+      "role": "Compliance Officer (CCC)",
+      "unit": "Compliance"
+    }
+  },
+  "processes": [
+    {
+      "id": "01-bdoir-e2e",
+      "title": "BDOIR End-to-End",
+      "pdf": "BDOIR E2E PROCESS FLOW.pdf",
+      "persona": "admin",
+      "summary": "The umbrella flow that chains new business, cashiering, collections, remittance, disbursement, the general ledger, renewal and claims. Each link is captured in detail in its own process below; these screens show the control points that tie the chain together.",
+      "steps": [
+        {
+          "n": "01",
+          "step": "Executive dashboard: KPIs across the whole chain (in force, in placement, unapplied payments, pending approvals, disbursements in flight, past-TAT requests)",
+          "screen": "Dashboard",
+          "persona": {
+            "user": "admin",
+            "name": "System Administrator",
+            "role": "Administrator",
+            "unit": "IT"
+          },
+          "action": "Sign in; the dashboard opens.",
+          "inputs": [],
+          "result": "KPI tiles for policies in force, in placement, premium and commission YTD, outstanding premium, unapplied payments, pending approvals, disbursements in flight, open claims, renewals due, past-TAT requests and screening hits.",
+          "rule": "Each tile reads the same tables the processes write; there is no separate reporting copy.",
+          "toasts": [],
+          "file": "shots/01-bdoir-e2e/01.jpg",
+          "zoom": "shots/01-bdoir-e2e/01-zoom.jpg",
+          "box": {
+            "x": 248,
+            "y": 137,
+            "w": 1192,
+            "h": 340
+          }
+        },
+        {
+          "n": "02",
+          "step": "Single maker-checker queue for bookings, endorsements, journals, disbursements, CTE, claim settlements, EB awards and product changes",
+          "screen": "Approvals & Audit › All",
+          "persona": {
+            "user": "admin",
+            "name": "System Administrator",
+            "role": "Administrator",
+            "unit": "IT"
+          },
+          "action": "Open Approvals & Audit and the All tab.",
+          "inputs": [],
+          "result": "Every approval request across modules with maker, checker, status and note.",
+          "rule": "One registry, eight request types, segregation of duties on all of them.",
+          "toasts": [],
+          "file": "shots/01-bdoir-e2e/02.jpg",
+          "zoom": "shots/01-bdoir-e2e/02-zoom.jpg",
+          "box": {
+            "x": 249,
+            "y": 0,
+            "w": 1190,
+            "h": 900
+          }
+        },
+        {
+          "n": "03",
+          "step": "Production, collection and claims reports with CSV export",
+          "screen": "Reports & Analytics",
+          "persona": {
+            "user": "admin",
+            "name": "System Administrator",
+            "role": "Administrator",
+            "unit": "IT"
+          },
+          "action": "Open Reports & Analytics.",
+          "inputs": [],
+          "result": "Production by product and insurer, collections ageing, claims by status, with CSV export.",
+          "rule": "Reports are entitlement-scoped (RPT module).",
+          "toasts": [],
+          "file": "shots/01-bdoir-e2e/03.jpg",
+          "zoom": "shots/01-bdoir-e2e/03-zoom.jpg",
+          "box": {
+            "x": 176,
+            "y": 0,
+            "w": 760,
+            "h": 340
+          }
+        },
+        {
+          "n": "04",
+          "step": "Client onboarding with sanctions screening, PEP flag and risk tiering feeding every process",
+          "screen": "Sanction Screening & Risk",
+          "persona": {
+            "user": "admin",
+            "name": "System Administrator",
+            "role": "Administrator",
+            "unit": "IT"
+          },
+          "action": "Open Sanction Screening & Risk.",
+          "inputs": [],
+          "result": "Client register with screening status, PEP, risk score and tier; hits offer Clear (false positive) or Decline.",
+          "rule": "Compliance decides hits; declined clients cannot transact.",
+          "toasts": [],
+          "file": "shots/01-bdoir-e2e/04.jpg",
+          "zoom": "shots/01-bdoir-e2e/04-zoom.jpg",
+          "box": {
+            "x": 249,
+            "y": 0,
+            "w": 832,
+            "h": 900
+          }
+        },
+        {
+          "n": "05",
+          "step": "Twelve personas with module entitlements and approver rights (segregation of duties)",
+          "screen": "User Access Maintenance",
+          "persona": {
+            "user": "admin",
+            "name": "System Administrator",
+            "role": "Administrator",
+            "unit": "IT"
+          },
+          "action": "Open User Access Maintenance.",
+          "inputs": [],
+          "result": "Users with role, department, status and module entitlements; create user with a temporary password.",
+          "rule": "Roles define modules and approver rights; menus and APIs enforce them.",
+          "toasts": [],
+          "file": "shots/01-bdoir-e2e/05.jpg",
+          "zoom": "shots/01-bdoir-e2e/05-zoom.jpg",
+          "box": {
+            "x": 249,
+            "y": 0,
+            "w": 1050,
+            "h": 900
+          }
+        },
+        {
+          "n": "06",
+          "step": "Legacy data migration batches with load, reconciliation and disposition",
+          "screen": "Data Migration",
+          "persona": {
+            "user": "admin",
+            "name": "System Administrator",
+            "role": "Administrator",
+            "unit": "IT"
+          },
+          "action": "Open Data Migration.",
+          "inputs": [],
+          "result": "Batches with source count, loaded count, variance and disposition.",
+          "rule": "A batch with variance requires a disposition before it is accepted.",
+          "toasts": [],
+          "file": "shots/01-bdoir-e2e/06.jpg",
+          "zoom": "shots/01-bdoir-e2e/06-zoom.jpg",
+          "box": {
+            "x": 248,
+            "y": 92,
+            "w": 1192,
+            "h": 340
+          }
+        }
+      ],
+      "errors": []
+    },
+    {
+      "id": "02-new-business",
+      "title": "New Business",
+      "pdf": "NEW BUSINESS.pdf",
+      "persona": "nb.officer → uw.head",
+      "summary": "Client creation and screening, quotation, proposal, placement to the insurer, e-policy and booking under maker-checker.",
+      "steps": [
+        {
+          "n": "01",
+          "step": "MAO creates the client in Broker; KYC details captured",
+          "screen": "Sanction Screening & Risk › New client form",
+          "persona": {
+            "user": "nb.officer",
+            "name": "Maria Santos",
+            "role": "New Business Officer (MAO)",
+            "unit": "New Business"
+          },
+          "action": "Open Sanction Screening & Risk, fill in the new client form and press Create & screen.",
+          "inputs": [
+            "Name: Acme Freight 73800",
+            "Type: corporate",
+            "Email: acmefreight@example.com",
+            "TIN: TIN-73800-18"
+          ],
+          "result": "The client is created with a client number and screened against the sanctions and PEP lists in the same call.",
+          "rule": "Every client is screened before any quotation can be issued for it; a hit blocks new business until Compliance clears it.",
+          "toasts": [],
+          "file": "shots/02-new-business/01.jpg",
+          "zoom": "shots/02-new-business/01-zoom.jpg",
+          "box": {
+            "x": 176,
+            "y": 185,
+            "w": 760,
+            "h": 455
+          }
+        },
+        {
+          "n": "02",
+          "step": "Client is sanction-screened automatically (clear / hit) and risk-tiered",
+          "screen": "Sanction Screening & Risk › Client register",
+          "persona": {
+            "user": "nb.officer",
+            "name": "Maria Santos",
+            "role": "New Business Officer (MAO)",
+            "unit": "New Business"
+          },
+          "action": "Read the toast and the new row in the client register.",
+          "inputs": [],
+          "result": "Toast confirms the client number, screening result and risk tier; the row shows the CDD level and screening status.",
+          "rule": "Risk tier drives the customer due-diligence level (simplified / standard / enhanced).",
+          "toasts": [
+            "CLT-2026-00066 created · screening clear · tier low"
+          ],
+          "file": "shots/02-new-business/02.jpg",
+          "zoom": "shots/02-new-business/02-zoom.jpg",
+          "box": {
+            "x": 249,
+            "y": 569,
+            "w": 832,
+            "h": 331
+          }
+        },
+        {
+          "n": "03",
+          "step": "Quotation prepared with the rating engine (premium, VAT, DST, LGT, commission)",
+          "screen": "New Business › Quotations & proposals › New quotation form",
+          "persona": {
+            "user": "nb.officer",
+            "name": "Maria Santos",
+            "role": "New Business Officer (MAO)",
+            "unit": "New Business"
+          },
+          "action": "Pick the client, the packaged product and the insurer, enter the sum insured and press Create quotation.",
+          "inputs": [
+            "Client: Acme Freight 73800",
+            "Product: MTR-CMP · Motor Comprehensive",
+            "Insurer: first accredited insurer on the panel",
+            "Sum insured: ₱1,000,000",
+            "Hold cover (days): blank unless the insurer must hold cover before placement"
+          ],
+          "result": "The rating engine computes premium, VAT, DST, LGT and FST, and the broker commission from the product rates.",
+          "rule": "Non-packaged products cannot be quoted here; they require an approved TSU proposal first (see Product Maintenance / TSU).",
+          "toasts": [
+            "CLT-2026-00066 created · screening clear · tier low"
+          ],
+          "file": "shots/02-new-business/03.jpg",
+          "zoom": "shots/02-new-business/03-zoom.jpg",
+          "box": {
+            "x": 248,
+            "y": 240,
+            "w": 1192,
+            "h": 386
+          }
+        },
+        {
+          "n": "04",
+          "step": "Quotation created (status: quoted); hold cover can be requested from the insurer",
+          "screen": "New Business › Quotations & proposals",
+          "persona": {
+            "user": "nb.officer",
+            "name": "Maria Santos",
+            "role": "New Business Officer (MAO)",
+            "unit": "New Business"
+          },
+          "action": "Check the new quotation row and its computed amounts.",
+          "inputs": [],
+          "result": "Quotation number QT-YYYY-NNNNN assigned; status quoted; the row offers Send proposal.",
+          "rule": "Acceptance limits and the survey threshold on the product are checked at quotation time.",
+          "toasts": [
+            "CLT-2026-00066 created · screening clear · tier low",
+            "Quotation created"
+          ],
+          "file": "shots/02-new-business/04.jpg",
+          "zoom": "shots/02-new-business/04-zoom.jpg",
+          "box": {
+            "x": 249,
+            "y": 451,
+            "w": 1190,
+            "h": 340
+          }
+        },
+        {
+          "n": "05",
+          "step": "Proposal sent to the client by email (status: proposal sent)",
+          "screen": "New Business › Quotations & proposals › Send proposal",
+          "persona": {
+            "user": "nb.officer",
+            "name": "Maria Santos",
+            "role": "New Business Officer (MAO)",
+            "unit": "New Business"
+          },
+          "action": "Press Send proposal on the quotation row.",
+          "inputs": [],
+          "result": "The proposal is emailed to the client (see Outbox) and the status moves to proposal sent.",
+          "rule": "Order is enforced: a quotation must be quoted before a proposal can be sent.",
+          "toasts": [
+            "CLT-2026-00066 created · screening clear · tier low",
+            "Quotation created",
+            "Proposal emailed to client"
+          ],
+          "file": "shots/02-new-business/05.jpg",
+          "zoom": "shots/02-new-business/05-zoom.jpg",
+          "box": {
+            "x": 249,
+            "y": 471,
+            "w": 1190,
+            "h": 340
+          }
+        },
+        {
+          "n": "06",
+          "step": "Client acceptance recorded (Y); a decline with reason is the N branch",
+          "screen": "New Business › Quotations & proposals › Client accepted",
+          "persona": {
+            "user": "nb.officer",
+            "name": "Maria Santos",
+            "role": "New Business Officer (MAO)",
+            "unit": "New Business"
+          },
+          "action": "Press Client accepted once the signed proposal or proof of payment is received.",
+          "inputs": [],
+          "result": "Acceptance recorded with a timestamp; Request placement becomes available.",
+          "rule": "Declined is the N branch: a decline reason is captured and the quotation is closed.",
+          "toasts": [
+            "Quotation created",
+            "Proposal emailed to client",
+            "Client acceptance recorded"
+          ],
+          "file": "shots/02-new-business/06.jpg",
+          "zoom": "shots/02-new-business/06-zoom.jpg",
+          "box": {
+            "x": 249,
+            "y": 451,
+            "w": 1190,
+            "h": 340
+          }
+        },
+        {
+          "n": "07",
+          "step": "Placement requested: placement slip goes to the insurer via SFTP or email",
+          "screen": "New Business › Policy drawer (placement requested)",
+          "persona": {
+            "user": "nb.officer",
+            "name": "Maria Santos",
+            "role": "New Business Officer (MAO)",
+            "unit": "New Business"
+          },
+          "action": "Press Request placement; the policy shell opens in a drawer.",
+          "inputs": [],
+          "result": "Policy POL-2026-00068 created in status placement requested; the placement slip is sent by SFTP when the insurer is enrolled, otherwise by email.",
+          "rule": "Placement channel is decided by the insurer record (SFTP-enrolled or not).",
+          "toasts": [
+            "Proposal emailed to client",
+            "Client acceptance recorded",
+            "Placement slip sent to insurer"
+          ],
+          "file": "shots/02-new-business/07.jpg",
+          "zoom": "shots/02-new-business/07-zoom.jpg",
+          "box": {
+            "x": 780,
+            "y": 36,
+            "w": 660,
+            "h": 864
+          }
+        },
+        {
+          "n": "08",
+          "step": "Placement board tracks slips awaiting the insurer, returns and e-policies",
+          "screen": "New Business › Placement",
+          "persona": {
+            "user": "nb.officer",
+            "name": "Maria Santos",
+            "role": "New Business Officer (MAO)",
+            "unit": "New Business"
+          },
+          "action": "Open the Placement tab.",
+          "inputs": [],
+          "result": "Every policy awaiting the insurer is listed with slip sent time, return reason and the next action.",
+          "rule": "A placement returned by the insurer carries a reason routed to marketing and can be resubmitted.",
+          "toasts": [
+            "Proposal emailed to client",
+            "Client acceptance recorded",
+            "Placement slip sent to insurer"
+          ],
+          "file": "shots/02-new-business/08.jpg",
+          "zoom": "shots/02-new-business/08-zoom.jpg",
+          "box": {
+            "x": 249,
+            "y": 0,
+            "w": 1190,
+            "h": 900
+          }
+        },
+        {
+          "n": "09",
+          "step": "Insurer placed the risk; e-policy received (COG via SFTP or PO email)",
+          "screen": "New Business › Placement › Placed / e-policy received",
+          "persona": {
+            "user": "nb.officer",
+            "name": "Maria Santos",
+            "role": "New Business Officer (MAO)",
+            "unit": "New Business"
+          },
+          "action": "Press Placed / e-policy received and enter the insurer policy reference in the prompt.",
+          "inputs": [
+            "Insurer policy reference: INS-73800"
+          ],
+          "result": "Status placed; e-policy channel recorded; Book & invoice becomes available.",
+          "rule": "E-policy exceptions are routed to the contact centre with an exception note.",
+          "toasts": [
+            "Client acceptance recorded",
+            "Placement slip sent to insurer",
+            "E-policy received"
+          ],
+          "file": "shots/02-new-business/09.jpg",
+          "zoom": "shots/02-new-business/09-zoom.jpg",
+          "box": {
+            "x": 249,
+            "y": 157,
+            "w": 1190,
+            "h": 340
+          }
+        },
+        {
+          "n": "10",
+          "step": "Booking and invoicing raised for checker approval (maker-checker)",
+          "screen": "New Business › Placement › Book & invoice",
+          "persona": {
+            "user": "nb.officer",
+            "name": "Maria Santos",
+            "role": "New Business Officer (MAO)",
+            "unit": "New Business"
+          },
+          "action": "Press Book & invoice.",
+          "inputs": [],
+          "result": "A policy_issue approval request is raised; the policy waits in pending approval.",
+          "rule": "Maker-checker: the officer who books cannot approve; segregation of duties is enforced by the approval registry.",
+          "toasts": [
+            "Placement slip sent to insurer",
+            "E-policy received",
+            "Booking sent for checker approval"
+          ],
+          "file": "shots/02-new-business/10.jpg",
+          "zoom": "shots/02-new-business/10-zoom.jpg",
+          "box": {
+            "x": 249,
+            "y": 153,
+            "w": 1190,
+            "h": 340
+          }
+        },
+        {
+          "n": "11",
+          "step": "Underwriting Head (checker) reviews the booking request",
+          "screen": "Approvals & Audit › Pending",
+          "persona": {
+            "user": "uw.head",
+            "name": "Ramon Villareal",
+            "role": "Underwriting Head (checker)",
+            "unit": "Underwriting"
+          },
+          "action": "Open Approvals & Audit; the Pending tab lists requests raised by makers.",
+          "inputs": [],
+          "result": "The request shows type, summary, maker, maker note and time raised.",
+          "rule": "Only users with approver rights on the module can decide; a maker can never approve their own request.",
+          "toasts": [],
+          "file": "shots/02-new-business/11.jpg",
+          "zoom": "shots/02-new-business/11-zoom.jpg",
+          "box": {
+            "x": 249,
+            "y": 196,
+            "w": 1190,
+            "h": 340
+          }
+        },
+        {
+          "n": "12",
+          "step": "Booking approved: invoice, journal and e-policy dispatch are posted automatically",
+          "screen": "Approvals & Audit › Approve",
+          "persona": {
+            "user": "uw.head",
+            "name": "Ramon Villareal",
+            "role": "Underwriting Head (checker)",
+            "unit": "Underwriting"
+          },
+          "action": "Press Approve and enter a checker note.",
+          "inputs": [
+            "Checker note: Reviewed and approved"
+          ],
+          "result": "Policy in force, invoice generated, booking journal posted and the e-policy dispatched on the recorded channel.",
+          "rule": "Every decision is written to the audit trail with before/after state.",
+          "toasts": [
+            "Request approved"
+          ],
+          "file": "shots/02-new-business/12.jpg",
+          "zoom": "shots/02-new-business/12-zoom.jpg",
+          "box": {
+            "x": 973,
+            "y": 693,
+            "w": 467,
+            "h": 207
+          }
+        },
+        {
+          "n": "13",
+          "step": "Policy register: the policy is in force with its invoice and e-policy channel",
+          "screen": "New Business › Policies",
+          "persona": {
+            "user": "nb.officer",
+            "name": "Maria Santos",
+            "role": "New Business Officer (MAO)",
+            "unit": "New Business"
+          },
+          "action": "Open the Policies tab.",
+          "inputs": [],
+          "result": "Policy POL-2026-00068 shows in force with inception, expiry, premium, insurer reference and e-policy channel.",
+          "rule": "Only in-force, renewed or expired policies can carry claims.",
+          "toasts": [],
+          "file": "shots/02-new-business/13.jpg",
+          "zoom": "shots/02-new-business/13-zoom.jpg",
+          "box": {
+            "x": 249,
+            "y": 208,
+            "w": 1190,
+            "h": 340
+          }
+        },
+        {
+          "n": "14",
+          "step": "Policy detail: placement history, e-policy status and the exception route to the contact centre",
+          "screen": "New Business › Policies › Policy detail",
+          "persona": {
+            "user": "nb.officer",
+            "name": "Maria Santos",
+            "role": "New Business Officer (MAO)",
+            "unit": "New Business"
+          },
+          "action": "Click the policy row to open its detail drawer.",
+          "inputs": [],
+          "result": "Drawer shows period, taxes, commission, placement/booking/e-policy timestamps, invoices and claims.",
+          "rule": "E-policy exception sends the case to the contact centre with the exception note.",
+          "toasts": [],
+          "file": "shots/02-new-business/14.jpg",
+          "zoom": "shots/02-new-business/14-zoom.jpg",
+          "box": {
+            "x": 780,
+            "y": 36,
+            "w": 660,
+            "h": 864
+          }
+        }
+      ],
+      "errors": []
+    },
+    {
+      "id": "03-operations",
+      "title": "Operations",
+      "pdf": "OPERATIONS PROCESS FLOW.pdf",
+      "persona": "cashier → checker",
+      "summary": "Cashiering channels, post-dated cheque hold, unapplied premium, direct payments with commission receivables, adjustments and production reconciliation.",
+      "steps": [
+        {
+          "n": "01",
+          "step": "Cashiering: open invoices (premium receivables) awaiting payment",
+          "screen": "Operations › Invoices & cashiering",
+          "persona": {
+            "user": "cashier",
+            "name": "Liza Bautista",
+            "role": "Cashier",
+            "unit": "Operations"
+          },
+          "action": "Open Operations; the Invoices & cashiering tab lists premium receivables.",
+          "inputs": [],
+          "result": "Each invoice shows billed, paid, balance and status; open ones offer Receive.",
+          "rule": "Invoices are generated automatically when the checker approves booking.",
+          "toasts": [],
+          "file": "shots/03-operations/01.jpg",
+          "zoom": "shots/03-operations/01-zoom.jpg",
+          "box": {
+            "x": 249,
+            "y": 0,
+            "w": 1190,
+            "h": 900
+          }
+        },
+        {
+          "n": "02",
+          "step": "Receive payment: channel (bills payment, OTC cash/cheque, batch files, autopay) and reference",
+          "screen": "Operations › Invoices & cashiering › Receive",
+          "persona": {
+            "user": "cashier",
+            "name": "Liza Bautista",
+            "role": "Cashier",
+            "unit": "Operations"
+          },
+          "action": "Press Receive on the invoice, choose the channel and enter the cheque details.",
+          "inputs": [
+            "Channel: OTC cheque",
+            "Cheque no.: CHQ-73800",
+            "Amount: defaults to the invoice balance"
+          ],
+          "result": "The form is ready to post; cheque channels will be held for clearing.",
+          "rule": "Channels mirror the flow: bills payment, OTC cash/cheque, CLPC/PMS/trade batch files, direct credit, autopay.",
+          "toasts": [],
+          "file": "shots/03-operations/02.jpg",
+          "zoom": "shots/03-operations/02-zoom.jpg",
+          "box": {
+            "x": 248,
+            "y": 0,
+            "w": 1192,
+            "h": 340
+          }
+        },
+        {
+          "n": "03",
+          "step": "Cheque payment recorded and held for the 4-day clearing period",
+          "screen": "Operations › Receive › Record payment",
+          "persona": {
+            "user": "cashier",
+            "name": "Liza Bautista",
+            "role": "Cashier",
+            "unit": "Operations"
+          },
+          "action": "Press Record payment.",
+          "inputs": [],
+          "result": "Toast shows the hold-until date; the payment is created in status held and is not yet applied to the invoice.",
+          "rule": "Post-dated / OTC cheques are held four days before they can mature and apply.",
+          "toasts": [
+            "Cheque held until 2026-09-27 (PDC monitoring)"
+          ],
+          "file": "shots/03-operations/03.jpg",
+          "zoom": "shots/03-operations/03-zoom.jpg",
+          "box": {
+            "x": 888,
+            "y": 693,
+            "w": 552,
+            "h": 207
+          }
+        },
+        {
+          "n": "04",
+          "step": "PDC register: held cheques, matured, bounced (exclusion list) and unapplied premium",
+          "screen": "Operations › Payments / PDC / UPP",
+          "persona": {
+            "user": "cashier",
+            "name": "Liza Bautista",
+            "role": "Cashier",
+            "unit": "Operations"
+          },
+          "action": "Open the Payments / PDC / UPP tab.",
+          "inputs": [],
+          "result": "The held cheque appears with Matured and Bounced actions; unapplied premium rows offer Apply to invoice.",
+          "rule": "A bounced cheque is tagged with a reason and feeds the exclusion list.",
+          "toasts": [
+            "Cheque held until 2026-09-27 (PDC monitoring)"
+          ],
+          "file": "shots/03-operations/04.jpg",
+          "zoom": "shots/03-operations/04-zoom.jpg",
+          "box": {
+            "x": 249,
+            "y": 165,
+            "w": 1191,
+            "h": 340
+          }
+        },
+        {
+          "n": "05",
+          "step": "Held cheque shows Matured / Bounced actions once the 4-day hold lapses",
+          "screen": "Operations › Payments / PDC / UPP › Held cheque",
+          "persona": {
+            "user": "cashier",
+            "name": "Liza Bautista",
+            "role": "Cashier",
+            "unit": "Operations"
+          },
+          "action": "Attempting Matured before the hold date is refused by the API.",
+          "inputs": [],
+          "result": "Conflict: \"Cheque is on hold until <date> (4-day clearing)\"; after the date, Matured applies the payment and issues the OR.",
+          "rule": "PDC monitoring: maturity cannot be forced before the clearing period.",
+          "toasts": [
+            "Cheque held until 2026-09-27 (PDC monitoring)"
+          ],
+          "file": "shots/03-operations/05.jpg",
+          "zoom": "shots/03-operations/05-zoom.jpg",
+          "box": {
+            "x": 939,
+            "y": 145,
+            "w": 501,
+            "h": 340
+          }
+        },
+        {
+          "n": "06",
+          "step": "Cash / bills payment applied in full: official receipt issued and receivable cleared",
+          "screen": "Operations › Receive › Official receipt",
+          "persona": {
+            "user": "cashier",
+            "name": "Liza Bautista",
+            "role": "Cashier",
+            "unit": "Operations"
+          },
+          "action": "Receive the same invoice again through a cash / bills-payment channel and press Record payment.",
+          "inputs": [
+            "Channel: bills payment (default)",
+            "Amount: invoice balance"
+          ],
+          "result": "Official receipt OR-YYYY-NNNNN issued; invoice status paid; cash and premium journals posted.",
+          "rule": "An applied payment posts Dr Cash / Cr Premium receivable and books the commission income.",
+          "toasts": [
+            "Cheque held until 2026-09-27 (PDC monitoring)",
+            "Official receipt OR-2026-00022 issued"
+          ],
+          "file": "shots/03-operations/06.jpg",
+          "zoom": "shots/03-operations/06-zoom.jpg",
+          "box": {
+            "x": 888,
+            "y": 693,
+            "w": 552,
+            "h": 207
+          }
+        },
+        {
+          "n": "07",
+          "step": "Payment with zero PR / payment greater than PR is recorded without an invoice",
+          "screen": "Operations › Invoices & cashiering › Payment without invoice",
+          "persona": {
+            "user": "cashier",
+            "name": "Liza Bautista",
+            "role": "Cashier",
+            "unit": "Operations"
+          },
+          "action": "Press Payment without invoice and enter the amount received.",
+          "inputs": [
+            "Amount: ₱2,500.00",
+            "Client id: optional",
+            "Reference: transaction / file reference"
+          ],
+          "result": "The payment can be posted even though no premium receivable matches it.",
+          "rule": "Zero-PR and excess payments never sit against an invoice; they go to unapplied premium.",
+          "toasts": [
+            "Cheque held until 2026-09-27 (PDC monitoring)",
+            "Official receipt OR-2026-00022 issued"
+          ],
+          "file": "shots/03-operations/07.jpg",
+          "zoom": "shots/03-operations/07-zoom.jpg",
+          "box": {
+            "x": 248,
+            "y": 195,
+            "w": 1192,
+            "h": 340
+          }
+        },
+        {
+          "n": "08",
+          "step": "The amount sits in Unapplied Premium (GL 2400) until applied to an invoice",
+          "screen": "Operations › Payments / PDC / UPP",
+          "persona": {
+            "user": "cashier",
+            "name": "Liza Bautista",
+            "role": "Cashier",
+            "unit": "Operations"
+          },
+          "action": "Open Payments / PDC / UPP and find the unapplied row.",
+          "inputs": [],
+          "result": "Status unapplied with the unapplied amount; Apply to invoice prompts for the invoice id.",
+          "rule": "Unapplied premium is a liability (GL 2400) until matched; refunds of UPP go through the RRF.",
+          "toasts": [
+            "Cheque held until 2026-09-27 (PDC monitoring)",
+            "Official receipt OR-2026-00022 issued",
+            "Payment PAY-2026-00040 recorded as unapplied"
+          ],
+          "file": "shots/03-operations/08.jpg",
+          "zoom": "shots/03-operations/08-zoom.jpg",
+          "box": {
+            "x": 249,
+            "y": 145,
+            "w": 1191,
+            "h": 340
+          }
+        },
+        {
+          "n": "09",
+          "step": "Direct payment to insurer identified for a booked policy",
+          "screen": "Operations › Direct payments › Identify",
+          "persona": {
+            "user": "cashier",
+            "name": "Liza Bautista",
+            "role": "Cashier",
+            "unit": "Operations"
+          },
+          "action": "Enter the policy number the client paid directly to the insurer and press Identify direct payment.",
+          "inputs": [
+            "Policy no.: POL-2026-00069"
+          ],
+          "result": "The invoice is tagged direct-paid and a commission receivable is booked against the insurer.",
+          "rule": "Direct-paid policies are excluded from the remittance extract; the broker collects only its commission.",
+          "toasts": [
+            "Official receipt OR-2026-00022 issued",
+            "Payment PAY-2026-00040 recorded as unapplied"
+          ],
+          "file": "shots/03-operations/09.jpg",
+          "zoom": "shots/03-operations/09-zoom.jpg",
+          "box": {
+            "x": 248,
+            "y": 112,
+            "w": 1192,
+            "h": 340
+          }
+        },
+        {
+          "n": "10",
+          "step": "Commission receivable (GL 1250) billed to the insurer; follow-up until collected",
+          "screen": "Operations › Direct payments › Bill insurer",
+          "persona": {
+            "user": "cashier",
+            "name": "Liza Bautista",
+            "role": "Cashier",
+            "unit": "Operations"
+          },
+          "action": "Press Bill insurer on the receivable row.",
+          "inputs": [],
+          "result": "Status billed; the billing letter is queued to the insurer. Rejected / Re-bill handle disputes.",
+          "rule": "Commission receivable lifecycle: identified → billed → approved → collected.",
+          "toasts": [
+            "Payment PAY-2026-00040 recorded as unapplied",
+            "Direct payment identified; commission receivable booked",
+            "Updated"
+          ],
+          "file": "shots/03-operations/10.jpg",
+          "zoom": "shots/03-operations/10-zoom.jpg",
+          "box": {
+            "x": 249,
+            "y": 245,
+            "w": 1190,
+            "h": 340
+          }
+        },
+        {
+          "n": "11",
+          "step": "Commission collected: commission official receipt issued",
+          "screen": "Operations › Direct payments › Collect (commission OR)",
+          "persona": {
+            "user": "cashier",
+            "name": "Liza Bautista",
+            "role": "Cashier",
+            "unit": "Operations"
+          },
+          "action": "Press Insurer approved, then Collect (commission OR).",
+          "inputs": [],
+          "result": "Status collected; a commission OR is issued and Dr Cash / Cr Commission receivable is posted.",
+          "rule": "Only approved receivables can be collected.",
+          "toasts": [
+            "Updated",
+            "Updated",
+            "Updated"
+          ],
+          "file": "shots/03-operations/11.jpg",
+          "zoom": "shots/03-operations/11-zoom.jpg",
+          "box": {
+            "x": 249,
+            "y": 221,
+            "w": 1190,
+            "h": 340
+          }
+        },
+        {
+          "n": "12",
+          "step": "Adjustment / cancellation validated by the Adjustment Team and routed to the checker-poster",
+          "screen": "Operations › Adjustments › Endorsement form",
+          "persona": {
+            "user": "cashier",
+            "name": "Liza Bautista",
+            "role": "Cashier",
+            "unit": "Operations"
+          },
+          "action": "Fill in the endorsement: policy, type, premium delta, refund and description, then press Submit for posting.",
+          "inputs": [
+            "Policy no.: POL-2026-00068",
+            "Type: adjustment (cancellation is the other type)",
+            "Premium delta: −₱3,000.00",
+            "Refund to client: ₱1,500.00",
+            "Description: Premium adjustment: sum insured reduced per client request"
+          ],
+          "result": "An endorsement number is assigned and an endorsement approval is raised.",
+          "rule": "Endorsements post only after the checker-poster approves; a cancellation sets the policy to cancelled.",
+          "toasts": [
+            "Updated",
+            "Updated",
+            "Updated"
+          ],
+          "file": "shots/03-operations/12.jpg",
+          "zoom": "shots/03-operations/12-zoom.jpg",
+          "box": {
+            "x": 248,
+            "y": 165,
+            "w": 1192,
+            "h": 340
+          }
+        },
+        {
+          "n": "13",
+          "step": "Endorsement pending checker approval; a refund creates a Refund Request Form (RRF) on approval",
+          "screen": "Operations › Adjustments",
+          "persona": {
+            "user": "cashier",
+            "name": "Liza Bautista",
+            "role": "Cashier",
+            "unit": "Operations"
+          },
+          "action": "Check the endorsement register.",
+          "inputs": [],
+          "result": "The endorsement waits in pending; on approval the premium delta is journaled and an RRF is raised for the refund.",
+          "rule": "Refund Request Forms originate from endorsements or unapplied premium, never from free-form entry.",
+          "toasts": [
+            "Updated",
+            "Updated",
+            "Endorsement sent to checker for posting"
+          ],
+          "file": "shots/03-operations/13.jpg",
+          "zoom": "shots/03-operations/13-zoom.jpg",
+          "box": {
+            "x": 249,
+            "y": 345,
+            "w": 1190,
+            "h": 340
+          }
+        },
+        {
+          "n": "14",
+          "step": "Production reconciliation: insurer production file matched against booked policies",
+          "screen": "Operations › Production recon › Upload",
+          "persona": {
+            "user": "cashier",
+            "name": "Liza Bautista",
+            "role": "Cashier",
+            "unit": "Operations"
+          },
+          "action": "Choose the insurer, the booking period and paste the production register rows, then press Match & classify.",
+          "inputs": [
+            "Insurer: first insurer on the panel",
+            "Booking period: current month",
+            "Rows: POL-2026-00068, 12500, INS-73800  /  POL-9999-00001, 8000, INS-X"
+          ],
+          "result": "A reconciliation run is created with one classified row per line.",
+          "rule": "Rows are classified matched, with discrepancies (premium or reference differs) or unbooked (policy unknown).",
+          "toasts": [
+            "Updated",
+            "Updated",
+            "Endorsement sent to checker for posting"
+          ],
+          "file": "shots/03-operations/14.jpg",
+          "zoom": "shots/03-operations/14-zoom.jpg",
+          "box": {
+            "x": 248,
+            "y": 216,
+            "w": 1192,
+            "h": 345
+          }
+        },
+        {
+          "n": "15",
+          "step": "Rows classified as matched, with discrepancies, or unbooked; each gets a disposition",
+          "screen": "Operations › Production recon › Result",
+          "persona": {
+            "user": "cashier",
+            "name": "Liza Bautista",
+            "role": "Cashier",
+            "unit": "Operations"
+          },
+          "action": "Read the result: counts per class and the detail rows.",
+          "inputs": [],
+          "result": "Toast summarises matched / discrepancies / unbooked; the run detail lists each row with a Disposition action.",
+          "rule": "Unbooked rows must be dispositioned (book, insurer error, cancelled) before the run closes.",
+          "toasts": [
+            "Updated",
+            "Endorsement sent to checker for posting",
+            "PRC-2026-00005: 1 matched · 0 discrepancies · 1 unbooked"
+          ],
+          "file": "shots/03-operations/15.jpg",
+          "zoom": "shots/03-operations/15-zoom.jpg",
+          "box": {
+            "x": 248,
+            "y": 631,
+            "w": 1192,
+            "h": 269
+          }
+        },
+        {
+          "n": "16",
+          "step": "Checker-poster reviews the endorsement",
+          "screen": "Approvals & Audit › Pending",
+          "persona": {
+            "user": "admin",
+            "name": "System Administrator",
+            "role": "Administrator",
+            "unit": "IT"
+          },
+          "action": "Open Approvals & Audit; the Pending tab lists requests raised by makers.",
+          "inputs": [],
+          "result": "The request shows type, summary, maker, maker note and time raised.",
+          "rule": "The checker-poster must be a different user from the maker (segregation of duties).",
+          "toasts": [],
+          "file": "shots/03-operations/16.jpg",
+          "zoom": "shots/03-operations/16-zoom.jpg",
+          "box": {
+            "x": 249,
+            "y": 196,
+            "w": 1190,
+            "h": 340
+          }
+        },
+        {
+          "n": "17",
+          "step": "Endorsement posted: premium and commission reversed, RRF raised for the refund",
+          "screen": "Approvals & Audit › Approve",
+          "persona": {
+            "user": "admin",
+            "name": "System Administrator",
+            "role": "Administrator",
+            "unit": "IT"
+          },
+          "action": "Press Approve and enter a checker note.",
+          "inputs": [
+            "Checker note: Reviewed and approved"
+          ],
+          "result": "Endorsement status posted; adjustment journal booked; RRF created in status submitted for the refund amount.",
+          "rule": "Every decision is written to the audit trail with before/after state.",
+          "toasts": [
+            "Request approved"
+          ],
+          "file": "shots/03-operations/17.jpg",
+          "zoom": "shots/03-operations/17-zoom.jpg",
+          "box": {
+            "x": 973,
+            "y": 693,
+            "w": 467,
+            "h": 207
+          }
+        }
+      ],
+      "errors": []
+    },
+    {
+      "id": "04-marketing-collections",
+      "title": "Marketing Collections",
+      "pdf": "MARKETING COLLECTIONS - Process Flow.pdf",
+      "persona": "collections → fin.head",
+      "summary": "Premium receivable list by stage, marketing diary, credit-term extension under approval and statement of account.",
+      "steps": [
+        {
+          "n": "01",
+          "step": "PR list: newly booked accounts to collect within 10–15 days; ageing and collection stage per invoice",
+          "screen": "Collections › Outstanding premium",
+          "persona": {
+            "user": "collections",
+            "name": "Paolo Reyes",
+            "role": "Collections Officer",
+            "unit": "Collections"
+          },
+          "action": "Open Collections; the outstanding register lists every unpaid invoice.",
+          "inputs": [],
+          "result": "Each row shows days since booking, days overdue, ageing bucket and the collection stage (newly booked, within credit term, committed, overdue, escalate).",
+          "rule": "Newly booked accounts are collected within 10–15 days; commitments must fall within the 60-day credit term.",
+          "toasts": [],
+          "file": "shots/04-marketing-collections/01.jpg",
+          "zoom": "shots/04-marketing-collections/01-zoom.jpg",
+          "box": {
+            "x": 249,
+            "y": 280,
+            "w": 1190,
+            "h": 340
+          }
+        },
+        {
+          "n": "02",
+          "step": "Statement of account sent to the client",
+          "screen": "Collections › SOA",
+          "persona": {
+            "user": "collections",
+            "name": "Paolo Reyes",
+            "role": "Collections Officer",
+            "unit": "Collections"
+          },
+          "action": "Press SOA on the invoice row.",
+          "inputs": [],
+          "result": "The statement lists all open invoices of the client with balances and ageing, ready to send.",
+          "rule": "SOA is the collection instrument for account-level follow-up.",
+          "toasts": [],
+          "file": "shots/04-marketing-collections/02.jpg",
+          "zoom": "shots/04-marketing-collections/02-zoom.jpg",
+          "box": {
+            "x": 248,
+            "y": 408,
+            "w": 1192,
+            "h": 418
+          }
+        },
+        {
+          "n": "03",
+          "step": "Marketing diary: when / where / how / what of each collection effort, commitment date and arrangement",
+          "screen": "Collections › Log effort",
+          "persona": {
+            "user": "collections",
+            "name": "Paolo Reyes",
+            "role": "Collections Officer",
+            "unit": "Collections"
+          },
+          "action": "Press Log effort and record the contact.",
+          "inputs": [
+            "Category: committed",
+            "Commitment date: 2026-11-07 (45 days out)",
+            "Contact person: Ms. Reyes",
+            "Mode / arrangement / remarks: as agreed with the client"
+          ],
+          "result": "The effort is added to the diary and the invoice stage is recomputed.",
+          "rule": "Every effort captures when, where, how and what, so the diary is auditable.",
+          "toasts": [],
+          "file": "shots/04-marketing-collections/03.jpg",
+          "zoom": "shots/04-marketing-collections/03-zoom.jpg",
+          "box": {
+            "x": 248,
+            "y": 312,
+            "w": 1192,
+            "h": 340
+          }
+        },
+        {
+          "n": "04",
+          "step": "Commitment beyond the 60-day credit term: MAO informed, tagged as committed",
+          "screen": "Collections › Outstanding premium",
+          "persona": {
+            "user": "collections",
+            "name": "Paolo Reyes",
+            "role": "Collections Officer",
+            "unit": "Collections"
+          },
+          "action": "Read the toast after logging.",
+          "inputs": [],
+          "result": "Toast warns the commitment is beyond the credit term and that the MAO was emailed; stage becomes committed.",
+          "rule": "A commitment past the credit term requires a credit-term extension (CTE) approved by the unit head.",
+          "toasts": [
+            "Effort logged · commitment is beyond the credit term, marketing AO informed"
+          ],
+          "file": "shots/04-marketing-collections/04.jpg",
+          "zoom": "shots/04-marketing-collections/04-zoom.jpg",
+          "box": {
+            "x": 249,
+            "y": 280,
+            "w": 1190,
+            "h": 340
+          }
+        },
+        {
+          "n": "05",
+          "step": "Credit-term extension (CTE) requested for Unit Head approval",
+          "screen": "Collections › CTE",
+          "persona": {
+            "user": "collections",
+            "name": "Paolo Reyes",
+            "role": "Collections Officer",
+            "unit": "Collections"
+          },
+          "action": "Press CTE and answer the prompts.",
+          "inputs": [
+            "Extension: 30 days",
+            "Reason: Client budget cycle"
+          ],
+          "result": "A cte approval request is raised; the invoice shows the pending extension.",
+          "rule": "CTE extends the due date only after approval; the request is maker-checker.",
+          "toasts": [
+            "Effort logged · commitment is beyond the credit term, marketing AO informed",
+            "CTE requested; awaiting unit head approval"
+          ],
+          "file": "shots/04-marketing-collections/05.jpg",
+          "zoom": "shots/04-marketing-collections/05-zoom.jpg",
+          "box": {
+            "x": 249,
+            "y": 280,
+            "w": 1190,
+            "h": 340
+          }
+        },
+        {
+          "n": "06",
+          "step": "Effort diary per invoice with category tagging",
+          "screen": "Collections › Diary",
+          "persona": {
+            "user": "collections",
+            "name": "Paolo Reyes",
+            "role": "Collections Officer",
+            "unit": "Collections"
+          },
+          "action": "Press Diary on the row.",
+          "inputs": [],
+          "result": "All efforts for the invoice, with mode, category, commitment, arrangement, contact and who logged it.",
+          "rule": "Tagging status / category drives the escalation stage.",
+          "toasts": [
+            "Effort logged · commitment is beyond the credit term, marketing AO informed",
+            "CTE requested; awaiting unit head approval"
+          ],
+          "file": "shots/04-marketing-collections/06.jpg",
+          "zoom": "shots/04-marketing-collections/06-zoom.jpg",
+          "box": {
+            "x": 248,
+            "y": 280,
+            "w": 1192,
+            "h": 340
+          }
+        },
+        {
+          "n": "07",
+          "step": "Unit / Finance Head reviews the CTE request",
+          "screen": "Approvals & Audit › Pending",
+          "persona": {
+            "user": "fin.head",
+            "name": "Antonio Cruz",
+            "role": "Finance Head (approver)",
+            "unit": "Finance"
+          },
+          "action": "Open Approvals & Audit; the Pending tab lists requests raised by makers.",
+          "inputs": [],
+          "result": "The request shows type, summary, maker, maker note and time raised.",
+          "rule": "Only users with approver rights on the module can decide; a maker can never approve their own request.",
+          "toasts": [],
+          "file": "shots/04-marketing-collections/07.jpg",
+          "zoom": "shots/04-marketing-collections/07-zoom.jpg",
+          "box": {
+            "x": 249,
+            "y": 196,
+            "w": 1190,
+            "h": 340
+          }
+        },
+        {
+          "n": "08",
+          "step": "CTE approved: due date extended and account stays within term",
+          "screen": "Approvals & Audit › Approve",
+          "persona": {
+            "user": "fin.head",
+            "name": "Antonio Cruz",
+            "role": "Finance Head (approver)",
+            "unit": "Finance"
+          },
+          "action": "Press Approve and enter a checker note.",
+          "inputs": [
+            "Checker note: Reviewed and approved"
+          ],
+          "result": "Invoice due date extended by the approved days; stage returns to within credit term / committed.",
+          "rule": "Every decision is written to the audit trail with before/after state.",
+          "toasts": [
+            "Request approved"
+          ],
+          "file": "shots/04-marketing-collections/08.jpg",
+          "zoom": "shots/04-marketing-collections/08-zoom.jpg",
+          "box": {
+            "x": 973,
+            "y": 693,
+            "w": 467,
+            "h": 207
+          }
+        }
+      ],
+      "errors": []
+    },
+    {
+      "id": "05-frbs-accounting",
+      "title": "FRBS Accounting",
+      "pdf": "FRBS - ACCOUNTING.pdf",
+      "persona": "accountant → fin.head",
+      "summary": "Chart of accounts, system-generated journals, manual entries under review, trial balance, period and year-end closing.",
+      "steps": [
+        {
+          "n": "01",
+          "step": "System-generated journals (booking, receipts, commissions) and manual entry form routed to the TL for posting",
+          "screen": "Accounting & Disbursement › Journals",
+          "persona": {
+            "user": "accountant",
+            "name": "Grace Lim",
+            "role": "Accountant (FRBS)",
+            "unit": "Finance"
+          },
+          "action": "Open the Journals tab: the register lists automatic journals; the form drafts a manual entry.",
+          "inputs": [
+            "Entry date, description",
+            "Lines: account, debit, credit (must balance)"
+          ],
+          "result": "Route for posting raises a journal approval; system journals are already posted.",
+          "rule": "Manual journals post only after the TL / FRBS approver decides; debits must equal credits.",
+          "toasts": [],
+          "file": "shots/05-frbs-accounting/01.jpg",
+          "zoom": "shots/05-frbs-accounting/01-zoom.jpg",
+          "box": {
+            "x": 248,
+            "y": 258,
+            "w": 1192,
+            "h": 369
+          }
+        },
+        {
+          "n": "02",
+          "step": "Trial balance and financial reports generated from the ledger",
+          "screen": "Accounting & Disbursement › Trial balance",
+          "persona": {
+            "user": "accountant",
+            "name": "Grace Lim",
+            "role": "Accountant (FRBS)",
+            "unit": "Finance"
+          },
+          "action": "Open Trial balance; optionally filter by period (YYYY-MM).",
+          "inputs": [],
+          "result": "Debit and credit totals per account with the balanced indicator.",
+          "rule": "The ledger is double-entry; the trial balance must always balance.",
+          "toasts": [],
+          "file": "shots/05-frbs-accounting/02.jpg",
+          "zoom": "shots/05-frbs-accounting/02-zoom.jpg",
+          "box": {
+            "x": 249,
+            "y": 270,
+            "w": 1190,
+            "h": 630
+          }
+        },
+        {
+          "n": "03",
+          "step": "EOD / EOM / EOY: period close and reopen, fiscal-year close to retained earnings",
+          "screen": "Accounting & Disbursement › Periods & year-end",
+          "persona": {
+            "user": "accountant",
+            "name": "Grace Lim",
+            "role": "Accountant (FRBS)",
+            "unit": "Finance"
+          },
+          "action": "Open Periods & year-end: close a month, reopen with a reason, or close the fiscal year.",
+          "inputs": [
+            "Period: YYYY-MM to close",
+            "Reason to reopen: required when reopening",
+            "Year: fiscal year to close"
+          ],
+          "result": "Closed periods reject new postings; the year-end close posts nominal balances to retained earnings.",
+          "rule": "Only the Finance Head may reopen a closed period.",
+          "toasts": [],
+          "file": "shots/05-frbs-accounting/03.jpg",
+          "zoom": "shots/05-frbs-accounting/03-zoom.jpg",
+          "box": {
+            "x": 176,
+            "y": 216,
+            "w": 760,
+            "h": 341
+          }
+        }
+      ],
+      "errors": []
+    },
+    {
+      "id": "06-disbursement",
+      "title": "Disbursement",
+      "pdf": "DISBURSEMENT.pdf",
+      "persona": "accountant → admin (reviewer) → fin.head → accountant",
+      "summary": "Disbursement chain DPO → DTL → DSH → DUH with segregation of duties, payment posting and confirmation email; weekly remittance to insurers.",
+      "steps": [
+        {
+          "n": "01",
+          "step": "Weekly remittance extract of applied payments per insurer, sanitised and submitted to Disbursement",
+          "screen": "Accounting & Disbursement › Remittances",
+          "persona": {
+            "user": "accountant",
+            "name": "Grace Lim",
+            "role": "Accountant (FRBS)",
+            "unit": "Finance"
+          },
+          "action": "Open Remittances: the extract groups applied payments due to each insurer.",
+          "inputs": [],
+          "result": "Per insurer: number of policies and net amount; Submit creates the remittance schedule and its disbursement request.",
+          "rule": "Direct-paid and already-remitted policies are excluded from the extract.",
+          "toasts": [],
+          "file": "shots/06-disbursement/01.jpg",
+          "zoom": "shots/06-disbursement/01-zoom.jpg",
+          "box": {
+            "x": 248,
+            "y": 194,
+            "w": 1192,
+            "h": 340
+          }
+        },
+        {
+          "n": "02",
+          "step": "Disbursement request (DPO) with payee, amount, mode and bank details",
+          "screen": "Accounting & Disbursement › Disbursements › Request",
+          "persona": {
+            "user": "accountant",
+            "name": "Grace Lim",
+            "role": "Accountant (FRBS)",
+            "unit": "Finance"
+          },
+          "action": "Fill in the disbursement request and press Request.",
+          "inputs": [
+            "Type: supplier",
+            "Payee: Supplier 73800",
+            "Amount: ₱1,200.00",
+            "Mode: cheque",
+            "Bank details: optional"
+          ],
+          "result": "A voucher number is assigned in status pending review.",
+          "rule": "The requester (DPO) cannot review or approve their own voucher.",
+          "toasts": [],
+          "file": "shots/06-disbursement/02.jpg",
+          "zoom": "shots/06-disbursement/02-zoom.jpg",
+          "box": {
+            "x": 248,
+            "y": 207,
+            "w": 1192,
+            "h": 340
+          }
+        },
+        {
+          "n": "03",
+          "step": "Request awaits a reviewer other than the maker (segregation of duties)",
+          "screen": "Accounting & Disbursement › Disbursements",
+          "persona": {
+            "user": "accountant",
+            "name": "Grace Lim",
+            "role": "Accountant (FRBS)",
+            "unit": "Finance"
+          },
+          "action": "Check the voucher row.",
+          "inputs": [],
+          "result": "Status pending review; Review OK / Reject are hidden from the maker.",
+          "rule": "Segregation of duties: maker, reviewer, approver and payer are distinct roles or users.",
+          "toasts": [
+            "Disbursement requested"
+          ],
+          "file": "shots/06-disbursement/03.jpg",
+          "zoom": "shots/06-disbursement/03-zoom.jpg",
+          "box": {
+            "x": 249,
+            "y": 369,
+            "w": 1191,
+            "h": 340
+          }
+        },
+        {
+          "n": "04",
+          "step": "Team lead review (DTL) OK; routed to the Finance Head for approval",
+          "screen": "Accounting & Disbursement › Disbursements › Review OK",
+          "persona": {
+            "user": "admin",
+            "name": "System Administrator",
+            "role": "Administrator",
+            "unit": "IT"
+          },
+          "action": "As the team lead, press Review OK on the voucher.",
+          "inputs": [],
+          "result": "Status pending approval; a disbursement approval request is raised for the Finance Head.",
+          "rule": "Review confirms supporting documents before approval.",
+          "toasts": [
+            "Reviewed; sent to Finance Head"
+          ],
+          "file": "shots/06-disbursement/04.jpg",
+          "zoom": "shots/06-disbursement/04-zoom.jpg",
+          "box": {
+            "x": 100,
+            "y": 369,
+            "w": 1340,
+            "h": 340
+          }
+        },
+        {
+          "n": "05",
+          "step": "Finance Head (DSH / DUH) reviews the voucher",
+          "screen": "Approvals & Audit › Pending",
+          "persona": {
+            "user": "fin.head",
+            "name": "Antonio Cruz",
+            "role": "Finance Head (approver)",
+            "unit": "Finance"
+          },
+          "action": "Open Approvals & Audit; the Pending tab lists requests raised by makers.",
+          "inputs": [],
+          "result": "The request shows type, summary, maker, maker note and time raised.",
+          "rule": "Only users with approver rights on the module can decide; a maker can never approve their own request.",
+          "toasts": [],
+          "file": "shots/06-disbursement/05.jpg",
+          "zoom": "shots/06-disbursement/05-zoom.jpg",
+          "box": {
+            "x": 249,
+            "y": 196,
+            "w": 1190,
+            "h": 340
+          }
+        },
+        {
+          "n": "06",
+          "step": "Approved; ready for payment",
+          "screen": "Approvals & Audit › Approve",
+          "persona": {
+            "user": "fin.head",
+            "name": "Antonio Cruz",
+            "role": "Finance Head (approver)",
+            "unit": "Finance"
+          },
+          "action": "Press Approve and enter a checker note.",
+          "inputs": [
+            "Checker note: Reviewed and approved"
+          ],
+          "result": "Voucher status approved; the payer can now release payment.",
+          "rule": "Every decision is written to the audit trail with before/after state.",
+          "toasts": [
+            "Request approved"
+          ],
+          "file": "shots/06-disbursement/06.jpg",
+          "zoom": "shots/06-disbursement/06-zoom.jpg",
+          "box": {
+            "x": 973,
+            "y": 693,
+            "w": 467,
+            "h": 207
+          }
+        },
+        {
+          "n": "07",
+          "step": "Payment posted with cheque reference; status tagged paid and confirmation email sent",
+          "screen": "Accounting & Disbursement › Disbursements › Pay",
+          "persona": {
+            "user": "accountant",
+            "name": "Grace Lim",
+            "role": "Accountant (FRBS)",
+            "unit": "Finance"
+          },
+          "action": "Press Pay and enter the cheque / transaction reference.",
+          "inputs": [
+            "Cheque / transaction reference: CHQ-PAY-73800"
+          ],
+          "result": "Status paid with timestamp; payment journal posted; confirmation email queued to the payee.",
+          "rule": "Payment posts Cr Cash / Dr the payable account of the voucher type.",
+          "toasts": [
+            "Paid, posted and confirmation emailed"
+          ],
+          "file": "shots/06-disbursement/07.jpg",
+          "zoom": "shots/06-disbursement/07-zoom.jpg",
+          "box": {
+            "x": 100,
+            "y": 369,
+            "w": 1339,
+            "h": 340
+          }
+        }
+      ],
+      "errors": []
+    },
+    {
+      "id": "07-refund-request",
+      "title": "Refund Request",
+      "pdf": "REFUND REQUEST.pdf",
+      "persona": "accountant (TL) → fin.head (UH)",
+      "summary": "Refund Request Form raised from a cancellation, TL review, Unit Head sign-off and hand-off to the disbursement chain.",
+      "steps": [
+        {
+          "n": "01",
+          "step": "RRF register: refund raised by the endorsement with amount, mode and reason",
+          "screen": "Accounting & Disbursement › Refund requests",
+          "persona": {
+            "user": "accountant",
+            "name": "Grace Lim",
+            "role": "Accountant (FRBS)",
+            "unit": "Finance"
+          },
+          "action": "Open Refund requests.",
+          "inputs": [],
+          "result": "RRF for POL-2026-00068 in status submitted with amount ₱1,500.00, mode credit to account and the endorsement as reason.",
+          "rule": "The RRF carries the MAO who raised it; TL review must be by someone else.",
+          "toasts": [],
+          "file": "shots/07-refund-request/01.jpg",
+          "zoom": "shots/07-refund-request/01-zoom.jpg",
+          "box": {
+            "x": 249,
+            "y": 256,
+            "w": 1191,
+            "h": 340
+          }
+        },
+        {
+          "n": "02",
+          "step": "Marketing TL reviews the RRF",
+          "screen": "Accounting & Disbursement › Refund requests › TL review OK",
+          "persona": {
+            "user": "accountant",
+            "name": "Grace Lim",
+            "role": "Accountant (FRBS)",
+            "unit": "Finance"
+          },
+          "action": "Press TL review OK.",
+          "inputs": [],
+          "result": "Status reviewed; UH approve becomes available to an approver.",
+          "rule": "Review and approval are separate steps by separate people.",
+          "toasts": [
+            "RRF reviewed"
+          ],
+          "file": "shots/07-refund-request/02.jpg",
+          "zoom": "shots/07-refund-request/02-zoom.jpg",
+          "box": {
+            "x": 152,
+            "y": 256,
+            "w": 1287,
+            "h": 340
+          }
+        },
+        {
+          "n": "03",
+          "step": "Unit Head sign-off: a disbursement request is created for the refund",
+          "screen": "Accounting & Disbursement › Refund requests › UH approve",
+          "persona": {
+            "user": "fin.head",
+            "name": "Antonio Cruz",
+            "role": "Finance Head (approver)",
+            "unit": "Finance"
+          },
+          "action": "As Unit Head, press UH approve.",
+          "inputs": [],
+          "result": "Status approved and a refund disbursement voucher is created automatically.",
+          "rule": "Refunds are paid only through the disbursement chain.",
+          "toasts": [
+            "Approved; disbursement request created"
+          ],
+          "file": "shots/07-refund-request/03.jpg",
+          "zoom": "shots/07-refund-request/03-zoom.jpg",
+          "box": {
+            "x": 152,
+            "y": 256,
+            "w": 1287,
+            "h": 340
+          }
+        },
+        {
+          "n": "04",
+          "step": "Refund enters the disbursement chain (review → approve → pay)",
+          "screen": "Accounting & Disbursement › Disbursements",
+          "persona": {
+            "user": "fin.head",
+            "name": "Antonio Cruz",
+            "role": "Finance Head (approver)",
+            "unit": "Finance"
+          },
+          "action": "Open Disbursements and find the refund voucher.",
+          "inputs": [],
+          "result": "Type refund, payee the client, status pending review.",
+          "rule": "Same DPO → DTL → DSH → DUH chain as any other disbursement.",
+          "toasts": [
+            "Approved; disbursement request created"
+          ],
+          "file": "shots/07-refund-request/04.jpg",
+          "zoom": "shots/07-refund-request/04-zoom.jpg",
+          "box": {
+            "x": 249,
+            "y": 369,
+            "w": 1191,
+            "h": 340
+          }
+        }
+      ],
+      "errors": []
+    },
+    {
+      "id": "08-acsl",
+      "title": "ACSL (Insurer SOA reconciliation)",
+      "pdf": "ACSL.pdf",
+      "persona": "accountant → fin.head",
+      "summary": "Insurer statement of account reconciled against the ledger; abnormal balances raise adjustment entries reviewed by the TL and posted by the FRBS approver.",
+      "steps": [
+        {
+          "n": "01",
+          "step": "Insurer SOA lines captured against the ledger",
+          "screen": "Accounting & Disbursement › ACSL / SOA recon",
+          "persona": {
+            "user": "accountant",
+            "name": "Grace Lim",
+            "role": "Accountant (FRBS)",
+            "unit": "Finance"
+          },
+          "action": "Choose the insurer, paste the statement lines and press Reconcile.",
+          "inputs": [
+            "Insurer: first insurer on the panel",
+            "SOA lines: POL-2026-00068, 12000  /  POL-9999-00002, 500"
+          ],
+          "result": "A reconciliation run compares each statement line with the ledger balance for the policy.",
+          "rule": "Statement total, ledger total and variance are stored per run.",
+          "toasts": [],
+          "file": "shots/08-acsl/01.jpg",
+          "zoom": "shots/08-acsl/01-zoom.jpg",
+          "box": {
+            "x": 248,
+            "y": 258,
+            "w": 1192,
+            "h": 343
+          }
+        },
+        {
+          "n": "02",
+          "step": "Variances flagged (abnormal balances, unknown items) for manual subsidiary-ledger adjustment",
+          "screen": "Accounting & Disbursement › ACSL / SOA recon › Result",
+          "persona": {
+            "user": "accountant",
+            "name": "Grace Lim",
+            "role": "Accountant (FRBS)",
+            "unit": "Finance"
+          },
+          "action": "Read the run: per policy statement vs ledger, variance and whether the policy is known.",
+          "inputs": [],
+          "result": "Lines with variance or unknown policies are flagged; Adjust drafts the correcting entries.",
+          "rule": "Adjustment entries are routed to the FRBS approver; nothing posts directly from the recon.",
+          "toasts": [
+            "SOA-2026-00009: discrepancy (variance ₱-1,281.25)"
+          ],
+          "file": "shots/08-acsl/02.jpg",
+          "zoom": "shots/08-acsl/02-zoom.jpg",
+          "box": {
+            "x": 248,
+            "y": 258,
+            "w": 1192,
+            "h": 455
+          }
+        }
+      ],
+      "errors": []
+    },
+    {
+      "id": "09-claims",
+      "title": "Claims",
+      "pdf": "CLAIMS PROCESS FLOW.pdf",
+      "persona": "claims → fin.head",
+      "summary": "Notice of loss, PLA, document checklist, FLA to the insurer, evaluation and offer, contest loop, settlement approval and closure.",
+      "steps": [
+        {
+          "n": "01",
+          "step": "Notice of loss registered against the policy (Claims Acceptance Control checks premium status)",
+          "screen": "Claims › Register",
+          "persona": {
+            "user": "claims",
+            "name": "Jenny Ocampo",
+            "role": "Claims Officer",
+            "unit": "Claims"
+          },
+          "action": "Fill in the notice of loss and press Register.",
+          "inputs": [
+            "Policy number: POL-2026-00068",
+            "Date of loss: today",
+            "Estimated amount: ₱50,000.00",
+            "Description: Collision on C5 southbound"
+          ],
+          "result": "Claims Acceptance Control checks the policy is in force and the premium is paid before accepting.",
+          "rule": "CAC: an unpaid premium or a cancelled policy blocks registration with an explicit reason.",
+          "toasts": [],
+          "file": "shots/09-claims/01.jpg",
+          "zoom": "shots/09-claims/01-zoom.jpg",
+          "box": {
+            "x": 248,
+            "y": 173,
+            "w": 1192,
+            "h": 340
+          }
+        },
+        {
+          "n": "02",
+          "step": "Preliminary Loss Advice (PLA) sent; claim opened with reserve",
+          "screen": "Claims › Register",
+          "persona": {
+            "user": "claims",
+            "name": "Jenny Ocampo",
+            "role": "Claims Officer",
+            "unit": "Claims"
+          },
+          "action": "Read the toast and the new claim row.",
+          "inputs": [],
+          "result": "Claim CLM-YYYY-NNNNN registered, reserve set to the estimate and the PLA emailed to the client.",
+          "rule": "The document checklist is generated by line of business (motor vs non-motor CRF).",
+          "toasts": [
+            "Claim CLM-2026-00014 registered · Preliminary Loss Advice sent"
+          ],
+          "file": "shots/09-claims/02.jpg",
+          "zoom": "shots/09-claims/02-zoom.jpg",
+          "box": {
+            "x": 249,
+            "y": 390,
+            "w": 1191,
+            "h": 340
+          }
+        },
+        {
+          "n": "03",
+          "step": "Document checklist by line (motor / non-motor); FLA blocked until complete",
+          "screen": "Claims › Claim detail › Document checklist",
+          "persona": {
+            "user": "claims",
+            "name": "Jenny Ocampo",
+            "role": "Claims Officer",
+            "unit": "Claims"
+          },
+          "action": "Click the claim row to open the detail drawer.",
+          "inputs": [],
+          "result": "Checklist rows (claim form, police report, licence, OR/CR, photos, estimate) all pending; the FLA button is not offered yet.",
+          "rule": "Formal Loss Advice cannot be sent until every required document is received.",
+          "toasts": [
+            "Claim CLM-2026-00014 registered · Preliminary Loss Advice sent"
+          ],
+          "file": "shots/09-claims/03.jpg",
+          "zoom": "shots/09-claims/03-zoom.jpg",
+          "box": {
+            "x": 780,
+            "y": 36,
+            "w": 660,
+            "h": 864
+          }
+        },
+        {
+          "n": "04",
+          "step": "All requirements received: documents complete",
+          "screen": "Claims › Claim detail",
+          "persona": {
+            "user": "claims",
+            "name": "Jenny Ocampo",
+            "role": "Claims Officer",
+            "unit": "Claims"
+          },
+          "action": "Press Received on each checklist row as documents arrive.",
+          "inputs": [],
+          "result": "Pill shows documents complete; Send Formal Loss Advice appears.",
+          "rule": "Received dates are kept per document for TAT reporting.",
+          "toasts": [
+            "Document received",
+            "Document received"
+          ],
+          "file": "shots/09-claims/04.jpg",
+          "zoom": "shots/09-claims/04-zoom.jpg",
+          "box": {
+            "x": 780,
+            "y": 36,
+            "w": 660,
+            "h": 864
+          }
+        },
+        {
+          "n": "05",
+          "step": "Formal Loss Advice sent to the insurer; adjuster inspection flagged",
+          "screen": "Claims › Claim detail › Send FLA",
+          "persona": {
+            "user": "claims",
+            "name": "Jenny Ocampo",
+            "role": "Claims Officer",
+            "unit": "Claims"
+          },
+          "action": "Press Send Formal Loss Advice and confirm whether an adjuster inspection is needed.",
+          "inputs": [
+            "Adjuster inspection needed? Yes"
+          ],
+          "result": "Status fla sent; adjuster pill shown; FLA emailed to the insurer.",
+          "rule": "Adjuster requirement is recorded for follow-up with the insurer.",
+          "toasts": [
+            "Document received",
+            "Document received",
+            "Claim fla sent"
+          ],
+          "file": "shots/09-claims/05.jpg",
+          "zoom": "shots/09-claims/05-zoom.jpg",
+          "box": {
+            "x": 780,
+            "y": 36,
+            "w": 660,
+            "h": 864
+          }
+        },
+        {
+          "n": "06",
+          "step": "Insurer evaluation and offer received",
+          "screen": "Claims › Claim detail › Offer received",
+          "persona": {
+            "user": "claims",
+            "name": "Jenny Ocampo",
+            "role": "Claims Officer",
+            "unit": "Claims"
+          },
+          "action": "Press Insurer evaluating, then Offer received and enter the offer amount.",
+          "inputs": [
+            "Offer amount: ₱40,000.00"
+          ],
+          "result": "Status offer received with the offer stored against the reserve.",
+          "rule": "Offer below estimate can be contested; acceptance closes the evaluation loop.",
+          "toasts": [
+            "Claim fla sent",
+            "Claim under review",
+            "Claim offer received"
+          ],
+          "file": "shots/09-claims/06.jpg",
+          "zoom": "shots/09-claims/06-zoom.jpg",
+          "box": {
+            "x": 780,
+            "y": 36,
+            "w": 660,
+            "h": 864
+          }
+        },
+        {
+          "n": "07",
+          "step": "Insured contests the offer; re-evaluation loop with the insurer",
+          "screen": "Claims › Claim detail › Contest offer",
+          "persona": {
+            "user": "claims",
+            "name": "Jenny Ocampo",
+            "role": "Claims Officer",
+            "unit": "Claims"
+          },
+          "action": "Press Contest offer and state the position.",
+          "inputs": [
+            "Position: Estimate is 45000"
+          ],
+          "result": "Status offer contested; the insurer re-evaluates and a new offer can be recorded.",
+          "rule": "The contest loop can repeat until the insured accepts or the claim is declined.",
+          "toasts": [
+            "Claim under review",
+            "Claim offer received",
+            "Claim offer contested"
+          ],
+          "file": "shots/09-claims/07.jpg",
+          "zoom": "shots/09-claims/07-zoom.jpg",
+          "box": {
+            "x": 780,
+            "y": 36,
+            "w": 660,
+            "h": 864
+          }
+        },
+        {
+          "n": "08",
+          "step": "Settlement by LOA to casa/dealer or cash requested for approval",
+          "screen": "Claims › Claim detail › Request settlement approval",
+          "persona": {
+            "user": "claims",
+            "name": "Jenny Ocampo",
+            "role": "Claims Officer",
+            "unit": "Claims"
+          },
+          "action": "After Insured accepts, press Request settlement approval and choose LOA or cash.",
+          "inputs": [
+            "Settle by LOA to casa/dealer? Yes (Cancel = cash)"
+          ],
+          "result": "Status settlement requested; a claim_settlement approval is raised.",
+          "rule": "Settlement mode (LOA vs cash) is recorded; approval is maker-checker.",
+          "toasts": [
+            "Claim offer received",
+            "Claim offer accepted",
+            "Claim settlement requested"
+          ],
+          "file": "shots/09-claims/08.jpg",
+          "zoom": "shots/09-claims/08-zoom.jpg",
+          "box": {
+            "x": 780,
+            "y": 36,
+            "w": 660,
+            "h": 864
+          }
+        },
+        {
+          "n": "09",
+          "step": "Approver reviews the settlement",
+          "screen": "Approvals & Audit › Pending",
+          "persona": {
+            "user": "fin.head",
+            "name": "Antonio Cruz",
+            "role": "Finance Head (approver)",
+            "unit": "Finance"
+          },
+          "action": "Open Approvals & Audit; the Pending tab lists requests raised by makers.",
+          "inputs": [],
+          "result": "The request shows type, summary, maker, maker note and time raised.",
+          "rule": "Only users with approver rights on the module can decide; a maker can never approve their own request.",
+          "toasts": [],
+          "file": "shots/09-claims/09.jpg",
+          "zoom": "shots/09-claims/09-zoom.jpg",
+          "box": {
+            "x": 249,
+            "y": 196,
+            "w": 1190,
+            "h": 340
+          }
+        },
+        {
+          "n": "10",
+          "step": "Settlement approved",
+          "screen": "Approvals & Audit › Approve",
+          "persona": {
+            "user": "fin.head",
+            "name": "Antonio Cruz",
+            "role": "Finance Head (approver)",
+            "unit": "Finance"
+          },
+          "action": "Press Approve and enter a checker note.",
+          "inputs": [
+            "Checker note: Reviewed and approved"
+          ],
+          "result": "Claim status settlement approved; the claims officer can mark it settled / paid.",
+          "rule": "Every decision is written to the audit trail with before/after state.",
+          "toasts": [
+            "Request approved"
+          ],
+          "file": "shots/09-claims/10.jpg",
+          "zoom": "shots/09-claims/10-zoom.jpg",
+          "box": {
+            "x": 973,
+            "y": 693,
+            "w": 467,
+            "h": 207
+          }
+        },
+        {
+          "n": "11",
+          "step": "Claim tagged settled / paid, then closed; declination is the alternative exit",
+          "screen": "Claims › Claim detail › Mark settled",
+          "persona": {
+            "user": "claims",
+            "name": "Jenny Ocampo",
+            "role": "Claims Officer",
+            "unit": "Claims"
+          },
+          "action": "Reopen the claim and press Mark settled / paid.",
+          "inputs": [],
+          "result": "Status settled with paid amount; Close finishes the claim.",
+          "rule": "Decline (with reason) is available at any open stage as the alternative exit.",
+          "toasts": [
+            "Claim settled"
+          ],
+          "file": "shots/09-claims/11.jpg",
+          "zoom": "shots/09-claims/11-zoom.jpg",
+          "box": {
+            "x": 780,
+            "y": 36,
+            "w": 660,
+            "h": 864
+          }
+        }
+      ],
+      "errors": []
+    },
+    {
+      "id": "10-case-management",
+      "title": "Case Management (To-Be)",
+      "pdf": "CASE MANAGEMENT TO BE PROCESS FLOW_07152026.pdf",
+      "persona": "compliance",
+      "summary": "General vs account-related inquiries, positive identification, point-of-contact handling or referral to the fulfilment unit, TAT monitoring and return to CCC.",
+      "steps": [
+        {
+          "n": "01",
+          "step": "Contact logged: general inquiry (no client) vs account-related concern",
+          "screen": "Customer Servicing › Cases › Log case",
+          "persona": {
+            "user": "compliance",
+            "name": "Lily Belarmino",
+            "role": "Compliance Officer (CCC)",
+            "unit": "Compliance"
+          },
+          "action": "Log the contact: leave Client blank for a general inquiry, choose the concern and describe it.",
+          "inputs": [
+            "Client: blank (general inquiry)",
+            "Channel: phone",
+            "Concern: General inquiry",
+            "Description: What are your office hours?",
+            "Handled at point of contact: yes"
+          ],
+          "result": "The case is created and, being general, closed immediately.",
+          "rule": "General inquiries close at point of contact; account-related concerns need PID.",
+          "toasts": [],
+          "file": "shots/10-case-management/01.jpg",
+          "zoom": "shots/10-case-management/01-zoom.jpg",
+          "box": {
+            "x": 248,
+            "y": 258,
+            "w": 1192,
+            "h": 359
+          }
+        },
+        {
+          "n": "02",
+          "step": "General inquiry handled and closed at point of contact",
+          "screen": "Customer Servicing › Cases",
+          "persona": {
+            "user": "compliance",
+            "name": "Lily Belarmino",
+            "role": "Compliance Officer (CCC)",
+            "unit": "Compliance"
+          },
+          "action": "Read the toast and the case row.",
+          "inputs": [],
+          "result": "Request number assigned; case type general; status closed.",
+          "rule": "No TAT applies to a case closed at point of contact.",
+          "toasts": [
+            "SR-2026-00023 logged and closed at point of contact"
+          ],
+          "file": "shots/10-case-management/02.jpg",
+          "zoom": "shots/10-case-management/02-zoom.jpg",
+          "box": {
+            "x": 249,
+            "y": 500,
+            "w": 1191,
+            "h": 340
+          }
+        },
+        {
+          "n": "03",
+          "step": "Account-related concern: positive identification (PID) and routing to the owning unit with a TAT",
+          "screen": "Customer Servicing › Cases › Log case",
+          "persona": {
+            "user": "compliance",
+            "name": "Lily Belarmino",
+            "role": "Compliance Officer (CCC)",
+            "unit": "Compliance"
+          },
+          "action": "Select the client, choose the concern, describe it and quote the PID answer given by the caller.",
+          "inputs": [
+            "Client: Acme Freight 73800",
+            "Concern: Billing (→ OPS)",
+            "Description: Client disputes the amount on the latest invoice",
+            "Positive identification: acmefreight@example.com",
+            "TAT (hours): default for the category"
+          ],
+          "result": "PID is verified against the registered TIN or email; the case is routed to Operations with a TAT due time.",
+          "rule": "A failed PID blocks the case with reason PID_FAILED.",
+          "toasts": [
+            "SR-2026-00023 logged and closed at point of contact"
+          ],
+          "file": "shots/10-case-management/03.jpg",
+          "zoom": "shots/10-case-management/03-zoom.jpg",
+          "box": {
+            "x": 248,
+            "y": 258,
+            "w": 1192,
+            "h": 359
+          }
+        },
+        {
+          "n": "04",
+          "step": "Case referred to the fulfilment unit; TAT due time computed and past-TAT flagged",
+          "screen": "Customer Servicing › Cases",
+          "persona": {
+            "user": "compliance",
+            "name": "Lily Belarmino",
+            "role": "Compliance Officer (CCC)",
+            "unit": "Compliance"
+          },
+          "action": "Check the new case row.",
+          "inputs": [],
+          "result": "Owning unit OPS, status open, TAT due timestamp; past-TAT cases are flagged on the dashboard.",
+          "rule": "TAT monitoring: tat_due_at = logged time + category TAT hours.",
+          "toasts": [
+            "SR-2026-00023 logged and closed at point of contact",
+            "SR-2026-00024 referred to OPS (TAT 48h)"
+          ],
+          "file": "shots/10-case-management/04.jpg",
+          "zoom": "shots/10-case-management/04-zoom.jpg",
+          "box": {
+            "x": 249,
+            "y": 528,
+            "w": 1191,
+            "h": 340
+          }
+        },
+        {
+          "n": "05",
+          "step": "Case returned to the Customer Contact Centre for re-logging with a reason",
+          "screen": "Customer Servicing › Cases › Return to CCC",
+          "persona": {
+            "user": "compliance",
+            "name": "Lily Belarmino",
+            "role": "Compliance Officer (CCC)",
+            "unit": "Compliance"
+          },
+          "action": "Press in progress, then Return to CCC and give the reason.",
+          "inputs": [
+            "Return reason: Mis-routed to billing; policy concern"
+          ],
+          "result": "Status returned with the reason stored; the fulfilment unit no longer owns it.",
+          "rule": "Return is allowed from open or in progress only.",
+          "toasts": [
+            "SR-2026-00024 referred to OPS (TAT 48h)",
+            "Case updated",
+            "Case updated"
+          ],
+          "file": "shots/10-case-management/05.jpg",
+          "zoom": "shots/10-case-management/05-zoom.jpg",
+          "box": {
+            "x": 112,
+            "y": 528,
+            "w": 1327,
+            "h": 340
+          }
+        },
+        {
+          "n": "06",
+          "step": "Case re-logged and back in the open queue",
+          "screen": "Customer Servicing › Cases › Re-log",
+          "persona": {
+            "user": "compliance",
+            "name": "Lily Belarmino",
+            "role": "Compliance Officer (CCC)",
+            "unit": "Compliance"
+          },
+          "action": "Press Re-log.",
+          "inputs": [],
+          "result": "Status open again; the CCC re-routes it to the correct unit.",
+          "rule": "Lifecycle: open → in progress → resolved → closed, with returned → open as the loop.",
+          "toasts": [
+            "Case updated",
+            "Case updated",
+            "Case updated"
+          ],
+          "file": "shots/10-case-management/06.jpg",
+          "zoom": "shots/10-case-management/06-zoom.jpg",
+          "box": {
+            "x": 122,
+            "y": 528,
+            "w": 1317,
+            "h": 340
+          }
+        }
+      ],
+      "errors": []
+    },
+    {
+      "id": "11-customer-servicing-facility",
+      "title": "Customer Servicing Facility",
+      "pdf": "CUSTOMER SERVICING FACILITY - Process Flow.pdf",
+      "persona": "compliance",
+      "summary": "Search by invoice, policy or client name; view policies, invoices and receipts; update contact details.",
+      "steps": [
+        {
+          "n": "01",
+          "step": "Servicing facility: search by invoice no., policy no. or client name",
+          "screen": "Customer Servicing › Servicing facility",
+          "persona": {
+            "user": "compliance",
+            "name": "Lily Belarmino",
+            "role": "Compliance Officer (CCC)",
+            "unit": "Compliance"
+          },
+          "action": "Open Servicing facility, type an invoice number, policy number or client name and press Search.",
+          "inputs": [
+            "Search: Acme"
+          ],
+          "result": "Matching clients with their policies, invoices and receipts.",
+          "rule": "Search is entitlement-scoped to the servicing modules.",
+          "toasts": [],
+          "file": "shots/11-customer-servicing-facility/01.jpg",
+          "zoom": "shots/11-customer-servicing-facility/01-zoom.jpg",
+          "box": {
+            "x": 248,
+            "y": 311,
+            "w": 1192,
+            "h": 589
+          }
+        },
+        {
+          "n": "02",
+          "step": "Client contact details updated from the facility",
+          "screen": "Customer Servicing › Servicing facility › Update contact",
+          "persona": {
+            "user": "compliance",
+            "name": "Lily Belarmino",
+            "role": "Compliance Officer (CCC)",
+            "unit": "Compliance"
+          },
+          "action": "Press Update contact and enter the new email and phone.",
+          "inputs": [
+            "Email: updated73800@example.com",
+            "Phone: 0917-555-0100"
+          ],
+          "result": "Contact saved; the change is audited with before/after values.",
+          "rule": "Contact updates are audited; PID applies before changes are accepted over the phone.",
+          "toasts": [
+            "Contact details updated"
+          ],
+          "file": "shots/11-customer-servicing-facility/02.jpg",
+          "zoom": "shots/11-customer-servicing-facility/02-zoom.jpg",
+          "box": {
+            "x": 958,
+            "y": 693,
+            "w": 482,
+            "h": 207
+          }
+        }
+      ],
+      "errors": []
+    },
+    {
+      "id": "12-renewal",
+      "title": "Renewal (RMEL)",
+      "pdf": "RENEWAL (1).pdf",
+      "persona": "renewals",
+      "summary": "Renewal master expiry list 140 days out, sanitation and disposition, initial and final RA letters, client acceptance and renewal placement.",
+      "steps": [
+        {
+          "n": "01",
+          "step": "RMEL: policies expiring within 140 days, pending sanitation",
+          "screen": "Renewal › Pipeline",
+          "persona": {
+            "user": "renewals",
+            "name": "Carlo Mendoza",
+            "role": "Renewal Officer",
+            "unit": "Renewals"
+          },
+          "action": "Open Renewal; the pipeline is the renewal master expiry list.",
+          "inputs": [],
+          "result": "Policy POL-2026-00071 (expiring in 30 days) listed as pending sanitation with its days-to-expiry.",
+          "rule": "RMEL window: 140 days before expiry.",
+          "toasts": [],
+          "file": "shots/12-renewal/01.jpg",
+          "zoom": "shots/12-renewal/01-zoom.jpg",
+          "box": {
+            "x": 249,
+            "y": 666,
+            "w": 1191,
+            "h": 234
+          }
+        },
+        {
+          "n": "02",
+          "step": "Sanitation: disposition for renewal / remarket / not for renewal (NRNS letter)",
+          "screen": "Renewal › For renewal",
+          "persona": {
+            "user": "renewals",
+            "name": "Carlo Mendoza",
+            "role": "Renewal Officer",
+            "unit": "Renewals"
+          },
+          "action": "Press For renewal (or Remarket, or Not for renewal with a reason).",
+          "inputs": [],
+          "result": "Disposition stored; RA letter actions appear according to the timing rules.",
+          "rule": "Not for renewal sends the NRNS letter automatically.",
+          "toasts": [
+            "Dispositioned for renewal"
+          ],
+          "file": "shots/12-renewal/02.jpg",
+          "zoom": "shots/12-renewal/02-zoom.jpg",
+          "box": {
+            "x": 0,
+            "y": 647,
+            "w": 1440,
+            "h": 253
+          }
+        },
+        {
+          "n": "03",
+          "step": "Initial renewal advice letter sent 70 days before expiry",
+          "screen": "Renewal › Initial RA",
+          "persona": {
+            "user": "renewals",
+            "name": "Carlo Mendoza",
+            "role": "Renewal Officer",
+            "unit": "Renewals"
+          },
+          "action": "Press Initial RA (−70d).",
+          "inputs": [],
+          "result": "Initial renewal advice emailed to the client and logged as a notice.",
+          "rule": "Initial RA is offered only once the policy is inside the 70-day window.",
+          "toasts": [
+            "Dispositioned for renewal",
+            "Initial RA letter sent"
+          ],
+          "file": "shots/12-renewal/03.jpg",
+          "zoom": "shots/12-renewal/03-zoom.jpg",
+          "box": {
+            "x": 0,
+            "y": 647,
+            "w": 1440,
+            "h": 253
+          }
+        },
+        {
+          "n": "04",
+          "step": "Final renewal advice letter sent 45 days before expiry",
+          "screen": "Renewal › Final RA",
+          "persona": {
+            "user": "renewals",
+            "name": "Carlo Mendoza",
+            "role": "Renewal Officer",
+            "unit": "Renewals"
+          },
+          "action": "Press Final RA (−45d).",
+          "inputs": [],
+          "result": "Final renewal advice emailed; both notices show on the row.",
+          "rule": "Final RA requires the initial RA to have been sent first.",
+          "toasts": [
+            "Dispositioned for renewal",
+            "Initial RA letter sent",
+            "Final RA letter sent"
+          ],
+          "file": "shots/12-renewal/04.jpg",
+          "zoom": "shots/12-renewal/04-zoom.jpg",
+          "box": {
+            "x": 0,
+            "y": 562,
+            "w": 1440,
+            "h": 338
+          }
+        },
+        {
+          "n": "05",
+          "step": "Client accepted: renewal policy enters placement and the e-policy cycle",
+          "screen": "Renewal › Renew → placement",
+          "persona": {
+            "user": "renewals",
+            "name": "Carlo Mendoza",
+            "role": "Renewal Officer",
+            "unit": "Renewals"
+          },
+          "action": "Press Client accepted, then Renew → placement and enter the renewal sum insured.",
+          "inputs": [
+            "Renewal sum insured: ₱120,000.00"
+          ],
+          "result": "A renewal policy is created in placement requested and linked to the expiring one.",
+          "rule": "Renewal placement follows the same placement → booking → e-policy lifecycle as new business.",
+          "toasts": [
+            "Final RA letter sent",
+            "Client acceptance recorded",
+            "Renewal POL-2026-00072 placed with insurer (variance ₱112.00)"
+          ],
+          "file": "shots/12-renewal/05.jpg",
+          "zoom": "shots/12-renewal/05-zoom.jpg",
+          "box": {
+            "x": 0,
+            "y": 566,
+            "w": 1440,
+            "h": 334
+          }
+        }
+      ],
+      "errors": []
+    },
+    {
+      "id": "13-reinsurance",
+      "title": "Reinsurance",
+      "pdf": "RENISURANCE PROCESS FLOW.pdf",
+      "persona": "ri.officer",
+      "summary": "Facultative request with 24-hour acknowledgement and 3-day slip TAT, underwriting information loop, reinsurer security rating, signed slips, closing and debit note; treaties and cessions.",
+      "steps": [
+        {
+          "n": "01",
+          "step": "Facultative placement request from marketing with the risk details",
+          "screen": "Reinsurance › Facultative placements › Request",
+          "persona": {
+            "user": "ri.officer",
+            "name": "Ana Dizon",
+            "role": "Reinsurance Officer",
+            "unit": "Reinsurance"
+          },
+          "action": "Fill in the facultative request and press Request placement.",
+          "inputs": [
+            "Cedant / policy no.: optional",
+            "Sum insured: ₱2,000,000,000.00",
+            "Share sought: default",
+            "Risk description: Petrochemical plant, sum insured PHP 2B"
+          ],
+          "result": "Request FAC-YYYY-NNNNN created in status requested.",
+          "rule": "The 24-hour acknowledgement TAT starts at request time.",
+          "toasts": [],
+          "file": "shots/13-reinsurance/01.jpg",
+          "zoom": "shots/13-reinsurance/01-zoom.jpg",
+          "box": {
+            "x": 248,
+            "y": 207,
+            "w": 1192,
+            "h": 340
+          }
+        },
+        {
+          "n": "02",
+          "step": "Request logged; acknowledgement due within 24 hours (TAT flag)",
+          "screen": "Reinsurance › Facultative placements",
+          "persona": {
+            "user": "ri.officer",
+            "name": "Ana Dizon",
+            "role": "Reinsurance Officer",
+            "unit": "Reinsurance"
+          },
+          "action": "Check the request row.",
+          "inputs": [],
+          "result": "Status requested with the acknowledgement due time; late rows are flagged.",
+          "rule": "TAT: acknowledge within 24 hours, slip within 3 working days.",
+          "toasts": [
+            "Facultative request logged · acknowledge within 24h"
+          ],
+          "file": "shots/13-reinsurance/02.jpg",
+          "zoom": "shots/13-reinsurance/02-zoom.jpg",
+          "box": {
+            "x": 249,
+            "y": 396,
+            "w": 1191,
+            "h": 340
+          }
+        },
+        {
+          "n": "03",
+          "step": "Acknowledged; slip due within 3 working days",
+          "screen": "Reinsurance › Acknowledge",
+          "persona": {
+            "user": "ri.officer",
+            "name": "Ana Dizon",
+            "role": "Reinsurance Officer",
+            "unit": "Reinsurance"
+          },
+          "action": "Press Acknowledge (or Info received / Return incomplete when underwriting information is missing).",
+          "inputs": [],
+          "result": "Status acknowledged; slip due date computed.",
+          "rule": "Incomplete underwriting information loops back to marketing with what is missing.",
+          "toasts": [
+            "Facultative request logged · acknowledge within 24h",
+            "Placement acknowledged"
+          ],
+          "file": "shots/13-reinsurance/03.jpg",
+          "zoom": "shots/13-reinsurance/03-zoom.jpg",
+          "box": {
+            "x": 52,
+            "y": 396,
+            "w": 1387,
+            "h": 340
+          }
+        },
+        {
+          "n": "04",
+          "step": "Slip: reinsurers approached with security rating, share and signed-slip evidence",
+          "screen": "Reinsurance › Prepare slip",
+          "persona": {
+            "user": "ri.officer",
+            "name": "Ana Dizon",
+            "role": "Reinsurance Officer",
+            "unit": "Reinsurance"
+          },
+          "action": "Press Prepare slip, add each reinsurer with rating, share and premium, tick Signed slip, then Save slip.",
+          "inputs": [
+            "Reinsurer: Munich Re",
+            "Rating: AA",
+            "Share: 1.00 (100%)",
+            "Premium: ₱250,000.00",
+            "Signed slip: yes"
+          ],
+          "result": "Slip saved; placed share shown against the share sought.",
+          "rule": "Security rating gate: reinsurers below the minimum rating are rejected; shares must total the sought share before closing.",
+          "toasts": [
+            "Facultative request logged · acknowledge within 24h",
+            "Placement acknowledged"
+          ],
+          "file": "shots/13-reinsurance/04.jpg",
+          "zoom": "shots/13-reinsurance/04-zoom.jpg",
+          "box": {
+            "x": 248,
+            "y": 412,
+            "w": 1192,
+            "h": 340
+          }
+        },
+        {
+          "n": "05",
+          "step": "Closing: placement closed and debit note issued to the cedant",
+          "screen": "Reinsurance › Close & debit note",
+          "persona": {
+            "user": "ri.officer",
+            "name": "Ana Dizon",
+            "role": "Reinsurance Officer",
+            "unit": "Reinsurance"
+          },
+          "action": "Press Close & debit note.",
+          "inputs": [],
+          "result": "Status placed; closing recorded and the debit note emailed to the cedant.",
+          "rule": "Closing requires signed slips for every line.",
+          "toasts": [
+            "Placement acknowledged",
+            "Reinsurance slip prepared",
+            "Placed · closing and debit note DN-2026-00008 sent to cedant"
+          ],
+          "file": "shots/13-reinsurance/05.jpg",
+          "zoom": "shots/13-reinsurance/05-zoom.jpg",
+          "box": {
+            "x": 52,
+            "y": 396,
+            "w": 1387,
+            "h": 340
+          }
+        },
+        {
+          "n": "06",
+          "step": "Treaty register and cessions with capacity monitoring",
+          "screen": "Reinsurance › Treaties & cessions",
+          "persona": {
+            "user": "ri.officer",
+            "name": "Ana Dizon",
+            "role": "Reinsurance Officer",
+            "unit": "Reinsurance"
+          },
+          "action": "Open Treaties & cessions: register treaties and cede policies.",
+          "inputs": [
+            "Treaty: code, name, reinsurer, type (quota share / surplus / XOL / facultative), cession rate, capacity, period",
+            "Cession: policy no., treaty"
+          ],
+          "result": "Cessions reduce remaining treaty capacity.",
+          "rule": "A cession beyond capacity is refused.",
+          "toasts": [
+            "Placement acknowledged",
+            "Reinsurance slip prepared",
+            "Placed · closing and debit note DN-2026-00008 sent to cedant"
+          ],
+          "file": "shots/13-reinsurance/06.jpg",
+          "zoom": "shots/13-reinsurance/06-zoom.jpg",
+          "box": {
+            "x": 248,
+            "y": 244,
+            "w": 1192,
+            "h": 340
+          }
+        }
+      ],
+      "errors": []
+    },
+    {
+      "id": "14-submitted-policies",
+      "title": "Submitted Policies",
+      "pdf": "Submitted Policies_Process Flow.pdf",
+      "persona": "accountant",
+      "summary": "Masterlist validation, matching and consolidation, adequacy review with IAAF findings, and hand-off to sanitation 150 days from expiry.",
+      "steps": [
+        {
+          "n": "01",
+          "step": "Masterlist upload from the bank / insurer for validation and matching",
+          "screen": "Submitted Policies › Masterlist batches",
+          "persona": {
+            "user": "accountant",
+            "name": "Grace Lim",
+            "role": "Accountant (FRBS)",
+            "unit": "Finance"
+          },
+          "action": "Choose the insurer for matching, paste or upload the masterlist CSV and press Run pipeline.",
+          "inputs": [
+            "Insurer (for matching): first insurer on the panel",
+            "File: CSV of policy no, client, premium, insurer, expiry"
+          ],
+          "result": "A batch is created and every row validated and matched against booked policies.",
+          "rule": "Rows are classified matched / unmatched / duplicate before consolidation.",
+          "toasts": [],
+          "file": "shots/14-submitted-policies/01.jpg",
+          "zoom": "shots/14-submitted-policies/01-zoom.jpg",
+          "box": {
+            "x": 248,
+            "y": 258,
+            "w": 1192,
+            "h": 364
+          }
+        },
+        {
+          "n": "02",
+          "step": "Rows validated, matched and consolidated; each reviewed for adequacy",
+          "screen": "Submitted Policies › Masterlist batches › Run pipeline",
+          "persona": {
+            "user": "accountant",
+            "name": "Grace Lim",
+            "role": "Accountant (FRBS)",
+            "unit": "Finance"
+          },
+          "action": "Open the batch: each row offers Adequate or Findings → IAAF.",
+          "inputs": [],
+          "result": "Batch totals and per-row classification with adequacy pending.",
+          "rule": "Adequacy compares sum insured with the loan / collateral value.",
+          "toasts": [
+            "SPB-2026-00012: 0 masterlist · 0 renewal · 2 fallout · 1 excluded"
+          ],
+          "file": "shots/14-submitted-policies/02.jpg",
+          "zoom": "shots/14-submitted-policies/02-zoom.jpg",
+          "box": {
+            "x": 248,
+            "y": 399,
+            "w": 1192,
+            "h": 427
+          }
+        },
+        {
+          "n": "03",
+          "step": "Findings recorded and an Insurance Adequacy Assessment Form (IAAF) issued",
+          "screen": "Submitted Policies › Findings → IAAF",
+          "persona": {
+            "user": "accountant",
+            "name": "Grace Lim",
+            "role": "Accountant (FRBS)",
+            "unit": "Finance"
+          },
+          "action": "Press Findings → IAAF on a row and describe the finding.",
+          "inputs": [
+            "Findings: Sum insured below loan value"
+          ],
+          "result": "IAAF number issued and emailed; row marked with findings.",
+          "rule": "Adequate rows need no IAAF.",
+          "toasts": [
+            "SPB-2026-00012: 0 masterlist · 0 renewal · 2 fallout · 1 excluded",
+            "IAAF IAAF-2026-00011 issued"
+          ],
+          "file": "shots/14-submitted-policies/03.jpg",
+          "zoom": "shots/14-submitted-policies/03-zoom.jpg",
+          "box": {
+            "x": 852,
+            "y": 693,
+            "w": 588,
+            "h": 207
+          }
+        },
+        {
+          "n": "04",
+          "step": "Policies 150 days from expiry sent to the sanitation handler for renewal / conversion opportunity",
+          "screen": "Submitted Policies › Expiring (150 days)",
+          "persona": {
+            "user": "accountant",
+            "name": "Grace Lim",
+            "role": "Accountant (FRBS)",
+            "unit": "Finance"
+          },
+          "action": "Open Expiring (150 days).",
+          "inputs": [],
+          "result": "Submitted policies expiring within 150 days, ready for the sanitation handler.",
+          "rule": "Conversion opportunities proceed through New Business; NRNS cases are noted.",
+          "toasts": [
+            "SPB-2026-00012: 0 masterlist · 0 renewal · 2 fallout · 1 excluded",
+            "IAAF IAAF-2026-00011 issued"
+          ],
+          "file": "shots/14-submitted-policies/04.jpg",
+          "zoom": "shots/14-submitted-policies/04-zoom.jpg",
+          "box": {
+            "x": 249,
+            "y": 259,
+            "w": 1190,
+            "h": 577
+          }
+        }
+      ],
+      "errors": []
+    },
+    {
+      "id": "15-employee-benefits",
+      "title": "Employee Benefits",
+      "pdf": "EMPLOYEE BENEFITS - Process Flow.pdf",
+      "persona": "eb.officer",
+      "summary": "Renewal advice, BOR, TOR with master list and utilisation released to insurers, comparative analysis, award with ISACOM for non-accredited providers, handoff.",
+      "steps": [
+        {
+          "n": "01",
+          "step": "Prospect scheme created from the renewal advice",
+          "screen": "Employee Benefits › Create scheme",
+          "persona": {
+            "user": "eb.officer",
+            "name": "Mark Tan",
+            "role": "Employee Benefits Officer",
+            "unit": "Employee Benefits"
+          },
+          "action": "Fill in the scheme and press Create scheme.",
+          "inputs": [
+            "Corporate client: first corporate client",
+            "Incumbent insurer: first insurer",
+            "Plan: Gold HMO 73800",
+            "Indicative premium per life: ₱12,000.00",
+            "Inception: default"
+          ],
+          "result": "Scheme EB-YYYY-NNNNN created in status prospect.",
+          "rule": "A scheme needs a BOR before insurers can be approached.",
+          "toasts": [],
+          "file": "shots/15-employee-benefits/01.jpg",
+          "zoom": "shots/15-employee-benefits/01-zoom.jpg",
+          "box": {
+            "x": 248,
+            "y": 154,
+            "w": 1192,
+            "h": 340
+          }
+        },
+        {
+          "n": "02",
+          "step": "Broker of Record received, Terms of Reference prepared, member census uploaded",
+          "screen": "Employee Benefits › Scheme detail",
+          "persona": {
+            "user": "eb.officer",
+            "name": "Mark Tan",
+            "role": "Employee Benefits Officer",
+            "unit": "Employee Benefits"
+          },
+          "action": "Open the scheme, press BOR received, TOR prepared, then paste the census and press Upload census.",
+          "inputs": [
+            "Census rows: member no, name, birth date, dependents"
+          ],
+          "result": "Scheme documents flagged; members listed with covered lives count.",
+          "rule": "Master list and utilisation are part of the TOR pack.",
+          "toasts": [
+            "BOR received",
+            "TOR prepared",
+            "Census: 2 added, 0 updated"
+          ],
+          "file": "shots/15-employee-benefits/02.jpg",
+          "zoom": "shots/15-employee-benefits/02-zoom.jpg",
+          "box": {
+            "x": 248,
+            "y": 345,
+            "w": 1192,
+            "h": 513
+          }
+        },
+        {
+          "n": "03",
+          "step": "TOR, master list and utilisation released to insurers (franchise)",
+          "screen": "Employee Benefits › Release TOR to insurers",
+          "persona": {
+            "user": "eb.officer",
+            "name": "Mark Tan",
+            "role": "Employee Benefits Officer",
+            "unit": "Employee Benefits"
+          },
+          "action": "Select the insurers to approach and press Release TOR to insurers.",
+          "inputs": [
+            "Insurers: first two on the panel (non-accredited ones are marked)"
+          ],
+          "result": "Proposal requests created per insurer in status requested.",
+          "rule": "Non-accredited insurers can quote but an award to them needs ISACOM approval.",
+          "toasts": [
+            "TOR prepared",
+            "Census: 2 added, 0 updated",
+            "TOR, master list and utilisation released to insurers"
+          ],
+          "file": "shots/15-employee-benefits/03.jpg",
+          "zoom": "shots/15-employee-benefits/03-zoom.jpg",
+          "box": {
+            "x": 248,
+            "y": 345,
+            "w": 1192,
+            "h": 513
+          }
+        },
+        {
+          "n": "04",
+          "step": "Comparative analysis of proposals: premium, benefits and capabilities",
+          "screen": "Employee Benefits › Proposals",
+          "persona": {
+            "user": "eb.officer",
+            "name": "Mark Tan",
+            "role": "Employee Benefits Officer",
+            "unit": "Employee Benefits"
+          },
+          "action": "Press Record proposal for each insurer and enter premium, benefits and capabilities score.",
+          "inputs": [
+            "Insurer 1: ₱11,500 / life; Room and board 4,000; MBL 150,000; dental; capabilities 85",
+            "Insurer 2: ₱12,800 / life; Room and board 3,500; MBL 120,000; capabilities 70"
+          ],
+          "result": "Proposals sorted by premium with benefits and capability score side by side.",
+          "rule": "Comparative analysis covers premium, benefits and capabilities (stability, providers, technology).",
+          "toasts": [
+            "TOR, master list and utilisation released to insurers",
+            "Proposal recorded",
+            "Proposal recorded"
+          ],
+          "file": "shots/15-employee-benefits/04.jpg",
+          "zoom": "shots/15-employee-benefits/04-zoom.jpg",
+          "box": {
+            "x": 248,
+            "y": 358,
+            "w": 1192,
+            "h": 543
+          }
+        },
+        {
+          "n": "05",
+          "step": "Client confirmation and award; ISACOM approval when the provider is not accredited; handoff to processing and collections",
+          "screen": "Employee Benefits › Award",
+          "persona": {
+            "user": "eb.officer",
+            "name": "Mark Tan",
+            "role": "Employee Benefits Officer",
+            "unit": "Employee Benefits"
+          },
+          "action": "Press Award on the chosen proposal after client confirmation.",
+          "inputs": [],
+          "result": "Scheme placed and the handoff email sent, or ISACOM approval requested when the insurer is not accredited.",
+          "rule": "eb_award approval type gates non-accredited providers.",
+          "toasts": [
+            "Proposal recorded",
+            "Proposal recorded",
+            "Awarded · handoff to processing and collections"
+          ],
+          "file": "shots/15-employee-benefits/05.jpg",
+          "zoom": "shots/15-employee-benefits/05-zoom.jpg",
+          "box": {
+            "x": 879,
+            "y": 693,
+            "w": 561,
+            "h": 207
+          }
+        }
+      ],
+      "errors": []
+    },
+    {
+      "id": "16-product-maintenance-tsu",
+      "title": "Product Maintenance (TSU)",
+      "pdf": "PRODUCT MAINTENANCE TSU PROCESS_0709.pdf",
+      "persona": "admin → uw.head",
+      "summary": "Technical Services Unit request for non-packaged risks: completeness and duplicate check, quotation slip, TL approval, RI referral, insurer responses, comparative table and proposal slip; package maintenance with release advisory.",
+      "steps": [
+        {
+          "n": "01",
+          "step": "PRF / TSU request for a non-packaged risk with completeness and duplicate check",
+          "screen": "Product Maintenance › TSU requests › Submit",
+          "persona": {
+            "user": "admin",
+            "name": "System Administrator",
+            "role": "Administrator",
+            "unit": "IT"
+          },
+          "action": "Fill in the TSU request and press Submit to TSU.",
+          "inputs": [
+            "Client: Warehouse Corp 73800",
+            "Line: as selected",
+            "Sum insured: ₱30,000,000.00",
+            "Risk details: Warehouse complex, sprinklered, Class A construction"
+          ],
+          "result": "Request TSU-YYYY-NNNNN created; duplicates for the same client and risk are rejected.",
+          "rule": "Completeness and duplicate checks run on submission.",
+          "toasts": [
+            "CLT-2026-00070 created · screening clear · tier low"
+          ],
+          "file": "shots/16-product-maintenance-tsu/01.jpg",
+          "zoom": "shots/16-product-maintenance-tsu/01-zoom.jpg",
+          "box": {
+            "x": 248,
+            "y": 235,
+            "w": 1192,
+            "h": 340
+          }
+        },
+        {
+          "n": "02",
+          "step": "TSU acknowledges the request (or returns it as incomplete)",
+          "screen": "Product Maintenance › TSU requests › Acknowledge",
+          "persona": {
+            "user": "admin",
+            "name": "System Administrator",
+            "role": "Administrator",
+            "unit": "IT"
+          },
+          "action": "Press Acknowledge on the request row (Return incomplete is the alternative).",
+          "inputs": [],
+          "result": "TSU-2026-00013 acknowledged; Prepare quotation slip appears.",
+          "rule": "An incomplete request goes back to marketing and re-enters on Resubmitted.",
+          "toasts": [
+            "CLT-2026-00070 created · screening clear · tier low",
+            "TSU request submitted",
+            "Request acknowledged"
+          ],
+          "file": "shots/16-product-maintenance-tsu/02.jpg",
+          "zoom": "shots/16-product-maintenance-tsu/02-zoom.jpg",
+          "box": {
+            "x": 249,
+            "y": 410,
+            "w": 1191,
+            "h": 340
+          }
+        },
+        {
+          "n": "03",
+          "step": "Quotation slip prepared and approved by the TL",
+          "screen": "Product Maintenance › TSU detail › TL approve QS",
+          "persona": {
+            "user": "admin",
+            "name": "System Administrator",
+            "role": "Administrator",
+            "unit": "IT"
+          },
+          "action": "Press Prepare quotation slip and describe the terms, then TL approve QS.",
+          "inputs": [
+            "Quotation slip: Fire and allied perils, PHP 30M, deductible 1%"
+          ],
+          "result": "Status qs approved; the slip can be referred to RI or sent to insurers.",
+          "rule": "TL approve QS is available to approvers only (green button).",
+          "toasts": [
+            "Request acknowledged",
+            "Request qs prepared",
+            "Request qs approved"
+          ],
+          "file": "shots/16-product-maintenance-tsu/03.jpg",
+          "zoom": "shots/16-product-maintenance-tsu/03-zoom.jpg",
+          "box": {
+            "x": 208,
+            "y": 429,
+            "w": 1232,
+            "h": 340
+          }
+        },
+        {
+          "n": "04",
+          "step": "RI referral cleared; quotation slip sent to insurers",
+          "screen": "Product Maintenance › TSU detail › Send QS to insurers",
+          "persona": {
+            "user": "admin",
+            "name": "System Administrator",
+            "role": "Administrator",
+            "unit": "IT"
+          },
+          "action": "Press Refer to RI, then RI cleared → send to insurers.",
+          "inputs": [],
+          "result": "Status sent to insurers; insurer responses can be recorded in the detail card.",
+          "rule": "Risks above treaty capacity are referred to RI before quoting.",
+          "toasts": [
+            "Request qs approved",
+            "Request ri referred",
+            "Request sent to insurers"
+          ],
+          "file": "shots/16-product-maintenance-tsu/04.jpg",
+          "zoom": "shots/16-product-maintenance-tsu/04-zoom.jpg",
+          "box": {
+            "x": 176,
+            "y": 410,
+            "w": 1263,
+            "h": 340
+          }
+        },
+        {
+          "n": "05",
+          "step": "Insurer responses recorded (accepted with evidence / declined / conditional); comparative table ready",
+          "screen": "Product Maintenance › TSU detail › Comparative table",
+          "persona": {
+            "user": "admin",
+            "name": "System Administrator",
+            "role": "Administrator",
+            "unit": "IT"
+          },
+          "action": "Press Record response per insurer and enter premium, evidence and conditions; then Comparative table ready.",
+          "inputs": [
+            "Premium quoted: ₱180,000.00",
+            "Acceptance evidence: signed slip",
+            "Conditions: Subject to survey"
+          ],
+          "result": "Status comparative ready; responses listed for comparison.",
+          "rule": "An acceptance without evidence (signed / stamped slip or explicit email) is not accepted.",
+          "toasts": [
+            "Request ri referred",
+            "Request sent to insurers",
+            "Request comparative ready"
+          ],
+          "file": "shots/16-product-maintenance-tsu/05.jpg",
+          "zoom": "shots/16-product-maintenance-tsu/05-zoom.jpg",
+          "box": {
+            "x": 176,
+            "y": 319,
+            "w": 1264,
+            "h": 340
+          }
+        },
+        {
+          "n": "06",
+          "step": "Proposal slip approved with the selected insurer; released to marketing and the client",
+          "screen": "Product Maintenance › TSU detail › Approve proposal slip",
+          "persona": {
+            "user": "admin",
+            "name": "System Administrator",
+            "role": "Administrator",
+            "unit": "IT"
+          },
+          "action": "Press Approve proposal slip, choose the insurer and describe the proposal.",
+          "inputs": [
+            "Selected insurer id: 1",
+            "Proposal slip: Malayan selected: best terms, no exceptions"
+          ],
+          "result": "Status proposal approved; New Business can now quote the non-packaged product against this proposal.",
+          "rule": "A non-packaged quotation must reference an approved TSU proposal.",
+          "toasts": [
+            "Request sent to insurers",
+            "Request comparative ready",
+            "Request proposal approved"
+          ],
+          "file": "shots/16-product-maintenance-tsu/06.jpg",
+          "zoom": "shots/16-product-maintenance-tsu/06-zoom.jpg",
+          "box": {
+            "x": 176,
+            "y": 280,
+            "w": 1264,
+            "h": 340
+          }
+        },
+        {
+          "n": "07",
+          "step": "Packaged product catalogue with rates, taxes and limits",
+          "screen": "Product Maintenance › Packages",
+          "persona": {
+            "user": "admin",
+            "name": "System Administrator",
+            "role": "Administrator",
+            "unit": "IT"
+          },
+          "action": "Open Packages: the catalogue of packaged products.",
+          "inputs": [],
+          "result": "Each product shows base rate, commission, VAT/DST/LGT/FST, minimum premium, maximum sum insured and survey threshold.",
+          "rule": "Changes to a product go through a maintenance request, never a direct edit.",
+          "toasts": [
+            "Request comparative ready",
+            "Request proposal approved",
+            "Request closed"
+          ],
+          "file": "shots/16-product-maintenance-tsu/07.jpg",
+          "zoom": "shots/16-product-maintenance-tsu/07-zoom.jpg",
+          "box": {
+            "x": 249,
+            "y": 499,
+            "w": 1191,
+            "h": 401
+          }
+        },
+        {
+          "n": "08",
+          "step": "Package maintenance request raised for validation and approval",
+          "screen": "Product Maintenance › Packages › Change request",
+          "persona": {
+            "user": "admin",
+            "name": "System Administrator",
+            "role": "Administrator",
+            "unit": "IT"
+          },
+          "action": "Press Change request on the product and answer the prompts.",
+          "inputs": [
+            "Field to change: commissionRate",
+            "New value: 0.16",
+            "Change summary: Commission uplift 73800"
+          ],
+          "result": "A product_change approval is raised.",
+          "rule": "Product changes are maker-checker and publish a release advisory on approval.",
+          "toasts": [
+            "Request proposal approved",
+            "Request closed",
+            "Maintenance request raised for approval"
+          ],
+          "file": "shots/16-product-maintenance-tsu/08.jpg",
+          "zoom": "shots/16-product-maintenance-tsu/08-zoom.jpg",
+          "box": {
+            "x": 0,
+            "y": 706,
+            "w": 1440,
+            "h": 194
+          }
+        },
+        {
+          "n": "09",
+          "step": "Approver validates the product change",
+          "screen": "Approvals & Audit › Pending",
+          "persona": {
+            "user": "uw.head",
+            "name": "Ramon Villareal",
+            "role": "Underwriting Head (checker)",
+            "unit": "Underwriting"
+          },
+          "action": "Open Approvals & Audit; the Pending tab lists requests raised by makers.",
+          "inputs": [],
+          "result": "The request shows type, summary, maker, maker note and time raised.",
+          "rule": "Only users with approver rights on the module can decide; a maker can never approve their own request.",
+          "toasts": [],
+          "file": "shots/16-product-maintenance-tsu/09.jpg",
+          "zoom": "shots/16-product-maintenance-tsu/09-zoom.jpg",
+          "box": {
+            "x": 249,
+            "y": 196,
+            "w": 1190,
+            "h": 340
+          }
+        },
+        {
+          "n": "10",
+          "step": "Change applied and a release advisory published",
+          "screen": "Approvals & Audit › Approve",
+          "persona": {
+            "user": "uw.head",
+            "name": "Ramon Villareal",
+            "role": "Underwriting Head (checker)",
+            "unit": "Underwriting"
+          },
+          "action": "Press Approve and enter a checker note.",
+          "inputs": [
+            "Checker note: Reviewed and approved"
+          ],
+          "result": "Product updated; release advisory recorded and emailed to the distribution list.",
+          "rule": "Every decision is written to the audit trail with before/after state.",
+          "toasts": [
+            "Request approved"
+          ],
+          "file": "shots/16-product-maintenance-tsu/10.jpg",
+          "zoom": "shots/16-product-maintenance-tsu/10-zoom.jpg",
+          "box": {
+            "x": 973,
+            "y": 693,
+            "w": 467,
+            "h": 207
+          }
+        },
+        {
+          "n": "11",
+          "step": "Insurer panel with accreditation and SFTP enrolment for placement channels",
+          "screen": "Product Maintenance › Insurers",
+          "persona": {
+            "user": "admin",
+            "name": "System Administrator",
+            "role": "Administrator",
+            "unit": "IT"
+          },
+          "action": "Open Insurers to maintain the panel.",
+          "inputs": [
+            "Code, insurer name, accredited, SFTP enrolled"
+          ],
+          "result": "Accreditation drives ISACOM on EB awards; SFTP enrolment drives the placement channel.",
+          "rule": "Only accredited insurers appear in the New Business insurer picker by default.",
+          "toasts": [],
+          "file": "shots/16-product-maintenance-tsu/11.jpg",
+          "zoom": "shots/16-product-maintenance-tsu/11-zoom.jpg",
+          "box": {
+            "x": 270,
+            "y": 349,
+            "w": 1148,
+            "h": 340
+          }
+        }
+      ],
+      "errors": []
+    }
+  ]
+}

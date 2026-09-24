@@ -113,3 +113,11 @@ See `.env.example`. `SEED_DEMO=true` seeds the demo personas and reference data 
 ## Demo mode (no server)
 
 `npm run build:demo -w web` produces `web/dist-demo`, a static build that runs entirely in the browser: a mock API answers every endpoint with sample data and simulated write results, so all sixteen modules can be walked through from any static host. A gold banner marks demo mode. Sign in as `admin / Admin@123` or any persona with `Broker@123`. The full platform still needs PostgreSQL (`npm run setup && npm run dev`).
+
+## Process flow → screen walkthrough
+
+`docs/process-walkthrough/index.html` walks every step of the sixteen BDOI process flows against the BrokerVerse screen that performs it: who acts, what they click, what they enter, what the system answers and which control applies, with the acted-on area outlined on the full screen and repeated as a close-up (111 steps, 222 images captured from the running platform with the responsible personas). `docs/process-walkthrough/README.md` is the text version, and the same walkthrough ships as `BrokerVerse-Process-Walkthrough.pptx` and `.pdf` (two slides per step). Regenerate against a running local stack with `npm run walkthrough` (capture, page and deck; PDF via `soffice --headless --convert-to pdf`).
+
+## BDOI operating model
+
+`docs/bdoi-operating-model/index.html` integrates the sixteen process flows into one end-to-end picture of how BDOI works: a swimlane of the whole chain, the money flow, the life of one policy, twelve stage cards with the BrokerVerse screen for each, the satellite processes, hand-offs between processes, controls and clocks, and a glossary. `BDOI-Operating-Model.pdf` is the print copy of the page. `BDOI-Operating-Model.pptx` is the same operating model as a 26-slide presentation (chain, money flow, policy timeline, one slide per stage with its screen, satellites, hand-offs, controls, clocks, glossary) and `BDOI-Operating-Model-Deck.pdf` is its PDF export. The narrative data shared by the page and the deck lives in `scripts/operating-model-data.mjs`. Regenerate with `npm run operating-model` (page first, then the deck, which needs Chromium to render the diagrams; export the deck PDF with LibreOffice: `soffice --headless --convert-to pdf docs/bdoi-operating-model/BDOI-Operating-Model.pptx`).
