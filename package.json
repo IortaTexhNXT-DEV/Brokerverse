@@ -23,6 +23,7 @@
     "coverage": "npm run coverage -w shared && npm run coverage -w server && npm run coverage -w web",
     "setup": "node scripts/setup-db.mjs && npm run db:reset",
     "start": "node server/dist/index.js",
+    "operating-model": "node scripts/build-operating-model.mjs && node scripts/build-operating-model-deck.mjs",
     "walkthrough": "node e2e/walkthrough.mjs && node scripts/build-walkthrough.mjs && node scripts/build-walkthrough-deck.cjs"
   },
   "devDependencies": {
